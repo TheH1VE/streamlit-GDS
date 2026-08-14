@@ -15,6 +15,11 @@ python -m pip install -e .
 python -m streamlit run gallery/app.py
 ```
 
+For Posit Connect deployments, [`requirements.txt`](requirements.txt) lists
+the third-party Python runtime dependencies explicitly. Deploy the repository
+root so the bundled `streamlit_gds` package and its compiled frontend assets
+are included with the Streamlit application.
+
 Consuming applications need Python only. Node.js is needed only when changing
 the bundled frontend:
 

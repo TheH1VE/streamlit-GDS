@@ -1,0 +1,2 @@
+# Runtime dependencies installed by Posit Connect.
+streamlit>=1.60,<2
