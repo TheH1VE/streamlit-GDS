@@ -1,0 +1,29 @@
+name: Feature request
+description: Suggest a component, variant, API, or maintenance improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: need
+    attributes:
+      label: User need
+      description: Describe the service or user need rather than only the proposed implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: Explain the desired Python API and visible or behavioural result.
+    validations:
+      required: true
+  - type: input
+    id: upstream
+    attributes:
+      label: GOV.UK Design System reference
+      description: Link to the relevant official component or guidance when applicable.
+  - type: textarea
+    id: accessibility
+    attributes:
+      label: Accessibility considerations
+      description: Note relevant keyboard, screen-reader, zoom, contrast, or responsive behaviour.

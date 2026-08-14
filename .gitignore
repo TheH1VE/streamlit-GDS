@@ -1,0 +1,36 @@
+# Python
+.venv/
+.wheel-test-env/
+.wheel-test-run/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# Root packaging outputs. The compiled component assets under
+# streamlit_gds/frontend/dist are intentionally version controlled.
+/build/
+/dist/
+
+# Frontend dependencies and test output
+node_modules/
+streamlit_gds/frontend/test-results/
+streamlit_gds/frontend/playwright-report/
+
+# Local Streamlit and environment files
+.streamlit/
+.streamlit-gallery.*.log
+.env
+.env.*
+!.env.example
+
+# Editors and operating systems
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

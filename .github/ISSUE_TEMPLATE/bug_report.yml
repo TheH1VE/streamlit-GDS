@@ -1,0 +1,49 @@
+name: Bug report
+description: Report a reproducible problem with a component or package behaviour.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for helping improve Streamlit GDS. Do not include sensitive service data.
+  - type: input
+    id: component
+    attributes:
+      label: Component
+      description: Which Streamlit GDS component or style is affected?
+      placeholder: For example, radios or text_input
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: Include the expected behaviour and the actual behaviour.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Provide the smallest Python example that reproduces the issue.
+      render: python
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: Include Python, Streamlit, streamlit-gds, browser, and operating system versions.
+    validations:
+      required: true
+  - type: dropdown
+    id: accessibility
+    attributes:
+      label: Accessibility impact
+      options:
+        - None known
+        - Minor
+        - Serious
+        - Critical
+    validations:
+      required: true

@@ -1,0 +1,188 @@
+@use "../node_modules/govuk-frontend/dist/govuk/base" with (
+  $govuk-font-family: (Arial, Helvetica, sans-serif),
+  $govuk-font-family-print: sans-serif,
+  $govuk-include-default-font-face: false
+);
+@use "../node_modules/govuk-frontend/dist/govuk/core";
+@use "../node_modules/govuk-frontend/dist/govuk/objects";
+@use "../node_modules/govuk-frontend/dist/govuk/components/accordion";
+@use "../node_modules/govuk-frontend/dist/govuk/components/back-link";
+@use "../node_modules/govuk-frontend/dist/govuk/components/breadcrumbs";
+@use "../node_modules/govuk-frontend/dist/govuk/components/button";
+@use "../node_modules/govuk-frontend/dist/govuk/components/character-count";
+@use "../node_modules/govuk-frontend/dist/govuk/components/checkboxes";
+@use "../node_modules/govuk-frontend/dist/govuk/components/cookie-banner";
+@use "../node_modules/govuk-frontend/dist/govuk/components/date-input";
+@use "../node_modules/govuk-frontend/dist/govuk/components/details";
+@use "../node_modules/govuk-frontend/dist/govuk/components/error-message";
+@use "../node_modules/govuk-frontend/dist/govuk/components/error-summary";
+@use "../node_modules/govuk-frontend/dist/govuk/components/exit-this-page";
+@use "../node_modules/govuk-frontend/dist/govuk/components/fieldset";
+@use "../node_modules/govuk-frontend/dist/govuk/components/file-upload";
+@use "../node_modules/govuk-frontend/dist/govuk/components/hint";
+@use "../node_modules/govuk-frontend/dist/govuk/components/input";
+@use "../node_modules/govuk-frontend/dist/govuk/components/inset-text";
+@use "../node_modules/govuk-frontend/dist/govuk/components/label";
+@use "../node_modules/govuk-frontend/dist/govuk/components/notification-banner";
+@use "../node_modules/govuk-frontend/dist/govuk/components/pagination";
+@use "../node_modules/govuk-frontend/dist/govuk/components/panel";
+@use "../node_modules/govuk-frontend/dist/govuk/components/password-input";
+@use "../node_modules/govuk-frontend/dist/govuk/components/phase-banner";
+@use "../node_modules/govuk-frontend/dist/govuk/components/radios";
+@use "../node_modules/govuk-frontend/dist/govuk/components/select";
+@use "../node_modules/govuk-frontend/dist/govuk/components/service-navigation";
+@use "../node_modules/govuk-frontend/dist/govuk/components/skip-link";
+@use "../node_modules/govuk-frontend/dist/govuk/components/summary-list";
+@use "../node_modules/govuk-frontend/dist/govuk/components/table";
+@use "../node_modules/govuk-frontend/dist/govuk/components/tabs";
+@use "../node_modules/govuk-frontend/dist/govuk/components/tag";
+@use "../node_modules/govuk-frontend/dist/govuk/components/task-list";
+@use "../node_modules/govuk-frontend/dist/govuk/components/textarea";
+@use "../node_modules/govuk-frontend/dist/govuk/components/warning-text";
+@use "../node_modules/govuk-frontend/dist/govuk/utilities";
+@use "../node_modules/govuk-frontend/dist/govuk/overrides";
+
+:root {
+  --st-gds-brand: #1d70b8;
+}
+
+.st-gds-root {
+  color: #0b0c0c;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 19px;
+  line-height: 1.31579;
+  margin: 0;
+}
+
+.st-gds-root *,
+.st-gds-root *::before,
+.st-gds-root *::after {
+  box-sizing: border-box;
+}
+
+.st-gds-root:empty {
+  display: none;
+}
+
+// Streamlit's dark theme styles target native controls with more specificity
+// than GOV.UK Frontend. The component library deliberately has a light-only
+// presentation, so keep editable controls on the GOV.UK light palette.
+.st-gds-root .govuk-input,
+.st-gds-root .govuk-textarea,
+.st-gds-root .govuk-select {
+  background-color: #fff;
+  color: #0b0c0c;
+  color-scheme: light;
+}
+
+.st-gds-root .govuk-input:disabled,
+.st-gds-root .govuk-textarea:disabled,
+.st-gds-root .govuk-select:disabled {
+  background-color: #f3f2f1;
+  color: #505a5f;
+}
+
+.st-gds-width-full { width: 100%; }
+.st-gds-width-one-quarter { width: 25%; }
+.st-gds-width-one-third { width: 33.333%; }
+.st-gds-width-one-half { width: 50%; }
+.st-gds-width-two-thirds { width: 66.666%; }
+.st-gds-width-three-quarters { width: 75%; }
+
+.st-gds-button-full { width: 100%; }
+.st-gds-space { display: block; }
+.st-gds-heading-caption { display: block; color: #505a5f; }
+.st-gds-external::after { content: "\00a0(opens in a new tab)"; font-size: 0.8em; }
+
+.st-gds-generic-header {
+  background: #f3f2f1;
+  border-bottom: 10px solid var(--st-gds-brand);
+  color: #0b0c0c;
+  margin-bottom: 30px;
+}
+
+.st-gds-generic-header__inner,
+.st-gds-neutral-footer__inner {
+  margin: 0 auto;
+  max-width: 960px;
+  padding: 20px 30px;
+}
+
+.st-gds-generic-header__organisation {
+  color: #0b0c0c;
+  font-size: 24px;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.st-gds-generic-header__service {
+  display: block;
+  font-size: 19px;
+  margin-top: 5px;
+}
+
+.st-gds-generic-header__nav,
+.st-gds-neutral-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  list-style: none;
+  margin: 15px 0 0;
+  padding: 0;
+}
+
+.st-gds-generic-header__nav a { color: #0b0c0c; }
+.st-gds-generic-header__nav a[aria-current="page"] { font-weight: 700; }
+
+.st-gds-neutral-footer {
+  background: #f3f2f1;
+  border-top: 1px solid #b1b4b6;
+  color: #0b0c0c;
+  margin-top: 50px;
+}
+
+.st-gds-panel--interruption {
+  background: #1d70b8;
+  color: #fff;
+  padding: 30px;
+}
+
+.st-gds-panel--interruption a { color: #fff; }
+
+.st-gds-task-list { list-style: none; margin: 0 0 30px; padding: 0; }
+.st-gds-task-list__item { border-bottom: 1px solid #b1b4b6; padding: 15px 0; }
+.st-gds-task-list__row { display: flex; gap: 20px; justify-content: space-between; }
+.st-gds-task-list__hint { color: #505a5f; margin: 5px 0 0; }
+
+.st-gds-table-responsive td::before { display: none; }
+
+.st-gds-password-wrapper { display: flex; align-items: stretch; max-width: 38ex; }
+.st-gds-password-wrapper .govuk-input { flex: 1; min-width: 0; }
+.st-gds-password-toggle { margin-bottom: 0; white-space: nowrap; }
+
+.st-gds-file-meta { color: #505a5f; margin-top: 10px; }
+.st-gds-date-row { display: flex; gap: 20px; }
+.st-gds-date-row .govuk-form-group { margin-bottom: 0; }
+.st-gds-date-row .govuk-input { width: 4em; }
+.st-gds-date-row .st-gds-date-year { width: 5.5em; }
+.st-gds-conditional { border-left: 5px solid #b1b4b6; margin: 10px 0 20px 18px; padding: 15px; }
+
+@media (max-width: 640px) {
+  .st-gds-width-one-quarter,
+  .st-gds-width-one-third,
+  .st-gds-width-one-half,
+  .st-gds-width-two-thirds,
+  .st-gds-width-three-quarters { width: 100%; }
+  .st-gds-generic-header__inner,
+  .st-gds-neutral-footer__inner { padding: 15px; }
+  .st-gds-table-responsive thead { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
+  .st-gds-table-responsive tr { border-bottom: 2px solid #0b0c0c; display: block; margin-bottom: 15px; }
+  .st-gds-table-responsive td { display: block; text-align: right; }
+  .st-gds-table-responsive td::before { content: attr(data-label); display: block; float: left; font-weight: 700; padding-right: 15px; text-align: left; }
+}
+
+@media print {
+  .st-gds-root { color: #000; font-family: sans-serif; }
+  .govuk-button, .govuk-skip-link, .st-gds-password-toggle { display: none !important; }
+  .st-gds-generic-header, .st-gds-neutral-footer { background: transparent; border-color: #000; }
+}

@@ -1,0 +1,3 @@
+recursive-include streamlit_gds/frontend/dist *
+include streamlit_gds/pyproject.toml
+include streamlit_gds/py.typed
