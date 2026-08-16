@@ -19,6 +19,13 @@ interface OptionData {
   conditional?: unknown;
 }
 
+interface ChatMessageData {
+  role: "assistant" | "user";
+  content: unknown;
+  name?: string | null;
+  timestamp?: string | null;
+}
+
 const ALLOWED_TAGS = ["a", "abbr", "b", "br", "code", "em", "li", "ol", "p", "span", "strong", "ul"];
 const ALLOWED_ATTR = ["href", "title", "target", "rel", "class"];
 
@@ -196,6 +203,86 @@ function renderTextarea(root: HTMLElement, props: Props, args: RendererArgs, cha
     updateCount();
   }
   root.append(group);
+}
+
+function renderChatbot(root: HTMLElement, props: Props, args: RendererArgs): void {
+  const chatbot = element("section", "st-gds-chatbot");
+  chatbot.setAttribute("aria-label", String(props.label));
+  chatbot.append(element("h2", "govuk-heading-m st-gds-chatbot__title", props.label as Scalar));
+
+  const transcript = element("div", "st-gds-chatbot__transcript");
+  transcript.setAttribute("role", "log");
+  transcript.setAttribute("aria-label", `${String(props.label)} messages`);
+  transcript.setAttribute("aria-live", "polite");
+  transcript.setAttribute("aria-relevant", "additions text");
+  transcript.tabIndex = 0;
+  const messages = (props.messages ?? []) as ChatMessageData[];
+  if (!messages.length) {
+    transcript.append(element("p", "govuk-body st-gds-chatbot__empty", props.empty_text as Scalar));
+  }
+  for (const message of messages) {
+    const displayName = message.name || (message.role === "user" ? props.user_name : props.assistant_name);
+    const item = element("article", `st-gds-chat-message st-gds-chat-message--${message.role}`);
+    item.setAttribute("aria-label", `${String(displayName)} message`);
+    const meta = element("p", "st-gds-chat-message__meta");
+    meta.append(element("strong", "st-gds-chat-message__name", displayName as Scalar));
+    if (message.timestamp) {
+      meta.append(document.createTextNode(" "));
+      meta.append(element("time", "st-gds-chat-message__time", message.timestamp));
+    }
+    const body = element("div", "st-gds-chat-message__body");
+    appendContent(body, message.content);
+    item.append(meta, body);
+    transcript.append(item);
+  }
+  if (props.waiting) {
+    const status = element("p", "govuk-body st-gds-chatbot__status", `${String(props.assistant_name)} is responding`);
+    status.setAttribute("role", "status");
+    transcript.append(status);
+  }
+  chatbot.append(transcript);
+
+  const form = element("form", "st-gds-chatbot__composer");
+  const id = componentId(props, "message");
+  const inputProps: Props = { ...props, label: props.input_label, required: true };
+  const { group, describedBy } = inputGroup(inputProps, id);
+  const area = element("textarea", `govuk-textarea${props.error ? " govuk-textarea--error" : ""}`);
+  area.id = id;
+  area.name = id;
+  area.rows = 3;
+  area.value = String(props.draft ?? "");
+  area.required = true;
+  area.disabled = Boolean(props.disabled || props.waiting);
+  if (props.placeholder) area.placeholder = String(props.placeholder);
+  setAriaDescription(area, describedBy);
+  group.append(area);
+
+  const send = element("button", "govuk-button st-gds-chatbot__send", props.send_label as Scalar);
+  send.type = "submit";
+  send.disabled = area.disabled || !area.value.trim();
+  const updateDraft = (): void => {
+    send.disabled = area.disabled || !area.value.trim();
+    args.setStateValue("draft", area.value);
+  };
+  area.addEventListener("input", updateDraft);
+  area.addEventListener("keydown", (event) => {
+    if (event.key === "Enter" && (event.ctrlKey || event.metaKey)) {
+      event.preventDefault();
+      form.requestSubmit();
+    }
+  });
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const submitted = area.value.trim();
+    if (!submitted || area.disabled) return;
+    area.value = "";
+    send.disabled = true;
+    args.setStateValue("draft", "");
+    args.setTriggerValue("submitted", submitted);
+  });
+  form.append(group, send);
+  chatbot.append(form);
+  root.append(chatbot);
 }
 
 function renderOptions(root: HTMLElement, props: Props, args: RendererArgs, multiple: boolean): void {
@@ -581,6 +668,39 @@ function renderStatic(root: HTMLElement, component: string, props: Props, args: 
     case "panel": {
       const interruption = props.variant === "interruption"; const panel = element("div", interruption ? "st-gds-panel--interruption" : "govuk-panel govuk-panel--confirmation"); panel.append(element("h1", interruption ? "govuk-heading-xl" : "govuk-panel__title", props.title as Scalar)); if (props.content) { const content = element("div", interruption ? "govuk-body-l" : "govuk-panel__body"); appendContent(content, props.content); panel.append(content); } root.append(panel); return;
     }
+    case "kpi_card": {
+      const card = element("section", "st-gds-kpi-card");
+      card.setAttribute("aria-label", String(props.label));
+      card.append(element("h3", "st-gds-kpi-card__label", props.label as Scalar));
+      card.append(element("p", "st-gds-kpi-card__value", props.value as Scalar));
+      if (props.change !== undefined && props.change !== null) {
+        const trend = String(props.trend ?? "neutral");
+        const change = element("p", `st-gds-kpi-card__change st-gds-kpi-card__change--${trend}`);
+        const directions: Record<string, { arrow: string; label: string }> = {
+          up: { arrow: "↑", label: "Increased by" },
+          down: { arrow: "↓", label: "Decreased by" },
+          neutral: { arrow: "", label: "Change:" },
+        };
+        const direction = directions[trend] ?? directions.neutral;
+        if (direction.arrow) {
+          const arrow = element("span", "st-gds-kpi-card__arrow", direction.arrow);
+          arrow.setAttribute("aria-hidden", "true");
+          change.append(arrow);
+        }
+        change.append(element("span", "govuk-visually-hidden", `${direction.label} `));
+        change.append(element("strong", "st-gds-kpi-card__change-value", props.change as Scalar));
+        if (props.comparison) {
+          change.append(document.createTextNode(" "));
+          change.append(element("span", "st-gds-kpi-card__comparison", props.comparison as Scalar));
+        }
+        card.append(change);
+      }
+      if (props.supporting_text) {
+        card.append(element("p", "st-gds-kpi-card__supporting", props.supporting_text as Scalar));
+      }
+      root.append(card);
+      return;
+    }
     case "summary_list": {
       const wrapper = props.card_title ? element("div", "govuk-summary-card") : root;
       if (props.card_title) {
@@ -634,6 +754,7 @@ const catalog: Component = (args) => {
     case "file_upload": renderFileUpload(root, props, args); break;
     case "accordion": renderAccordion(root, props, args); break;
     case "tabs": renderTabs(root, props, args); break;
+    case "chatbot": renderChatbot(root, props, args); break;
     default: cleanup = renderStatic(root, data.component, props, args);
   }
   restoreFocus(root, activeId, selection);

@@ -6,5 +6,6 @@
 - Safe replacement: neutral footer
 - Intentional omissions: GOV.UK Header and GOV.UK Footer
 - Intentional font difference: Arial/Helvetica/sans-serif instead of GDS Transport
+- Project-owned extensions: KPI card and chatbot, clearly documented as non-official
 
 Review this record whenever either pinned runtime changes.

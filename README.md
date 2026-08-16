@@ -53,7 +53,8 @@ gds.footer(organisation="Example organisation")
   Exit this page, Generic Header, Notification banner, Pagination, Phase
   banner, Service navigation, Skip link, Tabs and neutral Footer.
 - Content and status: Details, Inset text, Panel, Summary list, Table, Tag,
-  Task list and Warning text.
+  Task list and Warning text, plus a clearly identified GOV.UK-inspired KPI
+  card extension for Streamlit dashboards and an accessible chatbot extension.
 - Core styles: page configuration, containers, columns, spacing, headings,
   paragraphs, links, lists, images and section breaks.
 
@@ -73,6 +74,10 @@ to control when your application processes the stored values.
 
 `HtmlContent` is the only rich-HTML escape hatch. It is sanitised in the
 browser using a small allow-list. Normal strings are always inserted as text.
+
+The chatbot supplies an accessible transcript and composer, but no assistant
+backend. Applications own message storage, model calls, moderation, privacy,
+and the content of generated responses.
 
 ## Development checks
 

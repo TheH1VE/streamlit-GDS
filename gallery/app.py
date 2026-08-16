@@ -154,6 +154,71 @@ elif section == "Navigation":
 
 elif section == "Content":
     gds.heading("Content and status", size="l")
+    gds.heading("Key performance indicators", size="m")
+    gds.paragraph(
+        "KPI cards are a Streamlit GDS extension, not an official GOV.UK Design System component."
+    )
+    kpi_columns = st.columns(3)
+    with kpi_columns[0]:
+        gds.kpi_card(
+            "Applications received",
+            "1,248",
+            change="12%",
+            trend="up",
+            comparison="from last month",
+            supporting_text="Target: 1,200 applications",
+        )
+    with kpi_columns[1]:
+        gds.kpi_card(
+            "Decisions issued",
+            986,
+            change="8%",
+            trend="up",
+            comparison="from last month",
+            supporting_text="Target: 1,000 decisions",
+        )
+    with kpi_columns[2]:
+        gds.kpi_card(
+            "Median processing time",
+            "9 days",
+            change="2 days",
+            trend="down",
+            comparison="from last month",
+            supporting_text="Target: 10 days or fewer",
+        )
+    gds.heading("Chatbot", size="m")
+    gds.paragraph(
+        "The chatbot is a Streamlit GDS extension, not an official GOV.UK Design System "
+        "component. Connect submitted messages to your own assistant service."
+    )
+    chat_history_key = "gallery-chat-history"
+    if chat_history_key not in st.session_state:
+        st.session_state[chat_history_key] = [
+            gds.ChatMessage(
+                "assistant",
+                "Hello. I can help you understand your application status.",
+                timestamp="10:30",
+            )
+        ]
+    submitted_message = gds.chatbot(
+        st.session_state[chat_history_key],
+        key="gallery-chatbot",
+        label="Ask the service",
+        hint="Do not include personal or financial information.",
+        placeholder="Type your message",
+    )
+    if submitted_message:
+        st.session_state[chat_history_key].extend(
+            [
+                gds.ChatMessage("user", submitted_message, timestamp="Now"),
+                gds.ChatMessage(
+                    "assistant",
+                    "Thanks. In a live service, your assistant backend would respond here.",
+                    timestamp="Now",
+                ),
+            ]
+        )
+        st.rerun()
     gds.details("Help with your reference number", "It is shown at the top of your letter.")
     gds.inset_text("It can take up to 10 working days to process an application.")
     gds.notification_banner("Important", "The service will be unavailable on Sunday.")

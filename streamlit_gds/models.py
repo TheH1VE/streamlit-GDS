@@ -27,6 +27,19 @@ class HtmlContent(Serializable):
     html: str
 
 
+ChatRole = Literal["assistant", "user"]
+
+
+@dataclass(frozen=True)
+class ChatMessage(Serializable):
+    """A single, visibly attributed message in a chatbot transcript."""
+
+    role: ChatRole
+    content: str | HtmlContent
+    name: str | None = None
+    timestamp: str | None = None
+
+
 @dataclass(frozen=True)
 class Option(Serializable, Generic[T]):
     label: str
