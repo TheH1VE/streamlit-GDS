@@ -15,6 +15,7 @@ from ._validation import width as validate_width
 from .models import (
     AccordionItem,
     Breadcrumb,
+    ChatMessage,
     CookieAction,
     ErrorItem,
     HtmlContent,
@@ -34,6 +35,7 @@ Callback = Callable[..., Any]
 Content = str | HtmlContent
 ButtonKind = Literal["primary", "secondary", "warning", "start"]
 TextInputType = Literal["text", "number"]
+KpiTrend = Literal["up", "down", "neutral"]
 
 
 def _callback(
@@ -580,6 +582,102 @@ def panel(
     variant: Literal["confirmation", "interruption"] = "confirmation",
 ) -> None:
     mount("panel", {"title": title, "content": content, "variant": variant})
+
+
+def kpi_card(
+    label: str,
+    value: str | int | float,
+    *,
+    change: str | int | float | None = None,
+    trend: KpiTrend = "neutral",
+    comparison: str | None = None,
+    supporting_text: str | None = None,
+) -> None:
+    """Display a prominent key performance indicator.
+
+    This is a Streamlit GDS extension rather than an official GOV.UK Design
+    System component. ``trend`` describes direction only; it does not imply
+    that an increase is good or a decrease is bad.
+    """
+
+    if not label.strip():
+        raise ValueError("KPI card label must not be empty")
+    if trend not in {"up", "down", "neutral"}:
+        raise ValueError("trend must be 'up', 'down', or 'neutral'")
+    mount(
+        "kpi_card",
+        {
+            "label": label,
+            "value": value,
+            "change": change,
+            "trend": trend,
+            "comparison": comparison,
+            "supporting_text": supporting_text,
+        },
+    )
+
+
+def chatbot(
+    messages: Sequence[ChatMessage],
+    *,
+    key: str,
+    label: str = "Chat support",
+    input_label: str = "Your message",
+    hint: str | None = None,
+    error: str | None = None,
+    placeholder: str | None = None,
+    send_label: str = "Send",
+    assistant_name: str = "Service assistant",
+    user_name: str = "You",
+    waiting: bool = False,
+    disabled: bool = False,
+    empty_text: str = "No messages yet.",
+    on_submit: Callback | None = None,
+    args: tuple[Any, ...] = (),
+    kwargs: Mapping[str, Any] | None = None,
+) -> str | None:
+    """Render an accessible conversational interface and return a submitted message.
+
+    This is a Streamlit GDS extension, not an official GOV.UK Design System
+    component. It provides the presentation and input controls only; callers
+    remain responsible for their assistant backend and conversation history.
+    """
+
+    for field_name, field_value in {
+        "label": label,
+        "input_label": input_label,
+        "send_label": send_label,
+        "assistant_name": assistant_name,
+        "user_name": user_name,
+    }.items():
+        if not field_value.strip():
+            raise ValueError(f"chatbot {field_name} must not be empty")
+    for message in messages:
+        if message.role not in {"assistant", "user"}:
+            raise ValueError("chat message role must be 'assistant' or 'user'")
+
+    result = mount(
+        "chatbot",
+        {
+            "messages": list(messages),
+            "label": label,
+            "input_label": input_label,
+            "hint": hint,
+            "error": error,
+            "placeholder": placeholder,
+            "send_label": send_label,
+            "assistant_name": assistant_name,
+            "user_name": user_name,
+            "waiting": waiting,
+            "disabled": disabled,
+            "empty_text": empty_text,
+        },
+        key=required_key(key, "chatbot"),
+        default={"draft": ""},
+        callbacks={"draft": None, "submitted": _callback(on_submit, args, kwargs)},
+    )
+    submitted = result_value(result, "submitted")
+    return str(submitted) if submitted is not None else None
 
 
 def summary_list(rows: Sequence[SummaryRow], *, card_title: str | None = None) -> None:

@@ -10,6 +10,10 @@ All notable changes to this project will be documented here. The format follows
 
 - GitHub contribution, security, issue, pull-request, and dependency-update
   configuration.
+- Accessible GOV.UK-inspired KPI card extension with directional change and
+  comparison text.
+- Accessible GOV.UK-inspired chatbot extension with a live transcript,
+  attributed messages, message composer, waiting state, and transient submits.
 
 ## [0.1.0] - 2026-08-14
 

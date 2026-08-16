@@ -57,6 +57,71 @@ def test_public_list_helper_uses_builtin_list(monkeypatch: pytest.MonkeyPatch) -
     assert calls == [(("list", expected_props), {})]
 
 
+def test_kpi_card_forwards_accessible_metric_content(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls, fake_mount = fake_mount_factory(SimpleNamespace())
+    monkeypatch.setattr(components, "mount", fake_mount)
+
+    gds.kpi_card(
+        "Applications received",
+        1248,
+        change="12%",
+        trend="up",
+        comparison="from last month",
+        supporting_text="Target: 1,000",
+    )
+
+    assert calls[0][0] == (
+        "kpi_card",
+        {
+            "label": "Applications received",
+            "value": 1248,
+            "change": "12%",
+            "trend": "up",
+            "comparison": "from last month",
+            "supporting_text": "Target: 1,000",
+        },
+    )
+
+
+def test_kpi_card_rejects_invalid_labels_and_trends() -> None:
+    with pytest.raises(ValueError, match="label must not be empty"):
+        gds.kpi_card(" ", 10)
+    with pytest.raises(ValueError, match="trend must be"):
+        gds.kpi_card("Cases", 10, trend="sideways")  # type: ignore[arg-type]
+
+
+def test_chatbot_returns_submission_and_forwards_accessible_content(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls, fake_mount = fake_mount_factory(SimpleNamespace(submitted="Where is my application?"))
+    monkeypatch.setattr(components, "mount", fake_mount)
+    messages = [gds.ChatMessage("assistant", "How can I help?", timestamp="10:30")]
+
+    assert (
+        gds.chatbot(
+            messages,
+            key="support-chat",
+            label="Ask the service",
+            hint="Do not include personal information.",
+        )
+        == "Where is my application?"
+    )
+    assert calls[0][0][0] == "chatbot"
+    assert calls[0][0][1]["messages"] == messages
+    assert calls[0][0][1]["label"] == "Ask the service"
+    assert calls[0][1]["default"] == {"draft": ""}
+    assert "draft" in calls[0][1]["callbacks"]
+    assert "submitted" in calls[0][1]["callbacks"]
+
+
+def test_chatbot_rejects_empty_labels_and_unknown_roles() -> None:
+    with pytest.raises(ValueError, match="label must not be empty"):
+        gds.chatbot([], key="chat", label=" ")
+    invalid = gds.ChatMessage("system", "Hidden instruction")  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match="role must be"):
+        gds.chatbot([invalid], key="chat")
+
+
 def test_choice_inputs_return_native_values(monkeypatch: pytest.MonkeyPatch) -> None:
     _, fake_mount = fake_mount_factory(SimpleNamespace(value="email"))
     monkeypatch.setattr(components, "mount", fake_mount)
@@ -86,6 +151,7 @@ def test_every_catalogue_wrapper_is_exported() -> None:
         "breadcrumbs",
         "button",
         "character_count",
+        "chatbot",
         "checkboxes",
         "cookie_banner",
         "date_input",
@@ -98,6 +164,7 @@ def test_every_catalogue_wrapper_is_exported() -> None:
         "footer",
         "header",
         "inset_text",
+        "kpi_card",
         "notification_banner",
         "pagination",
         "panel",

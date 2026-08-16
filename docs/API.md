@@ -40,9 +40,25 @@ names. Stateful functions return the selected index, action, or trigger value.
 semantic content. `error_summary(..., focus=True)` focuses itself by default;
 set `focus=False` only for galleries or non-validation demonstrations.
 
+`kpi_card(label, value, *, change=None, trend="neutral", comparison=None,
+supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
+Streamlit GDS extension rather than an official GOV.UK component. `trend` is
+`"up"`, `"down"`, or `"neutral"` and communicates direction only, not whether
+the change is good or bad.
+
+`chatbot(messages, *, key, label="Chat support", input_label="Your message",
+hint=None, error=None, placeholder=None, send_label="Send",
+assistant_name="Service assistant", user_name="You", waiting=False,
+disabled=False, empty_text="No messages yet.", on_submit=None, ...) -> str | None`
+renders an accessible transcript and message composer. It returns a submitted
+message as a transient value. Store `ChatMessage` objects in session state,
+send the returned text to your own assistant backend, append the response, and
+rerun the app. This is a Streamlit GDS extension, not an official GOV.UK
+component.
+
 ## Typed models
 
-`Option`, `Link`, `Breadcrumb`, `NavigationItem`, `PaginationItem`,
+`Option`, `Link`, `Breadcrumb`, `ChatMessage`, `NavigationItem`, `PaginationItem`,
 `SummaryAction`, `SummaryRow`, `TaskItem`, `TableColumn`, `ErrorItem`,
 `AccordionItem`, `TabItem`, `CookieAction`, `UploadedFileValue`, and
 `HtmlContent` are exported from `streamlit_gds`.

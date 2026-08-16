@@ -149,6 +149,131 @@
 
 .st-gds-panel--interruption a { color: #fff; }
 
+.st-gds-kpi-card {
+  background: #f3f2f1;
+  border-top: 5px solid var(--st-gds-brand);
+  color: #0b0c0c;
+  margin-bottom: 20px;
+  min-height: 100%;
+  padding: 20px;
+}
+
+.st-gds-kpi-card__label {
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.31579;
+  margin: 0 0 5px;
+}
+
+.st-gds-kpi-card__value {
+  font-size: 48px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.04167;
+  margin: 0 0 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.st-gds-kpi-card__change {
+  align-items: baseline;
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 16px;
+  gap: 0 5px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.st-gds-kpi-card__arrow {
+  color: var(--st-gds-brand);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.st-gds-kpi-card__change-value { font-weight: 700; }
+.st-gds-kpi-card__comparison { color: #505a5f; }
+
+.st-gds-kpi-card__supporting {
+  border-top: 1px solid #b1b4b6;
+  color: #505a5f;
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 15px 0 0;
+  padding-top: 10px;
+}
+
+.st-gds-chatbot {
+  border-top: 5px solid var(--st-gds-brand);
+  color: #0b0c0c;
+  margin: 0 0 30px;
+  max-width: 760px;
+  padding-top: 20px;
+}
+
+.st-gds-chatbot__title { margin-bottom: 15px; }
+
+.st-gds-chatbot__transcript {
+  border: 1px solid #b1b4b6;
+  max-height: 420px;
+  overflow-y: auto;
+  padding: 20px;
+}
+
+.st-gds-chatbot__transcript:focus {
+  box-shadow: 0 -2px #ffdd00, 0 4px #0b0c0c;
+  outline: 3px solid #ffdd00;
+  outline-offset: 0;
+}
+
+.st-gds-chat-message {
+  border-left: 5px solid #b1b4b6;
+  margin: 0 0 20px;
+  padding: 0 0 0 15px;
+}
+
+.st-gds-chat-message:last-child { margin-bottom: 0; }
+.st-gds-chat-message--assistant { border-left-color: var(--st-gds-brand); }
+
+.st-gds-chat-message--user {
+  background: #f3f2f1;
+  border-left-color: #0b0c0c;
+  padding: 15px;
+}
+
+.st-gds-chat-message__meta {
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 0 0 5px;
+}
+
+.st-gds-chat-message__time {
+  color: #505a5f;
+  font-weight: 400;
+}
+
+.st-gds-chat-message__body {
+  font-size: 19px;
+  line-height: 1.31579;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.st-gds-chat-message__body > :first-child { margin-top: 0; }
+.st-gds-chat-message__body > :last-child { margin-bottom: 0; }
+.st-gds-chatbot__empty, .st-gds-chatbot__status { margin-bottom: 0; }
+
+.st-gds-chatbot__composer {
+  background: #f3f2f1;
+  padding: 20px;
+}
+
+.st-gds-chatbot__composer .govuk-form-group { margin-bottom: 15px; }
+.st-gds-chatbot__send { margin-bottom: 0; }
+
 .st-gds-task-list { list-style: none; margin: 0 0 30px; padding: 0; }
 .st-gds-task-list__item { border-bottom: 1px solid #b1b4b6; padding: 15px 0; }
 .st-gds-task-list__row { display: flex; gap: 20px; justify-content: space-between; }
@@ -175,6 +300,8 @@
   .st-gds-width-three-quarters { width: 100%; }
   .st-gds-generic-header__inner,
   .st-gds-neutral-footer__inner { padding: 15px; }
+  .st-gds-kpi-card__value { font-size: 40px; line-height: 1.125; }
+  .st-gds-chatbot__transcript, .st-gds-chatbot__composer { padding: 15px; }
   .st-gds-table-responsive thead { border: 0; clip: rect(0 0 0 0); height: 1px; margin: -1px; overflow: hidden; padding: 0; position: absolute; width: 1px; }
   .st-gds-table-responsive tr { border-bottom: 2px solid #0b0c0c; display: block; margin-bottom: 15px; }
   .st-gds-table-responsive td { display: block; text-align: right; }
@@ -183,6 +310,8 @@
 
 @media print {
   .st-gds-root { color: #000; font-family: sans-serif; }
-  .govuk-button, .govuk-skip-link, .st-gds-password-toggle { display: none !important; }
+  .govuk-button, .govuk-skip-link, .st-gds-password-toggle, .st-gds-chatbot__composer { display: none !important; }
   .st-gds-generic-header, .st-gds-neutral-footer { background: transparent; border-color: #000; }
+  .st-gds-kpi-card { background: transparent; border-color: #000; }
+  .st-gds-chatbot__transcript { max-height: none; overflow: visible; }
 }

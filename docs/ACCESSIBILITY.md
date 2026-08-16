@@ -5,6 +5,18 @@ visible labels, fieldsets and legends, deterministic IDs, error associations,
 live character-count messages, keyboard-operable disclosure controls, and
 focusable error summaries.
 
+KPI cards expose a named region, heading, value, and textual trend direction.
+Arrow icons are decorative, and an increase or decrease is never conveyed by
+colour alone.
+
+The chatbot transcript is a named, keyboard-focusable live log. Every message
+has visible speaker attribution, optional timestamps, and text that is safely
+escaped by default. The composer uses GOV.UK label, hint, error and button
+conventions. Enter inserts a new line; Control+Enter (or Command+Enter) submits.
+Applications should announce genuinely asynchronous failures, avoid placing
+sensitive information in conversation history, and manually test the complete
+assistant journey with a screen reader.
+
 Application authors remain responsible for:
 
 - providing meaningful labels, hints, link text, image alternative text, and

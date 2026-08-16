@@ -39,6 +39,30 @@ test("keyboard reaches the skip link and primary action", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Success" })).toBeVisible();
 });
 
+test("KPI cards expose values and trend direction without colour alone", async ({ page }) => {
+  await page.getByRole("radio", { name: "Content" }).evaluate((radio: HTMLInputElement) => radio.click());
+  const card = page.getByRole("region", { name: "Applications received" });
+  await expect(card).toContainText("1,248");
+  await expect(card).toContainText("Increased by");
+  await expect(card).toContainText("12%");
+  await expect(card).toContainText("from last month");
+});
+
+test("chatbot submits a message and preserves visible speaker attribution", async ({ page }) => {
+  await page.getByRole("radio", { name: "Content" }).evaluate((radio: HTMLInputElement) => radio.click());
+  const chat = page.getByRole("region", { name: "Ask the service" });
+  const transcript = chat.getByRole("log", { name: "Ask the service messages" });
+  await expect(transcript).toContainText("Service assistant");
+  await expect(transcript).toContainText("Hello. I can help you understand your application status.");
+
+  await chat.getByRole("textbox", { name: "Your message" }).fill("Where is my application?");
+  await chat.getByRole("button", { name: "Send" }).click();
+
+  await expect(transcript).toContainText("You");
+  await expect(transcript).toContainText("Where is my application?");
+  await expect(transcript).toContainText("In a live service, your assistant backend would respond here.");
+});
+
 for (const [section, heading] of [
   ["Navigation", "Navigation and page UI"],
   ["Content", "Content and status"],
