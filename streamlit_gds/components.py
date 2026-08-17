@@ -36,6 +36,7 @@ Content = str | HtmlContent
 ButtonKind = Literal["primary", "secondary", "warning", "start"]
 TextInputType = Literal["text", "number"]
 KpiTrend = Literal["up", "down", "neutral"]
+KpiRagStatus = Literal["red", "amber", "green"]
 
 
 def _callback(
@@ -590,6 +591,7 @@ def kpi_card(
     *,
     change: str | int | float | None = None,
     trend: KpiTrend = "neutral",
+    rag_status: KpiRagStatus | None = None,
     comparison: str | None = None,
     supporting_text: str | None = None,
 ) -> None:
@@ -597,13 +599,16 @@ def kpi_card(
 
     This is a Streamlit GDS extension rather than an official GOV.UK Design
     System component. ``trend`` describes direction only; it does not imply
-    that an increase is good or a decrease is bad.
+    that an increase is good or a decrease is bad. ``rag_status`` adds a
+    written red, amber, or green status as well as a colour accent.
     """
 
     if not label.strip():
         raise ValueError("KPI card label must not be empty")
     if trend not in {"up", "down", "neutral"}:
         raise ValueError("trend must be 'up', 'down', or 'neutral'")
+    if rag_status not in {None, "red", "amber", "green"}:
+        raise ValueError("rag_status must be 'red', 'amber', 'green', or None")
     mount(
         "kpi_card",
         {
@@ -611,6 +616,7 @@ def kpi_card(
             "value": value,
             "change": change,
             "trend": trend,
+            "rag_status": rag_status,
             "comparison": comparison,
             "supporting_text": supporting_text,
         },

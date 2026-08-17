@@ -40,11 +40,25 @@ names. Stateful functions return the selected index, action, or trigger value.
 semantic content. `error_summary(..., focus=True)` focuses itself by default;
 set `focus=False` only for galleries or non-validation demonstrations.
 
-`kpi_card(label, value, *, change=None, trend="neutral", comparison=None,
-supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
+`kpi_card(label, value, *, change=None, trend="neutral", rag_status=None,
+comparison=None, supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
 Streamlit GDS extension rather than an official GOV.UK component. `trend` is
 `"up"`, `"down"`, or `"neutral"` and communicates direction only, not whether
-the change is good or bad.
+the change is good or bad. Set `rag_status` to `"red"`, `"amber"`, or `"green"`
+for a subtle status-coloured accent and a visible written status:
+
+```python
+gds.kpi_card(
+    "Decisions issued",
+    986,
+    rag_status="amber",
+    supporting_text="Target: 1,000 decisions",
+)
+```
+
+The written status and forced-colour treatment ensure colour is not the only
+cue. Define what red, amber, and green mean for the service near the cards;
+do not assume every user will interpret the categories in the same way.
 
 `chatbot(messages, *, key, label="Chat support", input_label="Your message",
 hint=None, error=None, placeholder=None, send_label="Send",

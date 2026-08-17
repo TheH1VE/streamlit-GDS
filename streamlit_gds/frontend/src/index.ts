@@ -669,9 +669,25 @@ function renderStatic(root: HTMLElement, component: string, props: Props, args: 
       const interruption = props.variant === "interruption"; const panel = element("div", interruption ? "st-gds-panel--interruption" : "govuk-panel govuk-panel--confirmation"); panel.append(element("h1", interruption ? "govuk-heading-xl" : "govuk-panel__title", props.title as Scalar)); if (props.content) { const content = element("div", interruption ? "govuk-body-l" : "govuk-panel__body"); appendContent(content, props.content); panel.append(content); } root.append(panel); return;
     }
     case "kpi_card": {
-      const card = element("section", "st-gds-kpi-card");
+      const ragStatus = props.rag_status ? String(props.rag_status) : null;
+      const ragClass = ragStatus
+        ? ` st-gds-kpi-card--rag st-gds-kpi-card--rag-${ragStatus}`
+        : "";
+      const card = element("section", `st-gds-kpi-card${ragClass}`);
       card.setAttribute("aria-label", String(props.label));
       card.append(element("h3", "st-gds-kpi-card__label", props.label as Scalar));
+      if (ragStatus) {
+        const labels: Record<string, string> = {
+          red: "Red status",
+          amber: "Amber status",
+          green: "Green status",
+        };
+        const status = element("p", "st-gds-kpi-card__status");
+        const marker = element("span", "st-gds-kpi-card__status-marker");
+        marker.setAttribute("aria-hidden", "true");
+        status.append(marker, document.createTextNode(labels[ragStatus] ?? `${ragStatus} status`));
+        card.append(status);
+      }
       card.append(element("p", "st-gds-kpi-card__value", props.value as Scalar));
       if (props.change !== undefined && props.change !== null) {
         const trend = String(props.trend ?? "neutral");

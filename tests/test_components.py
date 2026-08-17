@@ -66,6 +66,7 @@ def test_kpi_card_forwards_accessible_metric_content(monkeypatch: pytest.MonkeyP
         1248,
         change="12%",
         trend="up",
+        rag_status="green",
         comparison="from last month",
         supporting_text="Target: 1,000",
     )
@@ -77,6 +78,7 @@ def test_kpi_card_forwards_accessible_metric_content(monkeypatch: pytest.MonkeyP
             "value": 1248,
             "change": "12%",
             "trend": "up",
+            "rag_status": "green",
             "comparison": "from last month",
             "supporting_text": "Target: 1,000",
         },
@@ -88,6 +90,8 @@ def test_kpi_card_rejects_invalid_labels_and_trends() -> None:
         gds.kpi_card(" ", 10)
     with pytest.raises(ValueError, match="trend must be"):
         gds.kpi_card("Cases", 10, trend="sideways")  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match="rag_status must be"):
+        gds.kpi_card("Cases", 10, rag_status="blue")  # type: ignore[arg-type]
 
 
 def test_chatbot_returns_submission_and_forwards_accessible_content(

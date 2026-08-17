@@ -158,6 +158,30 @@
   padding: 20px;
 }
 
+.st-gds-kpi-card--rag { border-top-color: var(--st-gds-kpi-status); }
+.st-gds-kpi-card--rag-red { --st-gds-kpi-status: #d4351c; }
+.st-gds-kpi-card--rag-amber { --st-gds-kpi-status: #f47738; }
+.st-gds-kpi-card--rag-green { --st-gds-kpi-status: #00703c; }
+
+.st-gds-kpi-card__status {
+  align-items: center;
+  display: flex;
+  font-size: 16px;
+  font-weight: 700;
+  gap: 7px;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.st-gds-kpi-card__status-marker {
+  background: var(--st-gds-kpi-status);
+  border: 2px solid #0b0c0c;
+  border-radius: 50%;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+}
+
 .st-gds-kpi-card__label {
   font-size: 19px;
   font-weight: 700;
@@ -313,5 +337,11 @@
   .govuk-button, .govuk-skip-link, .st-gds-password-toggle, .st-gds-chatbot__composer { display: none !important; }
   .st-gds-generic-header, .st-gds-neutral-footer { background: transparent; border-color: #000; }
   .st-gds-kpi-card { background: transparent; border-color: #000; }
+  .st-gds-kpi-card__status-marker { background: transparent; border-color: #000; }
   .st-gds-chatbot__transcript { max-height: none; overflow: visible; }
+}
+
+@media (forced-colors: active) {
+  .st-gds-kpi-card--rag { border-top-color: CanvasText; }
+  .st-gds-kpi-card__status-marker { background: CanvasText; border-color: CanvasText; }
 }

@@ -156,7 +156,8 @@ elif section == "Content":
     gds.heading("Content and status", size="l")
     gds.heading("Key performance indicators", size="m")
     gds.paragraph(
-        "KPI cards are a Streamlit GDS extension, not an official GOV.UK Design System component."
+        "KPI cards are a Streamlit GDS extension, not an official GOV.UK Design System component. "
+        "Optional RAG accents always include a written status so colour is not the only cue."
     )
     kpi_columns = st.columns(3)
     with kpi_columns[0]:
@@ -165,6 +166,7 @@ elif section == "Content":
             "1,248",
             change="12%",
             trend="up",
+            rag_status="green",
             comparison="from last month",
             supporting_text="Target: 1,200 applications",
         )
@@ -174,17 +176,19 @@ elif section == "Content":
             986,
             change="8%",
             trend="up",
+            rag_status="amber",
             comparison="from last month",
             supporting_text="Target: 1,000 decisions",
         )
     with kpi_columns[2]:
         gds.kpi_card(
-            "Median processing time",
-            "9 days",
-            change="2 days",
-            trend="down",
+            "Overdue cases",
+            73,
+            change=14,
+            trend="up",
+            rag_status="red",
             comparison="from last month",
-            supporting_text="Target: 10 days or fewer",
+            supporting_text="Target: fewer than 25 cases",
         )
     gds.heading("Chatbot", size="m")
     gds.paragraph(

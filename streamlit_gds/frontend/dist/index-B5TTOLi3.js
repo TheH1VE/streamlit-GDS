@@ -221,7 +221,7 @@ function dn() {
   i.DocumentFragment;
   const s = i.HTMLTemplateElement, l = i.Node, u = i.Element, f = i.NodeFilter, g = i.NamedNodeMap;
   g === void 0 && (i.NamedNodeMap || i.MozNamedAttrMap), i.HTMLFormElement;
-  const h = i.DOMParser, _ = i.trustedTypes, v = u.prototype, k = K(v, "cloneNode"), y = K(v, "remove"), R = K(v, "nextSibling"), A = K(v, "childNodes"), D = K(v, "parentNode"), G = K(v, "shadowRoot"), M = K(v, "attributes"), F = l && l.prototype ? K(l.prototype, "nodeType") : null, J = l && l.prototype ? K(l.prototype, "nodeName") : null, Le = l && l.prototype ? K(l.prototype, "ownerDocument") : null;
+  const h = i.DOMParser, m = i.trustedTypes, v = u.prototype, k = K(v, "cloneNode"), y = K(v, "remove"), R = K(v, "nextSibling"), A = K(v, "childNodes"), D = K(v, "parentNode"), G = K(v, "shadowRoot"), M = K(v, "attributes"), F = l && l.prototype ? K(l.prototype, "nodeType") : null, J = l && l.prototype ? K(l.prototype, "nodeName") : null, Le = l && l.prototype ? K(l.prototype, "ownerDocument") : null;
   if (typeof s == "function") {
     const p = t.createElement("template");
     p.content && p.content.ownerDocument && (t = p.content.ownerDocument);
@@ -245,7 +245,7 @@ function dn() {
       Ee--;
     }
   }, gn = function() {
-    return ht || (Ve = ba(_, a), ht = !0), Ve;
+    return ht || (Ve = ba(m, a), ht = !0), Ve;
   }, Ie = t, Ye = Ie.implementation, vt = Ie.createNodeIterator, mn = Ie.createDocumentFragment, _n = Ie.getElementsByTagName, hn = c.importNode;
   let w = on();
   n.isSupported = typeof cn == "function" && typeof D == "function" && Ye && Ye.createHTMLDocument !== void 0;
@@ -377,8 +377,8 @@ function dn() {
       V = e.TRUSTED_TYPES_POLICY;
       try {
         le = ge("");
-      } catch (m) {
-        throw V = d, m;
+      } catch (_) {
+        throw V = d, _;
       }
     } else e.TRUSTED_TYPES_POLICY === null ? (V = void 0, le = "") : (V === void 0 && (V = gn()), V && typeof le == "string" && (le = ge("")));
     z && z(e), be = e;
@@ -394,8 +394,8 @@ function dn() {
       namespaceURI: he,
       tagName: "template"
     });
-    const d = xe(e.tagName), m = xe(o.tagName);
-    return nt[e.namespaceURI] ? e.namespaceURI === $e ? xn(d, o, m) : e.namespaceURI === Fe ? Ln(d, o, m) : e.namespaceURI === ee ? In(d, o, m) : !!(Se === "application/xhtml+xml" && nt[e.namespaceURI]) : !1;
+    const d = xe(e.tagName), _ = xe(o.tagName);
+    return nt[e.namespaceURI] ? e.namespaceURI === $e ? xn(d, o, _) : e.namespaceURI === Fe ? Ln(d, o, _) : e.namespaceURI === ee ? In(d, o, _) : !!(Se === "application/xhtml+xml" && nt[e.namespaceURI]) : !1;
   }, oe = function(e) {
     ke(n.removed, {
       element: e
@@ -410,10 +410,10 @@ function dn() {
     we(e);
     const o = A(e);
     if (o) {
-      const m = [];
+      const _ = [];
       Te(o, (b) => {
-        ke(m, b);
-      }), Te(m, (b) => {
+        ke(_, b);
+      }), Te(_, (b) => {
         try {
           y(b);
         } catch {
@@ -422,8 +422,8 @@ function dn() {
     }
     const d = M(e);
     if (d)
-      for (let m = d.length - 1; m >= 0; --m) {
-        const b = d[m], T = b && b.name;
+      for (let _ = d.length - 1; _ >= 0; --_) {
+        const b = d[_], T = b && b.name;
         if (typeof T == "string")
           try {
             e.removeAttribute(T);
@@ -457,7 +457,7 @@ function dn() {
     const o = M(e);
     if (o)
       for (let d = o.length - 1; d >= 0; --d) {
-        const m = o[d], b = m && m.name;
+        const _ = o[d], b = _ && _.name;
         if (!(typeof b != "string" || N[x(b)]))
           try {
             e.removeAttribute(b);
@@ -479,15 +479,15 @@ function dn() {
       return;
     const o = [e];
     for (; o.length > 0; ) {
-      const d = o.pop(), m = F ? F(d) : d.nodeType;
-      if (m === q.processingInstruction || m === q.comment && P(an, d.data)) {
+      const d = o.pop(), _ = F ? F(d) : d.nodeType;
+      if (_ === q.processingInstruction || _ === q.comment && P(an, d.data)) {
         try {
           y(d);
         } catch {
         }
         continue;
       }
-      if (m === q.element) {
+      if (_ === q.element) {
         const T = d, S = x(J ? J(d) : d.nodeName);
         try {
           T.hasAttribute && T.hasAttribute("patchsrc") && T.removeAttribute("patchsrc"), T.hasAttribute && T.hasAttribute("for") && S !== "label" && S !== "output" && T.removeAttribute("for");
@@ -508,16 +508,16 @@ function dn() {
       d = T && T[0];
     }
     Se === "application/xhtml+xml" && he === ee && (e = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + e + "</body></html>");
-    const m = V ? ge(e) : e;
+    const _ = V ? ge(e) : e;
     if (he === ee)
       try {
-        o = new h().parseFromString(m, Se);
+        o = new h().parseFromString(_, Se);
       } catch {
       }
     if (!o || !o.documentElement) {
       o = Ye.createDocument(he, "template", null);
       try {
-        o.documentElement.innerHTML = tt ? le : m;
+        o.documentElement.innerHTML = tt ? le : _;
       } catch {
       }
     }
@@ -537,16 +537,16 @@ function dn() {
   }, rt = function(e) {
     var o;
     e.normalize();
-    const d = Le ? Le(e) : e.ownerDocument, m = vt.call(
+    const d = Le ? Le(e) : e.ownerDocument, _ = vt.call(
       d || e,
       e,
       // eslint-disable-next-line no-bitwise
       f.SHOW_TEXT | f.SHOW_COMMENT | f.SHOW_CDATA_SECTION | f.SHOW_PROCESSING_INSTRUCTION,
       null
     );
-    let b = m.nextNode();
+    let b = _.nextNode();
     for (; b; )
-      b.data = Be(b.data), b = m.nextNode();
+      b.data = Be(b.data), b = _.nextNode();
     const T = (o = e.querySelectorAll) === null || o === void 0 ? void 0 : o.call(e, "template");
     T && Te(T, (S) => {
       ve(S.content) && rt(S.content);
@@ -605,18 +605,18 @@ function dn() {
     if (!Ae[o] && Ht(o) && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, o) || I.tagNameCheck instanceof Function && I.tagNameCheck(o)))
       return !1;
     if (Je && !Q[o]) {
-      const m = D(e), b = A(e);
-      if (b && m) {
+      const _ = D(e), b = A(e);
+      if (b && _) {
         const T = b.length;
         for (let S = T - 1; S >= 0; --S) {
           const L = e === d ? k(b[S], !0) : b[S];
-          m.insertBefore(L, R(e));
+          _.insertBefore(L, R(e));
         }
       }
     }
     return oe(e), !0;
-  }, $t = function(e, o, d, m) {
-    return e.length === 0 ? o : o === d || o === m ? H(o) : o;
+  }, $t = function(e, o, d, _) {
+    return e.length === 0 ? o : o === d || o === _ ? H(o) : o;
   }, zt = function(e, o) {
     if (te(w.beforeSanitizeElements, e, null), e !== o && D(e) === null)
       return Ue && we(e), !0;
@@ -646,10 +646,10 @@ function dn() {
   }, Bt = function(e, o, d) {
     if (yt[o] || ie && o === "patchsrc" || ie && o === "for" && e !== "label" && e !== "output" || wt && (o === "id" || o === "name") && (d in t || d in Rn))
       return !1;
-    const m = N[o] || ne.attributeCheck instanceof Function && ne.attributeCheck(o, e);
+    const _ = N[o] || ne.attributeCheck instanceof Function && ne.attributeCheck(o, e);
     if (!(Xe && P(kn, o))) {
       if (!(Et && P(yn, o))) {
-        if (m) {
+        if (_) {
           if (!et[o]) {
             if (!P(kt, Ne(d, Tt, ""))) {
               if (!((o === "src" || o === "xlink:href" || o === "href") && e !== "script" && qt(d, "data:") === 0 && Rt[e])) {
@@ -673,18 +673,18 @@ function dn() {
     return !0;
   }, Fn = E({}, ["annotation-xml", "color-profile", "font-face", "font-face-format", "font-face-name", "font-face-src", "font-face-uri", "missing-glyph"]), Ht = function(e) {
     return !Fn[xe(e)] && P(An, e);
-  }, $n = function(e, o, d, m) {
-    if (V && typeof _ == "object" && typeof _.getAttributeType == "function" && !d)
-      switch (_.getAttributeType(e, o)) {
+  }, $n = function(e, o, d, _) {
+    if (V && typeof m == "object" && typeof m.getAttributeType == "function" && !d)
+      switch (m.getAttributeType(e, o)) {
         case "TrustedHTML":
-          return ge(m);
+          return ge(_);
         case "TrustedScriptURL":
-          return pn(m);
+          return pn(_);
       }
-    return m;
-  }, zn = function(e, o, d, m) {
+    return _;
+  }, zn = function(e, o, d, _) {
     try {
-      d ? e.setAttributeNS(d, o, m) : e.setAttribute(o, m), He(e) ? oe(e) : Yt(n.removed);
+      d ? e.setAttributeNS(d, o, _) : e.setAttribute(o, _), He(e) ? oe(e) : Yt(n.removed);
     } catch {
       ue(o, e);
     }
@@ -701,10 +701,10 @@ function dn() {
       allowedAttributes: N,
       forceKeepAttr: void 0
     };
-    let m = o.length;
+    let _ = o.length;
     const b = x(e.nodeName);
-    for (; m--; ) {
-      const T = o[m], S = T.name, L = T.namespaceURI, Y = T.value, j = x(S), lt = Y;
+    for (; _--; ) {
+      const T = o[_], S = T.name, L = T.namespaceURI, Y = T.value, j = x(S), lt = Y;
       let W = S === "value" ? lt : Zn(lt);
       if (d.attrName = j, d.attrValue = W, d.keepAttr = !0, d.forceKeepAttr = void 0, te(w.uponSanitizeAttribute, e, d), W = d.attrValue, Ot && (j === "id" || j === "name") && qt(W, Nt) !== 0 && (ue(S, e), W = Nt + W), ie && P(/((--!?|])>)|<\/(style|script|title|xmp|textarea|noscript|iframe|noembed|noframes)/i, W)) {
         ue(S, e);
@@ -751,7 +751,7 @@ function dn() {
         Ge(d.shadow);
         continue;
       }
-      const m = d.node, T = (F ? F(m) : m.nodeType) === q.element, S = A(m);
+      const _ = d.node, T = (F ? F(_) : _.nodeType) === q.element, S = A(_);
       if (S)
         for (let L = S.length - 1; L >= 0; --L)
           o.push({
@@ -759,9 +759,9 @@ function dn() {
             shadow: null
           });
       if (T) {
-        const L = J ? J(m) : null;
+        const L = J ? J(_) : null;
         if (typeof L == "string" && x(L) === "template") {
-          const Y = m.content;
+          const Y = _.content;
           ve(Y) && o.push({
             node: Y,
             shadow: null
@@ -769,7 +769,7 @@ function dn() {
         }
       }
       if (T) {
-        const L = G(m);
+        const L = G(_);
         ve(L) && o.push({
           node: null,
           shadow: L
@@ -781,7 +781,7 @@ function dn() {
     }
   };
   return n.sanitize = function(p) {
-    let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, o = null, d = null, m = null, b = null;
+    let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, o = null, d = null, _ = null, b = null;
     if (tt = !p, tt && (p = "<!-->"), typeof p != "string" && !Oe(p) && (p = na(p), typeof p != "string"))
       throw de("dirty is not a string, aborting");
     if (!n.isSupported)
@@ -816,8 +816,8 @@ function dn() {
     const S = T ? p : o;
     try {
       const Y = Ft(S);
-      for (; m = Y.nextNode(); )
-        zt(m, S), Gt(m), ve(m.content) && Ge(m.content);
+      for (; _ = Y.nextNode(); )
+        zt(_, S), Gt(_), ve(_.content) && Ge(_.content);
     } catch (Y) {
       throw T && (ze(p), Te(n.removed, (j) => {
         j.element && we(j.element);
@@ -845,8 +845,8 @@ function dn() {
     be = null, Ke = !1, De = null, Ce = null, V = Ve, le = "";
   }, n.isValidAttribute = function(p, e, o) {
     be || ot({});
-    const d = x(p), m = x(e);
-    return Bt(d, m, o);
+    const d = x(p), _ = x(e);
+    return Bt(d, _, o);
   }, n.addHook = function(p, e) {
     typeof e == "function" && U(w, p) && ke(w[p], e);
   }, n.removeHook = function(p, e) {
@@ -953,8 +953,8 @@ function sn(i, n, t, c = !1) {
   }), u.addEventListener("change", () => t.setStateValue("value", u.value)), s.append(u), c) {
     const g = Number(n.max_characters), h = r("div", "govuk-character-count__message govuk-hint", "");
     h.id = `${a}-info`, h.setAttribute("aria-live", "polite"), l.push(h.id), fe(u, l), s.append(h), f = () => {
-      const _ = g - u.value.length;
-      h.textContent = _ >= 0 ? `You have ${_} character${_ === 1 ? "" : "s"} remaining` : `You have ${Math.abs(_)} character${_ === -1 ? "" : "s"} too many`, h.classList.toggle("govuk-error-message", _ < 0);
+      const m = g - u.value.length;
+      h.textContent = m >= 0 ? `You have ${m} character${m === 1 ? "" : "s"} remaining` : `You have ${Math.abs(m)} character${m === -1 ? "" : "s"} too many`, h.classList.toggle("govuk-error-message", m < 0);
     }, f();
   }
   i.append(s);
@@ -979,27 +979,27 @@ function Aa(i, n, t) {
     y.setAttribute("role", "status"), a.append(y);
   }
   c.append(a);
-  const l = r("form", "st-gds-chatbot__composer"), u = Z(n, "message"), f = { ...n, label: n.input_label, required: !0 }, { group: g, describedBy: h } = pe(f, u), _ = r("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
-  _.id = u, _.name = u, _.rows = 3, _.value = String(n.draft ?? ""), _.required = !0, _.disabled = !!(n.disabled || n.waiting), n.placeholder && (_.placeholder = String(n.placeholder)), fe(_, h), g.append(_);
+  const l = r("form", "st-gds-chatbot__composer"), u = Z(n, "message"), f = { ...n, label: n.input_label, required: !0 }, { group: g, describedBy: h } = pe(f, u), m = r("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
+  m.id = u, m.name = u, m.rows = 3, m.value = String(n.draft ?? ""), m.required = !0, m.disabled = !!(n.disabled || n.waiting), n.placeholder && (m.placeholder = String(n.placeholder)), fe(m, h), g.append(m);
   const v = r("button", "govuk-button st-gds-chatbot__send", n.send_label);
-  v.type = "submit", v.disabled = _.disabled || !_.value.trim();
+  v.type = "submit", v.disabled = m.disabled || !m.value.trim();
   const k = () => {
-    v.disabled = _.disabled || !_.value.trim(), t.setStateValue("draft", _.value);
+    v.disabled = m.disabled || !m.value.trim(), t.setStateValue("draft", m.value);
   };
-  _.addEventListener("input", k), _.addEventListener("keydown", (y) => {
+  m.addEventListener("input", k), m.addEventListener("keydown", (y) => {
     y.key === "Enter" && (y.ctrlKey || y.metaKey) && (y.preventDefault(), l.requestSubmit());
   }), l.addEventListener("submit", (y) => {
     y.preventDefault();
-    const R = _.value.trim();
-    !R || _.disabled || (_.value = "", v.disabled = !0, t.setStateValue("draft", ""), t.setTriggerValue("submitted", R));
+    const R = m.value.trim();
+    !R || m.disabled || (m.value = "", v.disabled = !0, t.setStateValue("draft", ""), t.setTriggerValue("submitted", R));
   }), l.append(g, v), c.append(l), i.append(c);
 }
 function ln(i, n, t, c) {
   const a = Z(n), s = r("fieldset", "govuk-fieldset"), { group: l, label: u, describedBy: f } = pe(n, a, "legend");
   s.setAttribute("aria-describedby", f.join(" ")), s.append(u);
   for (const k of [...l.children].slice(1)) s.append(k);
-  const g = c ? `govuk-checkboxes${n.small ? " govuk-checkboxes--small" : ""}` : `govuk-radios${n.inline ? " govuk-radios--inline" : ""}`, h = r("div", g), _ = n.options ?? [], v = c ? n.value ?? [] : [n.value];
-  _.forEach((k, y) => {
+  const g = c ? `govuk-checkboxes${n.small ? " govuk-checkboxes--small" : ""}` : `govuk-radios${n.inline ? " govuk-radios--inline" : ""}`, h = r("div", g), m = n.options ?? [], v = c ? n.value ?? [] : [n.value];
+  m.forEach((k, y) => {
     const R = r("div", c ? "govuk-checkboxes__item" : "govuk-radios__item"), A = r("input", c ? "govuk-checkboxes__input" : "govuk-radios__input");
     A.type = c ? "checkbox" : "radio", A.name = a, A.id = `${a}-${y}`, A.value = String(y), A.disabled = !!n.disabled || !!k.disabled, A.checked = v.some((M) => JSON.stringify(M) === JSON.stringify(k.value));
     const D = r("label", c ? "govuk-label govuk-checkboxes__label" : "govuk-label govuk-radios__label", k.label);
@@ -1007,7 +1007,7 @@ function ln(i, n, t, c) {
     let G = null;
     k.conditional && (G = r("div", "st-gds-conditional"), X(G, k.conditional), G.hidden = !A.checked, h.append(G)), A.addEventListener("change", () => {
       if (G && (G.hidden = !A.checked), c) {
-        const M = [...h.querySelectorAll("input:checked")].map((F) => _[Number(F.value)].value);
+        const M = [...h.querySelectorAll("input:checked")].map((F) => m[Number(F.value)].value);
         t.setStateValue("value", M);
       } else
         t.setStateValue("value", k.value);
@@ -1029,18 +1029,18 @@ function wa(i, n, t) {
   const c = Z(n), { group: a, label: s, describedBy: l } = pe(n, c, "legend"), u = r("fieldset", "govuk-fieldset");
   u.append(s);
   for (const k of [...a.children].slice(1)) u.append(k);
-  const f = String(n.value ?? "").split("-"), g = r("div", "st-gds-date-row"), h = [["day", f[2] ?? "", 2], ["month", f[1] ?? "", 2], ["year", f[0] ?? "", 4]], _ = [];
+  const f = String(n.value ?? "").split("-"), g = r("div", "st-gds-date-row"), h = [["day", f[2] ?? "", 2], ["month", f[1] ?? "", 2], ["year", f[0] ?? "", 4]], m = [];
   h.forEach(([k, y, R]) => {
     const A = r("div", "govuk-form-group"), D = `${c}-${k}`, G = r("label", "govuk-label", k[0].toUpperCase() + k.slice(1));
     G.htmlFor = D;
     const M = r("input", `govuk-input${k === "year" ? " st-gds-date-year" : ""}`);
-    M.id = D, M.name = D, M.inputMode = "numeric", M.pattern = "[0-9]*", M.maxLength = R, M.value = y, M.disabled = !!n.disabled, fe(M, l), A.append(G, M), g.append(A), _.push(M);
+    M.id = D, M.name = D, M.inputMode = "numeric", M.pattern = "[0-9]*", M.maxLength = R, M.value = y, M.disabled = !!n.disabled, fe(M, l), A.append(G, M), g.append(A), m.push(M);
   });
   const v = () => {
-    const [k, y, R] = _.map((D) => D.value.padStart(2, "0")), A = k && y && R;
+    const [k, y, R] = m.map((D) => D.value.padStart(2, "0")), A = k && y && R;
     t.setStateValue("value", A ? `${R}-${y}-${k}` : null);
   };
-  _.forEach((k) => k.addEventListener("change", v)), u.append(g), a.replaceChildren(u), i.append(a);
+  m.forEach((k) => k.addEventListener("change", v)), u.append(g), a.replaceChildren(u), i.append(a);
 }
 function Oa(i, n, t) {
   const c = Z(n), { group: a, describedBy: s } = pe(n, c), l = r("input", `govuk-file-upload${n.error ? " govuk-file-upload--error" : ""}`);
@@ -1070,10 +1070,10 @@ function Ra(i, n, t) {
   c.forEach((l, u) => {
     const f = r("div", "govuk-accordion__section"), g = r("h2", "govuk-accordion__section-heading"), h = r("button", "govuk-accordion__section-button", l.heading);
     h.type = "button";
-    const _ = Z(n, `accordion-${u}`);
-    h.setAttribute("aria-controls", _), h.setAttribute("aria-expanded", String(a.has(u) || l.expanded));
+    const m = Z(n, `accordion-${u}`);
+    h.setAttribute("aria-controls", m), h.setAttribute("aria-expanded", String(a.has(u) || l.expanded));
     const v = r("div", "govuk-accordion__section-content");
-    v.id = _, v.hidden = !(a.has(u) || l.expanded), X(v, l.content), h.addEventListener("click", () => {
+    v.id = m, v.hidden = !(a.has(u) || l.expanded), X(v, l.content), h.addEventListener("click", () => {
       v.hidden = !v.hidden, h.setAttribute("aria-expanded", String(!v.hidden)), v.hidden ? a.delete(u) : a.add(u), t.setStateValue("open", [...a]);
     }), g.append(h), f.append(g, v), s.append(f);
   }), i.append(s);
@@ -1083,22 +1083,22 @@ function xa(i, n, t) {
   let a = Number(n.selected ?? 0);
   const s = r("div", "govuk-tabs"), l = r("h2", "govuk-tabs__title", "Contents"), u = r("ul", "govuk-tabs__list");
   u.setAttribute("role", "tablist");
-  const f = [], g = [], h = (_) => {
-    a = _, g.forEach((v, k) => {
-      v.parentElement?.classList.toggle("govuk-tabs__list-item--selected", k === _), v.setAttribute("aria-selected", String(k === _));
+  const f = [], g = [], h = (m) => {
+    a = m, g.forEach((v, k) => {
+      v.parentElement?.classList.toggle("govuk-tabs__list-item--selected", k === m), v.setAttribute("aria-selected", String(k === m));
     }), f.forEach((v, k) => {
-      v.hidden = k !== _;
-    }), t.setStateValue("selected", _);
+      v.hidden = k !== m;
+    }), t.setStateValue("selected", m);
   };
-  c.forEach((_, v) => {
+  c.forEach((m, v) => {
     const k = r("li", `govuk-tabs__list-item${v === a ? " govuk-tabs__list-item--selected" : ""}`);
     k.setAttribute("role", "presentation");
-    const y = $(_.label, `#${Z(n, `panel-${v}`)}`, "govuk-tabs__tab");
+    const y = $(m.label, `#${Z(n, `panel-${v}`)}`, "govuk-tabs__tab");
     y.id = Z(n, `tab-${v}`), y.setAttribute("role", "tab"), y.setAttribute("aria-selected", String(v === a)), y.addEventListener("click", (A) => {
       A.preventDefault(), h(v);
     }), k.append(y), u.append(k), g.push(y);
     const R = r("div", "govuk-tabs__panel");
-    R.id = Z(n, `panel-${v}`), R.setAttribute("role", "tabpanel"), R.setAttribute("aria-labelledby", y.id), R.hidden = v !== a, X(R, _.content), f.push(R);
+    R.id = Z(n, `panel-${v}`), R.setAttribute("role", "tabpanel"), R.setAttribute("aria-labelledby", y.id), R.hidden = v !== a, X(R, m.content), f.push(R);
   }), s.append(l, u, ...f), i.append(s);
 }
 function La(i, n, t, c) {
@@ -1213,8 +1213,8 @@ function La(i, n, t, c) {
         f.setAttribute("aria-label", "Primary navigation");
         const g = r("ul", "st-gds-generic-header__nav");
         u.forEach((h) => {
-          const _ = r("li"), v = $(h.label, h.href);
-          h.active && v.setAttribute("aria-current", "page"), _.append(v), g.append(_);
+          const m = r("li"), v = $(h.label, h.href);
+          h.active && v.setAttribute("aria-current", "page"), m.append(v), g.append(m);
         }), f.append(g), s.append(f);
       }
       a.append(s), i.append(a);
@@ -1292,20 +1292,28 @@ function La(i, n, t, c) {
       return;
     }
     case "kpi_card": {
-      const a = r("section", "st-gds-kpi-card");
-      if (a.setAttribute("aria-label", String(t.label)), a.append(r("h3", "st-gds-kpi-card__label", t.label)), a.append(r("p", "st-gds-kpi-card__value", t.value)), t.change !== void 0 && t.change !== null) {
-        const s = String(t.trend ?? "neutral"), l = r("p", `st-gds-kpi-card__change st-gds-kpi-card__change--${s}`), u = {
+      const a = t.rag_status ? String(t.rag_status) : null, s = a ? ` st-gds-kpi-card--rag st-gds-kpi-card--rag-${a}` : "", l = r("section", `st-gds-kpi-card${s}`);
+      if (l.setAttribute("aria-label", String(t.label)), l.append(r("h3", "st-gds-kpi-card__label", t.label)), a) {
+        const u = {
+          red: "Red status",
+          amber: "Amber status",
+          green: "Green status"
+        }, f = r("p", "st-gds-kpi-card__status"), g = r("span", "st-gds-kpi-card__status-marker");
+        g.setAttribute("aria-hidden", "true"), f.append(g, document.createTextNode(u[a] ?? `${a} status`)), l.append(f);
+      }
+      if (l.append(r("p", "st-gds-kpi-card__value", t.value)), t.change !== void 0 && t.change !== null) {
+        const u = String(t.trend ?? "neutral"), f = r("p", `st-gds-kpi-card__change st-gds-kpi-card__change--${u}`), g = {
           up: { arrow: "↑", label: "Increased by" },
           down: { arrow: "↓", label: "Decreased by" },
           neutral: { arrow: "", label: "Change:" }
-        }, f = u[s] ?? u.neutral;
-        if (f.arrow) {
-          const g = r("span", "st-gds-kpi-card__arrow", f.arrow);
-          g.setAttribute("aria-hidden", "true"), l.append(g);
+        }, h = g[u] ?? g.neutral;
+        if (h.arrow) {
+          const m = r("span", "st-gds-kpi-card__arrow", h.arrow);
+          m.setAttribute("aria-hidden", "true"), f.append(m);
         }
-        l.append(r("span", "govuk-visually-hidden", `${f.label} `)), l.append(r("strong", "st-gds-kpi-card__change-value", t.change)), t.comparison && (l.append(document.createTextNode(" ")), l.append(r("span", "st-gds-kpi-card__comparison", t.comparison))), a.append(l);
+        f.append(r("span", "govuk-visually-hidden", `${h.label} `)), f.append(r("strong", "st-gds-kpi-card__change-value", t.change)), t.comparison && (f.append(document.createTextNode(" ")), f.append(r("span", "st-gds-kpi-card__comparison", t.comparison))), l.append(f);
       }
-      t.supporting_text && a.append(r("p", "st-gds-kpi-card__supporting", t.supporting_text)), i.append(a);
+      t.supporting_text && l.append(r("p", "st-gds-kpi-card__supporting", t.supporting_text)), i.append(l);
       return;
     }
     case "summary_list": {
@@ -1321,8 +1329,8 @@ function La(i, n, t, c) {
         const f = r("dd", "govuk-summary-list__value");
         if (X(f, l.value), u.append(f), l.actions?.length) {
           const g = r("dd", "govuk-summary-list__actions");
-          l.actions.forEach((h, _) => {
-            _ && g.append(document.createTextNode(" "));
+          l.actions.forEach((h, m) => {
+            m && g.append(document.createTextNode(" "));
             const v = $(h.label, h.href);
             h.visually_hidden_text && v.append(r("span", "govuk-visually-hidden", ` ${h.visually_hidden_text}`)), g.append(v);
           }), u.append(g);
@@ -1340,9 +1348,9 @@ function La(i, n, t, c) {
       const f = r("tbody", "govuk-table__body");
       for (const g of t.rows) {
         const h = r("tr", "govuk-table__row");
-        s.forEach((_, v) => {
-          const k = r(v === 0 ? "th" : "td", `${v === 0 ? "govuk-table__header" : "govuk-table__cell"}${_.numeric ? ` ${v === 0 ? "govuk-table__header" : "govuk-table__cell"}--numeric` : ""}`, g[_.key]);
-          k.setAttribute("data-label", _.heading), v === 0 && k.setAttribute("scope", "row"), h.append(k);
+        s.forEach((m, v) => {
+          const k = r(v === 0 ? "th" : "td", `${v === 0 ? "govuk-table__header" : "govuk-table__cell"}${m.numeric ? ` ${v === 0 ? "govuk-table__header" : "govuk-table__cell"}--numeric` : ""}`, g[m.key]);
+          k.setAttribute("data-label", m.heading), v === 0 && k.setAttribute("scope", "row"), h.append(k);
         }), f.append(h);
       }
       a.append(f), i.append(a);

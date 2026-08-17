@@ -54,7 +54,8 @@ gds.footer(organisation="Example organisation")
   banner, Service navigation, Skip link, Tabs and neutral Footer.
 - Content and status: Details, Inset text, Panel, Summary list, Table, Tag,
   Task list and Warning text, plus a clearly identified GOV.UK-inspired KPI
-  card extension for Streamlit dashboards and an accessible chatbot extension.
+  card extension with optional accessible RAG status for Streamlit dashboards,
+  and an accessible chatbot extension.
 - Core styles: page configuration, containers, columns, spacing, headings,
   paragraphs, links, lists, images and section breaks.
 
