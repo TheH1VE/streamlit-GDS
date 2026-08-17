@@ -9,14 +9,14 @@ function Bn(i) {
 function Hn(i, n) {
   var t = i == null ? null : typeof Symbol < "u" && i[Symbol.iterator] || i["@@iterator"];
   if (t != null) {
-    var c, a, s, l, u = [], f = !0, g = !1;
+    var c, a, l, s, u = [], f = !0, g = !1;
     try {
-      if (s = (t = t.call(i)).next, n !== 0) for (; !(f = (c = s.call(t)).done) && (u.push(c.value), u.length !== n); f = !0) ;
+      if (l = (t = t.call(i)).next, n !== 0) for (; !(f = (c = l.call(t)).done) && (u.push(c.value), u.length !== n); f = !0) ;
     } catch (h) {
       g = !0, a = h;
     } finally {
       try {
-        if (!f && t.return != null && (l = t.return(), Object(l) !== l)) return;
+        if (!f && t.return != null && (s = t.return(), Object(s) !== s)) return;
       } finally {
         if (g) throw a;
       }
@@ -29,16 +29,16 @@ function Gn() {
 In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
 }
 function Wn(i, n) {
-  return Bn(i) || Hn(i, n) || Vn(i, n) || Gn();
+  return Bn(i) || Hn(i, n) || jn(i, n) || Gn();
 }
-function Vn(i, n) {
+function jn(i, n) {
   if (i) {
     if (typeof i == "string") return Wt(i, n);
     var t = {}.toString.call(i).slice(8, -1);
     return t === "Object" && i.constructor && (t = i.constructor.name), t === "Map" || t === "Set" ? Array.from(i) : t === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? Wt(i, n) : void 0;
   }
 }
-const cn = Object.entries, Vt = Object.setPrototypeOf, Yn = Object.isFrozen, jn = Object.getPrototypeOf, qn = Object.getOwnPropertyDescriptor;
+const cn = Object.entries, jt = Object.setPrototypeOf, Vn = Object.isFrozen, Yn = Object.getPrototypeOf, qn = Object.getOwnPropertyDescriptor;
 let z = Object.freeze, B = Object.seal, ye = Object.create, un = typeof Reflect < "u" && Reflect, gt = un.apply, mt = un.construct;
 z || (z = function(n) {
   return n;
@@ -47,8 +47,8 @@ B || (B = function(n) {
   return n;
 });
 gt || (gt = function(n, t) {
-  for (var c = arguments.length, a = new Array(c > 2 ? c - 2 : 0), s = 2; s < c; s++)
-    a[s - 2] = arguments[s];
+  for (var c = arguments.length, a = new Array(c > 2 ? c - 2 : 0), l = 2; l < c; l++)
+    a[l - 2] = arguments[l];
   return n.apply(t, a);
 });
 mt || (mt = function(n) {
@@ -56,7 +56,7 @@ mt || (mt = function(n) {
     c[a - 1] = arguments[a];
   return new n(...c);
 });
-const Te = C(Array.prototype.forEach), Xn = C(Array.prototype.lastIndexOf), Yt = C(Array.prototype.pop), ke = C(Array.prototype.push), Kn = C(Array.prototype.splice), se = Array.isArray, xe = C(String.prototype.toLowerCase), ct = C(String.prototype.toString), jt = C(String.prototype.match), Ne = C(String.prototype.replace), qt = C(String.prototype.indexOf), Zn = C(String.prototype.trim), Jn = C(Number.prototype.toString), Qn = C(Boolean.prototype.toString), Xt = typeof BigInt > "u" ? null : C(BigInt.prototype.toString), Kt = typeof Symbol > "u" ? null : C(Symbol.prototype.toString), U = C(Object.prototype.hasOwnProperty), Re = C(Object.prototype.toString), P = C(RegExp.prototype.test), de = ea(TypeError);
+const Te = C(Array.prototype.forEach), Xn = C(Array.prototype.lastIndexOf), Vt = C(Array.prototype.pop), ke = C(Array.prototype.push), Kn = C(Array.prototype.splice), se = Array.isArray, Le = C(String.prototype.toLowerCase), ct = C(String.prototype.toString), Yt = C(String.prototype.match), Ne = C(String.prototype.replace), qt = C(String.prototype.indexOf), Zn = C(String.prototype.trim), Jn = C(Number.prototype.toString), Qn = C(Boolean.prototype.toString), Xt = typeof BigInt > "u" ? null : C(BigInt.prototype.toString), Kt = typeof Symbol > "u" ? null : C(Symbol.prototype.toString), U = C(Object.prototype.hasOwnProperty), Re = C(Object.prototype.toString), P = C(RegExp.prototype.test), de = ea(TypeError);
 function C(i) {
   return function(n) {
     n instanceof RegExp && (n.lastIndex = 0);
@@ -73,15 +73,15 @@ function ea(i) {
   };
 }
 function E(i, n) {
-  let t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : xe;
-  if (Vt && Vt(i, null), !se(n))
+  let t = arguments.length > 2 && arguments[2] !== void 0 ? arguments[2] : Le;
+  if (jt && jt(i, null), !se(n))
     return i;
   let c = n.length;
   for (; c--; ) {
     let a = n[c];
     if (typeof a == "string") {
-      const s = t(a);
-      s !== a && (Yn(n) || (n[c] = s), a = s);
+      const l = t(a);
+      l !== a && (Vn(n) || (n[c] = l), a = l);
     }
     i[a] = !0;
   }
@@ -96,8 +96,8 @@ function H(i) {
   const n = ye(null);
   for (const c of cn(i)) {
     var t = Wn(c, 2);
-    const a = t[0], s = t[1];
-    U(i, a) && (se(s) ? n[a] = ta(s) : s && typeof s == "object" && s.constructor === Object ? n[a] = H(s) : n[a] = s);
+    const a = t[0], l = t[1];
+    U(i, a) && (se(l) ? n[a] = ta(l) : l && typeof l == "object" && l.constructor === Object ? n[a] = H(l) : n[a] = l);
   }
   return n;
 }
@@ -139,7 +139,7 @@ function K(i, n) {
       if (typeof c.value == "function")
         return C(c.value);
     }
-    i = jn(i);
+    i = Yn(i);
   }
   function t() {
     return null;
@@ -183,18 +183,18 @@ const Zt = z(["a", "abbr", "acronym", "address", "area", "article", "aside", "au
   let c = null;
   const a = "data-tt-policy-suffix";
   t && t.hasAttribute(a) && (c = t.getAttribute(a));
-  const s = "dompurify" + (c ? "#" + c : "");
+  const l = "dompurify" + (c ? "#" + c : "");
   try {
-    return n.createPolicy(s, {
-      createHTML(l) {
-        return l;
+    return n.createPolicy(l, {
+      createHTML(s) {
+        return s;
       },
-      createScriptURL(l) {
-        return l;
+      createScriptURL(s) {
+        return s;
       }
     });
   } catch {
-    return console.warn("TrustedTypes policy " + s + " could not be created."), null;
+    return console.warn("TrustedTypes policy " + l + " could not be created."), null;
   }
 }, on = function() {
   return {
@@ -219,39 +219,39 @@ function dn() {
   let t = i.document;
   const c = t, a = c.currentScript;
   i.DocumentFragment;
-  const s = i.HTMLTemplateElement, l = i.Node, u = i.Element, f = i.NodeFilter, g = i.NamedNodeMap;
+  const l = i.HTMLTemplateElement, s = i.Node, u = i.Element, f = i.NodeFilter, g = i.NamedNodeMap;
   g === void 0 && (i.NamedNodeMap || i.MozNamedAttrMap), i.HTMLFormElement;
-  const h = i.DOMParser, m = i.trustedTypes, v = u.prototype, k = K(v, "cloneNode"), y = K(v, "remove"), R = K(v, "nextSibling"), A = K(v, "childNodes"), D = K(v, "parentNode"), G = K(v, "shadowRoot"), M = K(v, "attributes"), F = l && l.prototype ? K(l.prototype, "nodeType") : null, J = l && l.prototype ? K(l.prototype, "nodeName") : null, Le = l && l.prototype ? K(l.prototype, "ownerDocument") : null;
-  if (typeof s == "function") {
+  const h = i.DOMParser, m = i.trustedTypes, v = u.prototype, k = K(v, "cloneNode"), y = K(v, "remove"), R = K(v, "nextSibling"), A = K(v, "childNodes"), D = K(v, "parentNode"), G = K(v, "shadowRoot"), M = K(v, "attributes"), $ = s && s.prototype ? K(s.prototype, "nodeType") : null, J = s && s.prototype ? K(s.prototype, "nodeName") : null, xe = s && s.prototype ? K(s.prototype, "ownerDocument") : null;
+  if (typeof l == "function") {
     const p = t.createElement("template");
     p.content && p.content.ownerDocument && (t = p.content.ownerDocument);
   }
-  let V, le = "", Ve, ht = !1, Ee = 0;
+  let j, le = "", je, ht = !1, Ee = 0;
   const bt = function() {
     if (Ee > 0)
       throw de('A configured TRUSTED_TYPES_POLICY callback (createHTML or createScriptURL) must not call DOMPurify.sanitize, as that causes infinite recursion. Do not pass a policy whose callbacks wrap DOMPurify as TRUSTED_TYPES_POLICY; see the "DOMPurify and Trusted Types" section of the README.');
   }, ge = function(e) {
     bt(), Ee++;
     try {
-      return V.createHTML(e);
+      return j.createHTML(e);
     } finally {
       Ee--;
     }
   }, pn = function(e) {
     bt(), Ee++;
     try {
-      return V.createScriptURL(e);
+      return j.createScriptURL(e);
     } finally {
       Ee--;
     }
   }, gn = function() {
-    return ht || (Ve = ba(m, a), ht = !0), Ve;
-  }, Ie = t, Ye = Ie.implementation, vt = Ie.createNodeIterator, mn = Ie.createDocumentFragment, _n = Ie.getElementsByTagName, hn = c.importNode;
+    return ht || (je = ba(m, a), ht = !0), je;
+  }, Ie = t, Ve = Ie.implementation, vt = Ie.createNodeIterator, mn = Ie.createDocumentFragment, _n = Ie.getElementsByTagName, hn = c.importNode;
   let w = on();
-  n.isSupported = typeof cn == "function" && typeof D == "function" && Ye && Ye.createHTMLDocument !== void 0;
+  n.isSupported = typeof cn == "function" && typeof D == "function" && Ve && Ve.createHTMLDocument !== void 0;
   const bn = ra, vn = sa, Tn = la, kn = ca, yn = ua, En = da, Tt = fa, An = ga;
   let kt = tn, O = null;
-  const je = E({}, [...Zt, ...ut, ...dt, ...ft, ...Jt]);
+  const Ye = E({}, [...Zt, ...ut, ...dt, ...ft, ...Jt]);
   let N = null;
   const qe = E({}, [...Qt, ...pt, ...en, ...We]);
   let I = Object.seal(ye(null, {
@@ -329,18 +329,18 @@ function dn() {
     "xmp"
   ]);
   let Rt = null;
-  const xt = E({}, ["audio", "video", "img", "source", "image", "track"]);
+  const Lt = E({}, ["audio", "video", "img", "source", "image", "track"]);
   let et = null;
-  const Lt = E({}, ["alt", "class", "for", "id", "label", "name", "pattern", "placeholder", "role", "summary", "title", "value", "style", "xmlns"]), Fe = "http://www.w3.org/1998/Math/MathML", $e = "http://www.w3.org/2000/svg", ee = "http://www.w3.org/1999/xhtml";
+  const xt = E({}, ["alt", "class", "for", "id", "label", "name", "pattern", "placeholder", "role", "summary", "title", "value", "style", "xmlns"]), $e = "http://www.w3.org/1998/Math/MathML", Fe = "http://www.w3.org/2000/svg", ee = "http://www.w3.org/1999/xhtml";
   let he = ee, tt = !1, nt = null;
-  const Sn = E({}, [Fe, $e, ee], ct), It = z(["mi", "mo", "mn", "ms", "mtext"]);
+  const Sn = E({}, [$e, Fe, ee], ct), It = z(["mi", "mo", "mn", "ms", "mtext"]);
   let at = E({}, It);
   const Dt = z(["annotation-xml"]);
   let it = E({}, Dt);
   const wn = E({}, ["title", "style", "font", "a", "script"]);
   let Se = null;
   const On = ["application/xhtml+xml", "text/html"], Nn = "text/html";
-  let x = null, be = null;
+  let L = null, be = null;
   const Rn = t.createElement("form"), Ct = function(e) {
     return e instanceof RegExp || e instanceof Function;
   }, ot = function() {
@@ -348,54 +348,54 @@ function dn() {
     if (be && be === e)
       return;
     (!e || typeof e != "object") && (e = {}), e = H(e), Se = // eslint-disable-next-line unicorn/prefer-includes
-    On.indexOf(e.PARSER_MEDIA_TYPE) === -1 ? Nn : e.PARSER_MEDIA_TYPE, x = Se === "application/xhtml+xml" ? ct : xe, O = re(e, "ALLOWED_TAGS", je, {
-      transform: x
+    On.indexOf(e.PARSER_MEDIA_TYPE) === -1 ? Nn : e.PARSER_MEDIA_TYPE, L = Se === "application/xhtml+xml" ? ct : Le, O = re(e, "ALLOWED_TAGS", Ye, {
+      transform: L
     }), N = re(e, "ALLOWED_ATTR", qe, {
-      transform: x
+      transform: L
     }), nt = re(e, "ALLOWED_NAMESPACES", Sn, {
       transform: ct
-    }), et = re(e, "ADD_URI_SAFE_ATTR", Lt, {
-      transform: x,
-      base: Lt
-    }), Rt = re(e, "ADD_DATA_URI_TAGS", xt, {
-      transform: x,
+    }), et = re(e, "ADD_URI_SAFE_ATTR", xt, {
+      transform: L,
       base: xt
+    }), Rt = re(e, "ADD_DATA_URI_TAGS", Lt, {
+      transform: L,
+      base: Lt
     }), Q = re(e, "FORBID_CONTENTS", Qe, {
-      transform: x
+      transform: L
     }), Ae = re(e, "FORBID_TAGS", H({}), {
-      transform: x
+      transform: L
     }), yt = re(e, "FORBID_ATTR", H({}), {
-      transform: x
+      transform: L
     }), _e = U(e, "USE_PROFILES") ? e.USE_PROFILES && typeof e.USE_PROFILES == "object" ? H(e.USE_PROFILES) : e.USE_PROFILES : !1, Et = e.ALLOW_ARIA_ATTR !== !1, Xe = e.ALLOW_DATA_ATTR !== !1, At = e.ALLOW_UNKNOWN_PROTOCOLS || !1, St = e.ALLOW_SELF_CLOSE_IN_ATTR !== !1, ae = e.SAFE_FOR_TEMPLATES || !1, ie = e.SAFE_FOR_XML !== !1, ce = e.WHOLE_DOCUMENT || !1, me = e.RETURN_DOM || !1, Me = e.RETURN_DOM_FRAGMENT || !1, Pe = e.RETURN_TRUSTED_TYPE || !1, Ze = e.FORCE_BODY || !1, wt = e.SANITIZE_DOM !== !1, Ot = e.SANITIZE_NAMED_PROPS || !1, Je = e.KEEP_CONTENT !== !1, Ue = e.IN_PLACE || !1, kt = aa(e.ALLOWED_URI_REGEXP) ? e.ALLOWED_URI_REGEXP : tn, he = typeof e.NAMESPACE == "string" ? e.NAMESPACE : ee, at = U(e, "MATHML_TEXT_INTEGRATION_POINTS") && e.MATHML_TEXT_INTEGRATION_POINTS && typeof e.MATHML_TEXT_INTEGRATION_POINTS == "object" ? H(e.MATHML_TEXT_INTEGRATION_POINTS) : E({}, It), it = U(e, "HTML_INTEGRATION_POINTS") && e.HTML_INTEGRATION_POINTS && typeof e.HTML_INTEGRATION_POINTS == "object" ? H(e.HTML_INTEGRATION_POINTS) : E({}, Dt);
-    const o = U(e, "CUSTOM_ELEMENT_HANDLING") && e.CUSTOM_ELEMENT_HANDLING && typeof e.CUSTOM_ELEMENT_HANDLING == "object" ? H(e.CUSTOM_ELEMENT_HANDLING) : ye(null);
-    if (I = ye(null), U(o, "tagNameCheck") && Ct(o.tagNameCheck) && (I.tagNameCheck = o.tagNameCheck), U(o, "attributeNameCheck") && Ct(o.attributeNameCheck) && (I.attributeNameCheck = o.attributeNameCheck), U(o, "allowCustomizedBuiltInElements") && typeof o.allowCustomizedBuiltInElements == "boolean" && (I.allowCustomizedBuiltInElements = o.allowCustomizedBuiltInElements), B(I), ae && (Xe = !1), Me && (me = !0), _e && (O = E({}, Jt), N = ye(null), _e.html === !0 && (E(O, Zt), E(N, Qt)), _e.svg === !0 && (E(O, ut), E(N, pt), E(N, We)), _e.svgFilters === !0 && (E(O, dt), E(N, pt), E(N, We)), _e.mathMl === !0 && (E(O, ft), E(N, en), E(N, We))), ne.tagCheck = null, ne.attributeCheck = null, U(e, "ADD_TAGS") && (typeof e.ADD_TAGS == "function" ? ne.tagCheck = e.ADD_TAGS : se(e.ADD_TAGS) && (O === je && (O = H(O)), E(O, e.ADD_TAGS, x))), U(e, "ADD_ATTR") && (typeof e.ADD_ATTR == "function" ? ne.attributeCheck = e.ADD_ATTR : se(e.ADD_ATTR) && (N === qe && (N = H(N)), E(N, e.ADD_ATTR, x))), U(e, "ADD_URI_SAFE_ATTR") && se(e.ADD_URI_SAFE_ATTR) && E(et, e.ADD_URI_SAFE_ATTR, x), U(e, "FORBID_CONTENTS") && se(e.FORBID_CONTENTS) && (Q === Qe && (Q = H(Q)), E(Q, e.FORBID_CONTENTS, x)), U(e, "ADD_FORBID_CONTENTS") && se(e.ADD_FORBID_CONTENTS) && (Q === Qe && (Q = H(Q)), E(Q, e.ADD_FORBID_CONTENTS, x)), Je && (O["#text"] = !0), ce && E(O, ["html", "head", "body"]), O.table && (E(O, ["tbody"]), delete Ae.tbody), e.TRUSTED_TYPES_POLICY) {
+    const r = U(e, "CUSTOM_ELEMENT_HANDLING") && e.CUSTOM_ELEMENT_HANDLING && typeof e.CUSTOM_ELEMENT_HANDLING == "object" ? H(e.CUSTOM_ELEMENT_HANDLING) : ye(null);
+    if (I = ye(null), U(r, "tagNameCheck") && Ct(r.tagNameCheck) && (I.tagNameCheck = r.tagNameCheck), U(r, "attributeNameCheck") && Ct(r.attributeNameCheck) && (I.attributeNameCheck = r.attributeNameCheck), U(r, "allowCustomizedBuiltInElements") && typeof r.allowCustomizedBuiltInElements == "boolean" && (I.allowCustomizedBuiltInElements = r.allowCustomizedBuiltInElements), B(I), ae && (Xe = !1), Me && (me = !0), _e && (O = E({}, Jt), N = ye(null), _e.html === !0 && (E(O, Zt), E(N, Qt)), _e.svg === !0 && (E(O, ut), E(N, pt), E(N, We)), _e.svgFilters === !0 && (E(O, dt), E(N, pt), E(N, We)), _e.mathMl === !0 && (E(O, ft), E(N, en), E(N, We))), ne.tagCheck = null, ne.attributeCheck = null, U(e, "ADD_TAGS") && (typeof e.ADD_TAGS == "function" ? ne.tagCheck = e.ADD_TAGS : se(e.ADD_TAGS) && (O === Ye && (O = H(O)), E(O, e.ADD_TAGS, L))), U(e, "ADD_ATTR") && (typeof e.ADD_ATTR == "function" ? ne.attributeCheck = e.ADD_ATTR : se(e.ADD_ATTR) && (N === qe && (N = H(N)), E(N, e.ADD_ATTR, L))), U(e, "ADD_URI_SAFE_ATTR") && se(e.ADD_URI_SAFE_ATTR) && E(et, e.ADD_URI_SAFE_ATTR, L), U(e, "FORBID_CONTENTS") && se(e.FORBID_CONTENTS) && (Q === Qe && (Q = H(Q)), E(Q, e.FORBID_CONTENTS, L)), U(e, "ADD_FORBID_CONTENTS") && se(e.ADD_FORBID_CONTENTS) && (Q === Qe && (Q = H(Q)), E(Q, e.ADD_FORBID_CONTENTS, L)), Je && (O["#text"] = !0), ce && E(O, ["html", "head", "body"]), O.table && (E(O, ["tbody"]), delete Ae.tbody), e.TRUSTED_TYPES_POLICY) {
       if (typeof e.TRUSTED_TYPES_POLICY.createHTML != "function")
         throw de('TRUSTED_TYPES_POLICY configuration option must provide a "createHTML" hook.');
       if (typeof e.TRUSTED_TYPES_POLICY.createScriptURL != "function")
         throw de('TRUSTED_TYPES_POLICY configuration option must provide a "createScriptURL" hook.');
-      const d = V;
-      V = e.TRUSTED_TYPES_POLICY;
+      const d = j;
+      j = e.TRUSTED_TYPES_POLICY;
       try {
         le = ge("");
       } catch (_) {
-        throw V = d, _;
+        throw j = d, _;
       }
-    } else e.TRUSTED_TYPES_POLICY === null ? (V = void 0, le = "") : (V === void 0 && (V = gn()), V && typeof le == "string" && (le = ge("")));
+    } else e.TRUSTED_TYPES_POLICY === null ? (j = void 0, le = "") : (j === void 0 && (j = gn()), j && typeof le == "string" && (le = ge("")));
     z && z(e), be = e;
-  }, Mt = E({}, [...ut, ...dt, ...ia]), Pt = E({}, [...ft, ...oa]), xn = function(e, o, d) {
-    return o.namespaceURI === ee ? e === "svg" : o.namespaceURI === Fe ? e === "svg" && (d === "annotation-xml" || at[d]) : !!Mt[e];
-  }, Ln = function(e, o, d) {
-    return o.namespaceURI === ee ? e === "math" : o.namespaceURI === $e ? e === "math" && it[d] : !!Pt[e];
-  }, In = function(e, o, d) {
-    return o.namespaceURI === $e && !it[d] || o.namespaceURI === Fe && !at[d] ? !1 : !Pt[e] && (wn[e] || !Mt[e]);
+  }, Mt = E({}, [...ut, ...dt, ...ia]), Pt = E({}, [...ft, ...oa]), Ln = function(e, r, d) {
+    return r.namespaceURI === ee ? e === "svg" : r.namespaceURI === $e ? e === "svg" && (d === "annotation-xml" || at[d]) : !!Mt[e];
+  }, xn = function(e, r, d) {
+    return r.namespaceURI === ee ? e === "math" : r.namespaceURI === Fe ? e === "math" && it[d] : !!Pt[e];
+  }, In = function(e, r, d) {
+    return r.namespaceURI === Fe && !it[d] || r.namespaceURI === $e && !at[d] ? !1 : !Pt[e] && (wn[e] || !Mt[e]);
   }, Dn = function(e) {
-    let o = D(e);
-    (!o || !o.tagName) && (o = {
+    let r = D(e);
+    (!r || !r.tagName) && (r = {
       namespaceURI: he,
       tagName: "template"
     });
-    const d = xe(e.tagName), _ = xe(o.tagName);
-    return nt[e.namespaceURI] ? e.namespaceURI === $e ? xn(d, o, _) : e.namespaceURI === Fe ? Ln(d, o, _) : e.namespaceURI === ee ? In(d, o, _) : !!(Se === "application/xhtml+xml" && nt[e.namespaceURI]) : !1;
+    const d = Le(e.tagName), _ = Le(r.tagName);
+    return nt[e.namespaceURI] ? e.namespaceURI === Fe ? Ln(d, r, _) : e.namespaceURI === $e ? xn(d, r, _) : e.namespaceURI === ee ? In(d, r, _) : !!(Se === "application/xhtml+xml" && nt[e.namespaceURI]) : !1;
   }, oe = function(e) {
     ke(n.removed, {
       element: e
@@ -408,10 +408,10 @@ function dn() {
     }
   }, ze = function(e) {
     we(e);
-    const o = A(e);
-    if (o) {
+    const r = A(e);
+    if (r) {
       const _ = [];
-      Te(o, (b) => {
+      Te(r, (b) => {
         ke(_, b);
       }), Te(_, (b) => {
         try {
@@ -430,56 +430,56 @@ function dn() {
           } catch {
           }
       }
-  }, ue = function(e, o) {
+  }, ue = function(e, r) {
     try {
       ke(n.removed, {
-        attribute: o.getAttributeNode(e),
-        from: o
+        attribute: r.getAttributeNode(e),
+        from: r
       });
     } catch {
       ke(n.removed, {
         attribute: null,
-        from: o
+        from: r
       });
     }
-    if (o.removeAttribute(e), e === "is")
+    if (r.removeAttribute(e), e === "is")
       if (me || Me)
         try {
-          oe(o);
+          oe(r);
         } catch {
         }
       else
         try {
-          o.setAttribute(e, "");
+          r.setAttribute(e, "");
         } catch {
         }
   }, Cn = function(e) {
-    const o = M(e);
-    if (o)
-      for (let d = o.length - 1; d >= 0; --d) {
-        const _ = o[d], b = _ && _.name;
-        if (!(typeof b != "string" || N[x(b)]))
+    const r = M(e);
+    if (r)
+      for (let d = r.length - 1; d >= 0; --d) {
+        const _ = r[d], b = _ && _.name;
+        if (!(typeof b != "string" || N[L(b)]))
           try {
             e.removeAttribute(b);
           } catch {
           }
       }
   }, we = function(e) {
-    const o = [e];
-    for (; o.length > 0; ) {
-      const d = o.pop();
-      (F ? F(d) : d.nodeType) === q.element && Cn(d);
+    const r = [e];
+    for (; r.length > 0; ) {
+      const d = r.pop();
+      ($ ? $(d) : d.nodeType) === q.element && Cn(d);
       const b = A(d);
       if (b)
         for (let T = b.length - 1; T >= 0; --T)
-          o.push(b[T]);
+          r.push(b[T]);
     }
   }, Mn = function(e) {
     if (!ie)
       return;
-    const o = [e];
-    for (; o.length > 0; ) {
-      const d = o.pop(), _ = F ? F(d) : d.nodeType;
+    const r = [e];
+    for (; r.length > 0; ) {
+      const d = r.pop(), _ = $ ? $(d) : d.nodeType;
       if (_ === q.processingInstruction || _ === q.comment && P(an, d.data)) {
         try {
           y(d);
@@ -488,7 +488,7 @@ function dn() {
         continue;
       }
       if (_ === q.element) {
-        const T = d, S = x(J ? J(d) : d.nodeName);
+        const T = d, S = L(J ? J(d) : d.nodeName);
         try {
           T.hasAttribute && T.hasAttribute("patchsrc") && T.removeAttribute("patchsrc"), T.hasAttribute && T.hasAttribute("for") && S !== "label" && S !== "output" && T.removeAttribute("for");
         } catch {
@@ -497,36 +497,36 @@ function dn() {
       const b = A(d);
       if (b)
         for (let T = b.length - 1; T >= 0; --T)
-          o.push(b[T]);
+          r.push(b[T]);
     }
   }, Ut = function(e) {
-    let o = null, d = null;
+    let r = null, d = null;
     if (Ze)
       e = "<remove></remove>" + e;
     else {
-      const T = jt(e, /^[\r\n\t ]+/);
+      const T = Yt(e, /^[\r\n\t ]+/);
       d = T && T[0];
     }
     Se === "application/xhtml+xml" && he === ee && (e = '<html xmlns="http://www.w3.org/1999/xhtml"><head></head><body>' + e + "</body></html>");
-    const _ = V ? ge(e) : e;
+    const _ = j ? ge(e) : e;
     if (he === ee)
       try {
-        o = new h().parseFromString(_, Se);
+        r = new h().parseFromString(_, Se);
       } catch {
       }
-    if (!o || !o.documentElement) {
-      o = Ye.createDocument(he, "template", null);
+    if (!r || !r.documentElement) {
+      r = Ve.createDocument(he, "template", null);
       try {
-        o.documentElement.innerHTML = tt ? le : _;
+        r.documentElement.innerHTML = tt ? le : _;
       } catch {
       }
     }
-    const b = o.body || o.documentElement;
-    return e && d && b.insertBefore(t.createTextNode(d), b.childNodes[0] || null), he === ee ? _n.call(o, ce ? "html" : "body")[0] : ce ? o.documentElement : b;
-  }, Ft = function(e) {
-    const o = Le ? Le(e) : e.ownerDocument;
+    const b = r.body || r.documentElement;
+    return e && d && b.insertBefore(t.createTextNode(d), b.childNodes[0] || null), he === ee ? _n.call(r, ce ? "html" : "body")[0] : ce ? r.documentElement : b;
+  }, $t = function(e) {
+    const r = xe ? xe(e) : e.ownerDocument;
     return vt.call(
-      o || e,
+      r || e,
       e,
       // eslint-disable-next-line no-bitwise
       f.SHOW_ELEMENT | f.SHOW_COMMENT | f.SHOW_TEXT | f.SHOW_PROCESSING_INSTRUCTION | f.SHOW_CDATA_SECTION,
@@ -535,9 +535,9 @@ function dn() {
   }, Be = function(e) {
     return e = Ne(e, bn, " "), e = Ne(e, vn, " "), e = Ne(e, Tn, " "), e;
   }, rt = function(e) {
-    var o;
+    var r;
     e.normalize();
-    const d = Le ? Le(e) : e.ownerDocument, _ = vt.call(
+    const d = xe ? xe(e) : e.ownerDocument, _ = vt.call(
       d || e,
       e,
       // eslint-disable-next-line no-bitwise
@@ -547,13 +547,13 @@ function dn() {
     let b = _.nextNode();
     for (; b; )
       b.data = Be(b.data), b = _.nextNode();
-    const T = (o = e.querySelectorAll) === null || o === void 0 ? void 0 : o.call(e, "template");
+    const T = (r = e.querySelectorAll) === null || r === void 0 ? void 0 : r.call(e, "template");
     T && Te(T, (S) => {
       ve(S.content) && rt(S.content);
     });
   }, He = function(e) {
-    const o = J ? J(e) : null;
-    return typeof o != "string" || x(o) !== "form" ? !1 : typeof e.nodeName != "string" || typeof e.textContent != "string" || typeof e.removeChild != "function" || // Realm-safe NamedNodeMap detection: equality against the cached
+    const r = J ? J(e) : null;
+    return typeof r != "string" || L(r) !== "form" ? !1 : typeof e.nodeName != "string" || typeof e.textContent != "string" || typeof e.removeChild != "function" || // Realm-safe NamedNodeMap detection: equality against the cached
     // prototype getter. Clobbered .attributes (e.g. <input name="attributes">)
     // makes the direct read diverge from the cached read; a clean form
     // (same-realm OR foreign-realm) has both reads pointing at the same
@@ -565,7 +565,7 @@ function dn() {
     // an internal slot, no serialization cost — and removes a residual
     // clobbering surface used by several mXSS / PI / comment branches
     // in _sanitizeElements that compare currentNode.nodeType directly.
-    e.nodeType !== F(e) || // HTMLFormElement has [LegacyOverrideBuiltIns]: a descendant named
+    e.nodeType !== $(e) || // HTMLFormElement has [LegacyOverrideBuiltIns]: a descendant named
     // "childNodes" shadows the prototype getter. Direct reads of
     // form.childNodes from a clobbered form return the named child
     // instead of the real NodeList, so any walk that reads it directly
@@ -578,63 +578,63 @@ function dn() {
     // (e.g. HTMLSelectElement.length is a defined unsigned-long).
     e.childNodes !== A(e);
   }, ve = function(e) {
-    if (!F || typeof e != "object" || e === null)
+    if (!$ || typeof e != "object" || e === null)
       return !1;
     try {
-      return F(e) === q.documentFragment;
+      return $(e) === q.documentFragment;
     } catch {
       return !1;
     }
   }, Oe = function(e) {
-    if (!F || typeof e != "object" || e === null)
+    if (!$ || typeof e != "object" || e === null)
       return !1;
     try {
-      return typeof F(e) == "number";
+      return typeof $(e) == "number";
     } catch {
       return !1;
     }
   };
-  function te(p, e, o) {
+  function te(p, e, r) {
     p.length !== 0 && Te(p, (d) => {
-      d.call(n, e, o, be);
+      d.call(n, e, r, be);
     });
   }
-  const Pn = function(e, o) {
-    return !!(ie && e.hasChildNodes() && !Oe(e.firstElementChild) && P(nn, e.textContent) && P(nn, e.innerHTML) || ie && e.namespaceURI === ee && o === "style" && Oe(e.firstElementChild) || e.nodeType === q.processingInstruction || ie && e.nodeType === q.comment && P(an, e.data));
-  }, Un = function(e, o, d) {
-    if (!Ae[o] && Ht(o) && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, o) || I.tagNameCheck instanceof Function && I.tagNameCheck(o)))
+  const Pn = function(e, r) {
+    return !!(ie && e.hasChildNodes() && !Oe(e.firstElementChild) && P(nn, e.textContent) && P(nn, e.innerHTML) || ie && e.namespaceURI === ee && r === "style" && Oe(e.firstElementChild) || e.nodeType === q.processingInstruction || ie && e.nodeType === q.comment && P(an, e.data));
+  }, Un = function(e, r, d) {
+    if (!Ae[r] && Ht(r) && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, r) || I.tagNameCheck instanceof Function && I.tagNameCheck(r)))
       return !1;
-    if (Je && !Q[o]) {
+    if (Je && !Q[r]) {
       const _ = D(e), b = A(e);
       if (b && _) {
         const T = b.length;
         for (let S = T - 1; S >= 0; --S) {
-          const L = e === d ? k(b[S], !0) : b[S];
-          _.insertBefore(L, R(e));
+          const x = e === d ? k(b[S], !0) : b[S];
+          _.insertBefore(x, R(e));
         }
       }
     }
     return oe(e), !0;
-  }, $t = function(e, o, d, _) {
-    return e.length === 0 ? o : o === d || o === _ ? H(o) : o;
-  }, zt = function(e, o) {
-    if (te(w.beforeSanitizeElements, e, null), e !== o && D(e) === null)
+  }, Ft = function(e, r, d, _) {
+    return e.length === 0 ? r : r === d || r === _ ? H(r) : r;
+  }, zt = function(e, r) {
+    if (te(w.beforeSanitizeElements, e, null), e !== r && D(e) === null)
       return Ue && we(e), !0;
     if (He(e))
       return oe(e), !0;
-    const d = x(J ? J(e) : e.nodeName);
-    if (O = $t(w.uponSanitizeElement, O, je, De), te(w.uponSanitizeElement, e, {
+    const d = L(J ? J(e) : e.nodeName);
+    if (O = Ft(w.uponSanitizeElement, O, Ye, De), te(w.uponSanitizeElement, e, {
       tagName: d,
       allowedTags: O
-    }), e !== o && D(e) === null)
+    }), e !== r && D(e) === null)
       return Ue && we(e), !0;
     if (Pn(e, d))
       return oe(e), !0;
     if (Ae[d] || !(ne.tagCheck instanceof Function && ne.tagCheck(d)) && !O[d]) {
-      const b = Un(e, d, o);
+      const b = Un(e, d, r);
       return b === !1 && te(w.afterSanitizeElements, e, null), b;
     }
-    if ((F ? F(e) : e.nodeType) === q.element && !Dn(e) || (d === "noscript" || d === "noembed" || d === "noframes") && P(ma, e.innerHTML))
+    if (($ ? $(e) : e.nodeType) === q.element && !Dn(e) || (d === "noscript" || d === "noembed" || d === "noframes") && P(ma, e.innerHTML))
       return oe(e), !0;
     if (ae && e.nodeType === q.text) {
       const b = Be(e.textContent);
@@ -643,16 +643,16 @@ function dn() {
       }), e.textContent = b);
     }
     return te(w.afterSanitizeElements, e, null), !1;
-  }, Bt = function(e, o, d) {
-    if (yt[o] || ie && o === "patchsrc" || ie && o === "for" && e !== "label" && e !== "output" || wt && (o === "id" || o === "name") && (d in t || d in Rn))
+  }, Bt = function(e, r, d) {
+    if (yt[r] || ie && r === "patchsrc" || ie && r === "for" && e !== "label" && e !== "output" || wt && (r === "id" || r === "name") && (d in t || d in Rn))
       return !1;
-    const _ = N[o] || ne.attributeCheck instanceof Function && ne.attributeCheck(o, e);
-    if (!(Xe && P(kn, o))) {
-      if (!(Et && P(yn, o))) {
+    const _ = N[r] || ne.attributeCheck instanceof Function && ne.attributeCheck(r, e);
+    if (!(Xe && P(kn, r))) {
+      if (!(Et && P(yn, r))) {
         if (_) {
-          if (!et[o]) {
+          if (!et[r]) {
             if (!P(kt, Ne(d, Tt, ""))) {
-              if (!((o === "src" || o === "xlink:href" || o === "href") && e !== "script" && qt(d, "data:") === 0 && Rt[e])) {
+              if (!((r === "src" || r === "xlink:href" || r === "href") && e !== "script" && qt(d, "data:") === 0 && Rt[e])) {
                 if (!(At && !P(En, Ne(d, Tt, "")))) {
                   if (d)
                     return !1;
@@ -664,36 +664,36 @@ function dn() {
           // First condition does a very basic check if a) it's basically a valid custom element tagname AND
           // b) if the tagName passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
           // and c) if the attribute name passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.attributeNameCheck
-          !(Ht(e) && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, e) || I.tagNameCheck instanceof Function && I.tagNameCheck(e)) && (I.attributeNameCheck instanceof RegExp && P(I.attributeNameCheck, o) || I.attributeNameCheck instanceof Function && I.attributeNameCheck(o, e)) || // Alternative, second condition checks if it's an `is`-attribute, AND
+          !(Ht(e) && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, e) || I.tagNameCheck instanceof Function && I.tagNameCheck(e)) && (I.attributeNameCheck instanceof RegExp && P(I.attributeNameCheck, r) || I.attributeNameCheck instanceof Function && I.attributeNameCheck(r, e)) || // Alternative, second condition checks if it's an `is`-attribute, AND
           // the value passes whatever the user has configured for CUSTOM_ELEMENT_HANDLING.tagNameCheck
-          o === "is" && I.allowCustomizedBuiltInElements && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, d) || I.tagNameCheck instanceof Function && I.tagNameCheck(d)))
+          r === "is" && I.allowCustomizedBuiltInElements && (I.tagNameCheck instanceof RegExp && P(I.tagNameCheck, d) || I.tagNameCheck instanceof Function && I.tagNameCheck(d)))
         ) return !1;
       }
     }
     return !0;
-  }, Fn = E({}, ["annotation-xml", "color-profile", "font-face", "font-face-format", "font-face-name", "font-face-src", "font-face-uri", "missing-glyph"]), Ht = function(e) {
-    return !Fn[xe(e)] && P(An, e);
-  }, $n = function(e, o, d, _) {
-    if (V && typeof m == "object" && typeof m.getAttributeType == "function" && !d)
-      switch (m.getAttributeType(e, o)) {
+  }, $n = E({}, ["annotation-xml", "color-profile", "font-face", "font-face-format", "font-face-name", "font-face-src", "font-face-uri", "missing-glyph"]), Ht = function(e) {
+    return !$n[Le(e)] && P(An, e);
+  }, Fn = function(e, r, d, _) {
+    if (j && typeof m == "object" && typeof m.getAttributeType == "function" && !d)
+      switch (m.getAttributeType(e, r)) {
         case "TrustedHTML":
           return ge(_);
         case "TrustedScriptURL":
           return pn(_);
       }
     return _;
-  }, zn = function(e, o, d, _) {
+  }, zn = function(e, r, d, _) {
     try {
-      d ? e.setAttributeNS(d, o, _) : e.setAttribute(o, _), He(e) ? oe(e) : Yt(n.removed);
+      d ? e.setAttributeNS(d, r, _) : e.setAttribute(r, _), He(e) ? oe(e) : Vt(n.removed);
     } catch {
-      ue(o, e);
+      ue(r, e);
     }
   }, Gt = function(e) {
     te(w.beforeSanitizeAttributes, e, null);
-    const o = e.attributes;
-    if (!o || He(e))
+    const r = e.attributes;
+    if (!r || He(e))
       return;
-    N = $t(w.uponSanitizeAttribute, N, qe, Ce);
+    N = Ft(w.uponSanitizeAttribute, N, qe, Ce);
     const d = {
       attrName: "",
       attrValue: "",
@@ -701,16 +701,16 @@ function dn() {
       allowedAttributes: N,
       forceKeepAttr: void 0
     };
-    let _ = o.length;
-    const b = x(e.nodeName);
+    let _ = r.length;
+    const b = L(e.nodeName);
     for (; _--; ) {
-      const T = o[_], S = T.name, L = T.namespaceURI, Y = T.value, j = x(S), lt = Y;
+      const T = r[_], S = T.name, x = T.namespaceURI, V = T.value, Y = L(S), lt = V;
       let W = S === "value" ? lt : Zn(lt);
-      if (d.attrName = j, d.attrValue = W, d.keepAttr = !0, d.forceKeepAttr = void 0, te(w.uponSanitizeAttribute, e, d), W = d.attrValue, Ot && (j === "id" || j === "name") && qt(W, Nt) !== 0 && (ue(S, e), W = Nt + W), ie && P(/((--!?|])>)|<\/(style|script|title|xmp|textarea|noscript|iframe|noembed|noframes)/i, W)) {
+      if (d.attrName = Y, d.attrValue = W, d.keepAttr = !0, d.forceKeepAttr = void 0, te(w.uponSanitizeAttribute, e, d), W = d.attrValue, Ot && (Y === "id" || Y === "name") && qt(W, Nt) !== 0 && (ue(S, e), W = Nt + W), ie && P(/((--!?|])>)|<\/(style|script|title|xmp|textarea|noscript|iframe|noembed|noframes)/i, W)) {
         ue(S, e);
         continue;
       }
-      if (j === "attributename" && jt(W, "href")) {
+      if (Y === "attributename" && Yt(W, "href")) {
         ue(S, e);
         continue;
       }
@@ -723,65 +723,65 @@ function dn() {
           ue(S, e);
           continue;
         }
-        if (ae && (W = Be(W)), !Bt(b, j, W)) {
+        if (ae && (W = Be(W)), !Bt(b, Y, W)) {
           ue(S, e);
           continue;
         }
-        W = $n(b, j, L, W), W !== lt && zn(e, S, L, W);
+        W = Fn(b, Y, x, W), W !== lt && zn(e, S, x, W);
       }
     }
     te(w.afterSanitizeAttributes, e, null);
   }, Ge = function(e) {
-    let o = null;
-    const d = Ft(e);
-    for (te(w.beforeSanitizeShadowDOM, e, null); o = d.nextNode(); )
-      if (te(w.uponSanitizeShadowNode, o, null), zt(o, e), Gt(o), ve(o.content) && Ge(o.content), (F ? F(o) : o.nodeType) === q.element) {
-        const b = G(o);
+    let r = null;
+    const d = $t(e);
+    for (te(w.beforeSanitizeShadowDOM, e, null); r = d.nextNode(); )
+      if (te(w.uponSanitizeShadowNode, r, null), zt(r, e), Gt(r), ve(r.content) && Ge(r.content), ($ ? $(r) : r.nodeType) === q.element) {
+        const b = G(r);
         ve(b) && (st(b), Ge(b));
       }
     te(w.afterSanitizeShadowDOM, e, null);
   }, st = function(e) {
-    const o = [{
+    const r = [{
       node: e,
       shadow: null
     }];
-    for (; o.length > 0; ) {
-      const d = o.pop();
+    for (; r.length > 0; ) {
+      const d = r.pop();
       if (d.shadow) {
         Ge(d.shadow);
         continue;
       }
-      const _ = d.node, T = (F ? F(_) : _.nodeType) === q.element, S = A(_);
+      const _ = d.node, T = ($ ? $(_) : _.nodeType) === q.element, S = A(_);
       if (S)
-        for (let L = S.length - 1; L >= 0; --L)
-          o.push({
-            node: S[L],
+        for (let x = S.length - 1; x >= 0; --x)
+          r.push({
+            node: S[x],
             shadow: null
           });
       if (T) {
-        const L = J ? J(_) : null;
-        if (typeof L == "string" && x(L) === "template") {
-          const Y = _.content;
-          ve(Y) && o.push({
-            node: Y,
+        const x = J ? J(_) : null;
+        if (typeof x == "string" && L(x) === "template") {
+          const V = _.content;
+          ve(V) && r.push({
+            node: V,
             shadow: null
           });
         }
       }
       if (T) {
-        const L = G(_);
-        ve(L) && o.push({
+        const x = G(_);
+        ve(x) && r.push({
           node: null,
-          shadow: L
+          shadow: x
         }, {
-          node: L,
+          node: x,
           shadow: null
         });
       }
     }
   };
   return n.sanitize = function(p) {
-    let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, o = null, d = null, _ = null, b = null;
+    let e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {}, r = null, d = null, _ = null, b = null;
     if (tt = !p, tt && (p = "<!-->"), typeof p != "string" && !Oe(p) && (p = na(p), typeof p != "string"))
       throw de("dirty is not a string, aborting");
     if (!n.isSupported)
@@ -790,72 +790,72 @@ function dn() {
     const T = Ue && typeof p != "string" && Oe(p);
     if (T) {
       Mn(p);
-      const Y = J ? J(p) : p.nodeName;
-      if (typeof Y == "string") {
-        const j = x(Y);
-        if (!O[j] || Ae[j])
+      const V = J ? J(p) : p.nodeName;
+      if (typeof V == "string") {
+        const Y = L(V);
+        if (!O[Y] || Ae[Y])
           throw ze(p), de("root node is forbidden and cannot be sanitized in-place");
       }
       if (He(p))
         throw ze(p), de("root node is clobbered and cannot be sanitized in-place");
       try {
         st(p);
-      } catch (j) {
-        throw ze(p), j;
+      } catch (Y) {
+        throw ze(p), Y;
       }
     } else if (Oe(p))
-      o = Ut("<!---->"), d = o.ownerDocument.importNode(p, !0), d.nodeType === q.element && d.nodeName === "BODY" || d.nodeName === "HTML" ? o = d : o.appendChild(d), st(d);
+      r = Ut("<!---->"), d = r.ownerDocument.importNode(p, !0), d.nodeType === q.element && d.nodeName === "BODY" || d.nodeName === "HTML" ? r = d : r.appendChild(d), st(d);
     else {
       if (!me && !ae && !ce && // eslint-disable-next-line unicorn/prefer-includes
       p.indexOf("<") === -1)
-        return V && Pe ? ge(p) : p;
-      if (o = Ut(p), !o)
+        return j && Pe ? ge(p) : p;
+      if (r = Ut(p), !r)
         return me ? null : Pe ? le : "";
     }
-    o && Ze && oe(o.firstChild);
-    const S = T ? p : o;
+    r && Ze && oe(r.firstChild);
+    const S = T ? p : r;
     try {
-      const Y = Ft(S);
-      for (; _ = Y.nextNode(); )
+      const V = $t(S);
+      for (; _ = V.nextNode(); )
         zt(_, S), Gt(_), ve(_.content) && Ge(_.content);
-    } catch (Y) {
-      throw T && (ze(p), Te(n.removed, (j) => {
-        j.element && we(j.element);
-      })), Y;
+    } catch (V) {
+      throw T && (ze(p), Te(n.removed, (Y) => {
+        Y.element && we(Y.element);
+      })), V;
     }
     if (T)
-      return Te(n.removed, (Y) => {
-        Y.element && we(Y.element);
+      return Te(n.removed, (V) => {
+        V.element && we(V.element);
       }), ae && rt(p), p;
     if (me) {
-      if (ae && rt(o), Me)
-        for (b = mn.call(o.ownerDocument); o.firstChild; )
-          b.appendChild(o.firstChild);
+      if (ae && rt(r), Me)
+        for (b = mn.call(r.ownerDocument); r.firstChild; )
+          b.appendChild(r.firstChild);
       else
-        b = o;
+        b = r;
       return (N.shadowroot || N.shadowrootmode) && (b = hn.call(c, b, !0)), b;
     }
-    let L = ce ? o.outerHTML : o.innerHTML;
-    return ce && O["!doctype"] && o.ownerDocument && o.ownerDocument.doctype && o.ownerDocument.doctype.name && P(pa, o.ownerDocument.doctype.name) && (L = "<!DOCTYPE " + o.ownerDocument.doctype.name + `>
-` + L), ae && (L = Be(L)), V && Pe ? ge(L) : L;
+    let x = ce ? r.outerHTML : r.innerHTML;
+    return ce && O["!doctype"] && r.ownerDocument && r.ownerDocument.doctype && r.ownerDocument.doctype.name && P(pa, r.ownerDocument.doctype.name) && (x = "<!DOCTYPE " + r.ownerDocument.doctype.name + `>
+` + x), ae && (x = Be(x)), j && Pe ? ge(x) : x;
   }, n.setConfig = function() {
     let p = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     ot(p), Ke = !0, De = O, Ce = N;
   }, n.clearConfig = function() {
-    be = null, Ke = !1, De = null, Ce = null, V = Ve, le = "";
-  }, n.isValidAttribute = function(p, e, o) {
+    be = null, Ke = !1, De = null, Ce = null, j = je, le = "";
+  }, n.isValidAttribute = function(p, e, r) {
     be || ot({});
-    const d = x(p), _ = x(e);
-    return Bt(d, _, o);
+    const d = L(p), _ = L(e);
+    return Bt(d, _, r);
   }, n.addHook = function(p, e) {
     typeof e == "function" && U(w, p) && ke(w[p], e);
   }, n.removeHook = function(p, e) {
     if (U(w, p)) {
       if (e !== void 0) {
-        const o = Xn(w[p], e);
-        return o === -1 ? void 0 : Kn(w[p], o, 1)[0];
+        const r = Xn(w[p], e);
+        return r === -1 ? void 0 : Kn(w[p], r, 1)[0];
       }
-      return Yt(w[p]);
+      return Vt(w[p]);
     }
   }, n.removeHooks = function(p) {
     U(w, p) && (w[p] = []);
@@ -865,13 +865,13 @@ function dn() {
 }
 var va = dn();
 const Ta = ["a", "abbr", "b", "br", "code", "em", "li", "ol", "p", "span", "strong", "ul"], ka = ["href", "title", "target", "rel", "class"];
-function r(i, n, t) {
+function o(i, n, t) {
   const c = document.createElement(i);
   return n && (c.className = n), t != null && (c.textContent = String(t)), c;
 }
 function X(i, n) {
   if (n && typeof n == "object" && "__html__" in n) {
-    const t = String(n.__html__), c = va.sanitize(t, { ALLOWED_TAGS: Ta, ALLOWED_ATTR: ka }), a = r("div");
+    const t = String(n.__html__), c = va.sanitize(t, { ALLOWED_TAGS: Ta, ALLOWED_ATTR: ka }), a = o("div");
     for (a.innerHTML = c; a.firstChild; ) i.append(a.firstChild);
     return;
   }
@@ -881,8 +881,8 @@ function _t(i) {
   const n = String(i ?? "#").trim();
   return /^(https?:|mailto:|tel:|\/|#)/i.test(n) ? n : "#";
 }
-function $(i, n, t = "govuk-link", c = !1) {
-  const a = r("a", `${t}${c ? " st-gds-external" : ""}`, String(i ?? ""));
+function F(i, n, t = "govuk-link", c = !1) {
+  const a = o("a", `${t}${c ? " st-gds-external" : ""}`, String(i ?? ""));
   return a.href = _t(n), c && (a.target = "_blank", a.rel = "noopener noreferrer"), a;
 }
 function Z(i, n = "field") {
@@ -891,26 +891,26 @@ function Z(i, n = "field") {
 function ya(i, n, t) {
   const c = [];
   if (n.hint) {
-    const a = `${t}-hint`, s = r("div", "govuk-hint", n.hint);
-    s.id = a, i.append(s), c.push(a);
+    const a = `${t}-hint`, l = o("div", "govuk-hint", n.hint);
+    l.id = a, i.append(l), c.push(a);
   }
   if (n.error) {
-    const a = `${t}-error`, s = r("p", "govuk-error-message");
-    s.id = a;
-    const l = r("span", "govuk-visually-hidden", "Error:");
-    s.append(l, document.createTextNode(` ${String(n.error)}`)), i.append(s), c.push(a);
+    const a = `${t}-error`, l = o("p", "govuk-error-message");
+    l.id = a;
+    const s = o("span", "govuk-visually-hidden", "Error:");
+    l.append(s, document.createTextNode(` ${String(n.error)}`)), i.append(l), c.push(a);
   }
   return c;
 }
 function pe(i, n, t = "label") {
-  const c = r("div", `govuk-form-group${i.error ? " govuk-form-group--error" : ""}`), a = r(t, t === "legend" ? "govuk-fieldset__legend govuk-fieldset__legend--m" : "govuk-label", i.label);
+  const c = o("div", `govuk-form-group${i.error ? " govuk-form-group--error" : ""}`), a = o(t, t === "legend" ? "govuk-fieldset__legend govuk-fieldset__legend--m" : "govuk-label", i.label);
   if (a instanceof HTMLLabelElement && (a.htmlFor = n), i.required) {
-    const l = r("span", "govuk-visually-hidden", " required");
-    a.append(l);
+    const s = o("span", "govuk-visually-hidden", " required");
+    a.append(s);
   }
   c.append(a);
-  const s = ya(c, i, n);
-  return { group: c, label: a, describedBy: s };
+  const l = ya(c, i, n);
+  return { group: c, label: a, describedBy: l };
 }
 function fe(i, n) {
   n.length && i.setAttribute("aria-describedby", n.join(" "));
@@ -924,117 +924,117 @@ function Ea(i, n, t) {
   !c || !i.contains(c) || (c.focus({ preventScroll: !0 }), t && fn(c) && c.setSelectionRange(t[0], t[1]));
 }
 function rn(i, n, t, c = !1) {
-  const a = Z(n), { group: s, describedBy: l } = pe(n, a), u = r("input", `govuk-input${n.error ? " govuk-input--error" : ""} st-gds-width-${String(n.width ?? "full")}`);
-  u.id = a, u.name = a, u.type = c && !n.visible ? "password" : String(n.input_type ?? "text"), u.value = String(n.value ?? ""), u.disabled = !!n.disabled, u.required = !!n.required, n.autocomplete && u.setAttribute("autocomplete", String(n.autocomplete)), n.inputmode && (u.inputMode = String(n.inputmode)), fe(u, l), u.addEventListener("change", () => t.setStateValue("value", u.value));
+  const a = Z(n), { group: l, describedBy: s } = pe(n, a), u = o("input", `govuk-input${n.error ? " govuk-input--error" : ""} st-gds-width-${String(n.width ?? "full")}`);
+  u.id = a, u.name = a, u.type = c && !n.visible ? "password" : String(n.input_type ?? "text"), u.value = String(n.value ?? ""), u.disabled = !!n.disabled, u.required = !!n.required, n.autocomplete && u.setAttribute("autocomplete", String(n.autocomplete)), n.inputmode && (u.inputMode = String(n.inputmode)), fe(u, s), u.addEventListener("change", () => t.setStateValue("value", u.value));
   let f = u;
   if (n.prefix || n.suffix) {
-    const g = r("div", "govuk-input__wrapper");
-    n.prefix && g.append(r("div", "govuk-input__prefix", n.prefix)), g.append(u), n.suffix && g.append(r("div", "govuk-input__suffix", n.suffix)), f = g;
+    const g = o("div", "govuk-input__wrapper");
+    n.prefix && g.append(o("div", "govuk-input__prefix", n.prefix)), g.append(u), n.suffix && g.append(o("div", "govuk-input__suffix", n.suffix)), f = g;
   }
   if (c) {
-    const g = r("div", "st-gds-password-wrapper");
+    const g = o("div", "st-gds-password-wrapper");
     g.append(u);
-    const h = r(
+    const h = o(
       "button",
       "govuk-button govuk-button--secondary st-gds-password-toggle",
       n.visible ? String(n.hide_label ?? "Hide") : String(n.show_label ?? "Show")
     );
     h.type = "button", h.setAttribute("aria-controls", a), h.addEventListener("click", () => t.setStateValue("visible", !n.visible)), g.append(h), f = g;
   }
-  s.append(f), i.append(s);
+  l.append(f), i.append(l);
 }
 function sn(i, n, t, c = !1) {
-  const a = Z(n), { group: s, describedBy: l } = pe(n, a), u = r("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
-  u.id = a, u.name = a, u.rows = Number(n.rows ?? 5), u.value = String(n.value ?? ""), u.disabled = !!n.disabled, u.required = !!n.required, fe(u, l);
+  const a = Z(n), { group: l, describedBy: s } = pe(n, a), u = o("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
+  u.id = a, u.name = a, u.rows = Number(n.rows ?? 5), u.value = String(n.value ?? ""), u.disabled = !!n.disabled, u.required = !!n.required, fe(u, s);
   let f = () => {
   };
   if (u.addEventListener("input", () => {
     c && f();
-  }), u.addEventListener("change", () => t.setStateValue("value", u.value)), s.append(u), c) {
-    const g = Number(n.max_characters), h = r("div", "govuk-character-count__message govuk-hint", "");
-    h.id = `${a}-info`, h.setAttribute("aria-live", "polite"), l.push(h.id), fe(u, l), s.append(h), f = () => {
+  }), u.addEventListener("change", () => t.setStateValue("value", u.value)), l.append(u), c) {
+    const g = Number(n.max_characters), h = o("div", "govuk-character-count__message govuk-hint", "");
+    h.id = `${a}-info`, h.setAttribute("aria-live", "polite"), s.push(h.id), fe(u, s), l.append(h), f = () => {
       const m = g - u.value.length;
       h.textContent = m >= 0 ? `You have ${m} character${m === 1 ? "" : "s"} remaining` : `You have ${Math.abs(m)} character${m === -1 ? "" : "s"} too many`, h.classList.toggle("govuk-error-message", m < 0);
     }, f();
   }
-  i.append(s);
+  i.append(l);
 }
 function Aa(i, n, t) {
-  const c = r("section", "st-gds-chatbot");
-  c.setAttribute("aria-label", String(n.label)), c.append(r("h2", "govuk-heading-m st-gds-chatbot__title", n.label));
-  const a = r("div", "st-gds-chatbot__transcript");
+  const c = o("section", "st-gds-chatbot");
+  c.setAttribute("aria-label", String(n.label)), c.append(o("h2", "govuk-heading-m st-gds-chatbot__title", n.label));
+  const a = o("div", "st-gds-chatbot__transcript");
   a.setAttribute("role", "log"), a.setAttribute("aria-label", `${String(n.label)} messages`), a.setAttribute("aria-live", "polite"), a.setAttribute("aria-relevant", "additions text"), a.tabIndex = 0;
-  const s = n.messages ?? [];
-  s.length || a.append(r("p", "govuk-body st-gds-chatbot__empty", n.empty_text));
-  for (const y of s) {
-    const R = y.name || (y.role === "user" ? n.user_name : n.assistant_name), A = r("article", `st-gds-chat-message st-gds-chat-message--${y.role}`);
+  const l = n.messages ?? [];
+  l.length || a.append(o("p", "govuk-body st-gds-chatbot__empty", n.empty_text));
+  for (const y of l) {
+    const R = y.name || (y.role === "user" ? n.user_name : n.assistant_name), A = o("article", `st-gds-chat-message st-gds-chat-message--${y.role}`);
     A.setAttribute("aria-label", `${String(R)} message`);
-    const D = r("p", "st-gds-chat-message__meta");
-    D.append(r("strong", "st-gds-chat-message__name", R)), y.timestamp && (D.append(document.createTextNode(" ")), D.append(r("time", "st-gds-chat-message__time", y.timestamp)));
-    const G = r("div", "st-gds-chat-message__body");
+    const D = o("p", "st-gds-chat-message__meta");
+    D.append(o("strong", "st-gds-chat-message__name", R)), y.timestamp && (D.append(document.createTextNode(" ")), D.append(o("time", "st-gds-chat-message__time", y.timestamp)));
+    const G = o("div", "st-gds-chat-message__body");
     X(G, y.content), A.append(D, G), a.append(A);
   }
   if (n.waiting) {
-    const y = r("p", "govuk-body st-gds-chatbot__status", `${String(n.assistant_name)} is responding`);
+    const y = o("p", "govuk-body st-gds-chatbot__status", `${String(n.assistant_name)} is responding`);
     y.setAttribute("role", "status"), a.append(y);
   }
   c.append(a);
-  const l = r("form", "st-gds-chatbot__composer"), u = Z(n, "message"), f = { ...n, label: n.input_label, required: !0 }, { group: g, describedBy: h } = pe(f, u), m = r("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
+  const s = o("form", "st-gds-chatbot__composer"), u = Z(n, "message"), f = { ...n, label: n.input_label, required: !0 }, { group: g, describedBy: h } = pe(f, u), m = o("textarea", `govuk-textarea${n.error ? " govuk-textarea--error" : ""}`);
   m.id = u, m.name = u, m.rows = 3, m.value = String(n.draft ?? ""), m.required = !0, m.disabled = !!(n.disabled || n.waiting), n.placeholder && (m.placeholder = String(n.placeholder)), fe(m, h), g.append(m);
-  const v = r("button", "govuk-button st-gds-chatbot__send", n.send_label);
+  const v = o("button", "govuk-button st-gds-chatbot__send", n.send_label);
   v.type = "submit", v.disabled = m.disabled || !m.value.trim();
   const k = () => {
     v.disabled = m.disabled || !m.value.trim(), t.setStateValue("draft", m.value);
   };
   m.addEventListener("input", k), m.addEventListener("keydown", (y) => {
-    y.key === "Enter" && (y.ctrlKey || y.metaKey) && (y.preventDefault(), l.requestSubmit());
-  }), l.addEventListener("submit", (y) => {
+    y.key === "Enter" && (y.ctrlKey || y.metaKey) && (y.preventDefault(), s.requestSubmit());
+  }), s.addEventListener("submit", (y) => {
     y.preventDefault();
     const R = m.value.trim();
     !R || m.disabled || (m.value = "", v.disabled = !0, t.setStateValue("draft", ""), t.setTriggerValue("submitted", R));
-  }), l.append(g, v), c.append(l), i.append(c);
+  }), s.append(g, v), c.append(s), i.append(c);
 }
 function ln(i, n, t, c) {
-  const a = Z(n), s = r("fieldset", "govuk-fieldset"), { group: l, label: u, describedBy: f } = pe(n, a, "legend");
-  s.setAttribute("aria-describedby", f.join(" ")), s.append(u);
-  for (const k of [...l.children].slice(1)) s.append(k);
-  const g = c ? `govuk-checkboxes${n.small ? " govuk-checkboxes--small" : ""}` : `govuk-radios${n.inline ? " govuk-radios--inline" : ""}`, h = r("div", g), m = n.options ?? [], v = c ? n.value ?? [] : [n.value];
+  const a = Z(n), l = o("fieldset", "govuk-fieldset"), { group: s, label: u, describedBy: f } = pe(n, a, "legend");
+  l.setAttribute("aria-describedby", f.join(" ")), l.append(u);
+  for (const k of [...s.children].slice(1)) l.append(k);
+  const g = c ? `govuk-checkboxes${n.small ? " govuk-checkboxes--small" : ""}` : `govuk-radios${n.inline ? " govuk-radios--inline" : ""}`, h = o("div", g), m = n.options ?? [], v = c ? n.value ?? [] : [n.value];
   m.forEach((k, y) => {
-    const R = r("div", c ? "govuk-checkboxes__item" : "govuk-radios__item"), A = r("input", c ? "govuk-checkboxes__input" : "govuk-radios__input");
+    const R = o("div", c ? "govuk-checkboxes__item" : "govuk-radios__item"), A = o("input", c ? "govuk-checkboxes__input" : "govuk-radios__input");
     A.type = c ? "checkbox" : "radio", A.name = a, A.id = `${a}-${y}`, A.value = String(y), A.disabled = !!n.disabled || !!k.disabled, A.checked = v.some((M) => JSON.stringify(M) === JSON.stringify(k.value));
-    const D = r("label", c ? "govuk-label govuk-checkboxes__label" : "govuk-label govuk-radios__label", k.label);
-    D.htmlFor = A.id, R.append(A, D), k.hint && R.append(r("div", "govuk-hint govuk-checkboxes__hint", k.hint)), h.append(R);
+    const D = o("label", c ? "govuk-label govuk-checkboxes__label" : "govuk-label govuk-radios__label", k.label);
+    D.htmlFor = A.id, R.append(A, D), k.hint && R.append(o("div", "govuk-hint govuk-checkboxes__hint", k.hint)), h.append(R);
     let G = null;
-    k.conditional && (G = r("div", "st-gds-conditional"), X(G, k.conditional), G.hidden = !A.checked, h.append(G)), A.addEventListener("change", () => {
+    k.conditional && (G = o("div", "st-gds-conditional"), X(G, k.conditional), G.hidden = !A.checked, h.append(G)), A.addEventListener("change", () => {
       if (G && (G.hidden = !A.checked), c) {
-        const M = [...h.querySelectorAll("input:checked")].map((F) => m[Number(F.value)].value);
+        const M = [...h.querySelectorAll("input:checked")].map(($) => m[Number($.value)].value);
         t.setStateValue("value", M);
       } else
         t.setStateValue("value", k.value);
     });
-  }), s.append(h), l.replaceChildren(s), i.append(l);
+  }), l.append(h), s.replaceChildren(l), i.append(s);
 }
 function Sa(i, n, t) {
-  const c = Z(n), { group: a, describedBy: s } = pe(n, c), l = r("select", "govuk-select");
-  l.id = c, l.name = c, l.disabled = !!n.disabled, l.required = !!n.required, fe(l, s);
+  const c = Z(n), { group: a, describedBy: l } = pe(n, c), s = o("select", "govuk-select");
+  s.id = c, s.name = c, s.disabled = !!n.disabled, s.required = !!n.required, fe(s, l);
   const u = n.options ?? [];
-  n.required || l.append(r("option", void 0, "Select an option")), u.forEach((f, g) => {
-    const h = r("option", void 0, f.label);
-    h.value = String(g), h.disabled = !!f.disabled, h.selected = JSON.stringify(f.value) === JSON.stringify(n.value), l.append(h);
-  }), l.addEventListener("change", () => {
-    t.setStateValue("value", l.value === "" ? null : u[Number(l.value)].value);
-  }), a.append(l), i.append(a);
+  n.required || s.append(o("option", void 0, "Select an option")), u.forEach((f, g) => {
+    const h = o("option", void 0, f.label);
+    h.value = String(g), h.disabled = !!f.disabled, h.selected = JSON.stringify(f.value) === JSON.stringify(n.value), s.append(h);
+  }), s.addEventListener("change", () => {
+    t.setStateValue("value", s.value === "" ? null : u[Number(s.value)].value);
+  }), a.append(s), i.append(a);
 }
 function wa(i, n, t) {
-  const c = Z(n), { group: a, label: s, describedBy: l } = pe(n, c, "legend"), u = r("fieldset", "govuk-fieldset");
-  u.append(s);
+  const c = Z(n), { group: a, label: l, describedBy: s } = pe(n, c, "legend"), u = o("fieldset", "govuk-fieldset");
+  u.append(l);
   for (const k of [...a.children].slice(1)) u.append(k);
-  const f = String(n.value ?? "").split("-"), g = r("div", "st-gds-date-row"), h = [["day", f[2] ?? "", 2], ["month", f[1] ?? "", 2], ["year", f[0] ?? "", 4]], m = [];
+  const f = String(n.value ?? "").split("-"), g = o("div", "st-gds-date-row"), h = [["day", f[2] ?? "", 2], ["month", f[1] ?? "", 2], ["year", f[0] ?? "", 4]], m = [];
   h.forEach(([k, y, R]) => {
-    const A = r("div", "govuk-form-group"), D = `${c}-${k}`, G = r("label", "govuk-label", k[0].toUpperCase() + k.slice(1));
+    const A = o("div", "govuk-form-group"), D = `${c}-${k}`, G = o("label", "govuk-label", k[0].toUpperCase() + k.slice(1));
     G.htmlFor = D;
-    const M = r("input", `govuk-input${k === "year" ? " st-gds-date-year" : ""}`);
-    M.id = D, M.name = D, M.inputMode = "numeric", M.pattern = "[0-9]*", M.maxLength = R, M.value = y, M.disabled = !!n.disabled, fe(M, l), A.append(G, M), g.append(A), m.push(M);
+    const M = o("input", `govuk-input${k === "year" ? " st-gds-date-year" : ""}`);
+    M.id = D, M.name = D, M.inputMode = "numeric", M.pattern = "[0-9]*", M.maxLength = R, M.value = y, M.disabled = !!n.disabled, fe(M, s), A.append(G, M), g.append(A), m.push(M);
   });
   const v = () => {
     const [k, y, R] = m.map((D) => D.value.padStart(2, "0")), A = k && y && R;
@@ -1043,45 +1043,67 @@ function wa(i, n, t) {
   m.forEach((k) => k.addEventListener("change", v)), u.append(g), a.replaceChildren(u), i.append(a);
 }
 function Oa(i, n, t) {
-  const c = Z(n), { group: a, describedBy: s } = pe(n, c), l = r("input", `govuk-file-upload${n.error ? " govuk-file-upload--error" : ""}`);
-  l.type = "file", l.id = c, l.name = c, l.disabled = !!n.disabled, l.required = !!n.required, l.accept = (n.accept ?? []).join(","), fe(l, s);
-  const u = r("p", "st-gds-file-meta");
-  l.addEventListener("change", async () => {
-    const f = l.files?.[0];
+  const c = Z(n), { group: a, describedBy: l } = pe(n, c), s = o("input", `govuk-file-upload${n.error ? " govuk-file-upload--error" : ""}`);
+  s.type = "file", s.id = c, s.name = c, s.disabled = !!n.disabled, s.required = !!n.required, s.accept = (n.accept ?? []).join(","), fe(s, l);
+  const u = o("p", "st-gds-file-meta");
+  s.addEventListener("change", async () => {
+    const f = s.files?.[0];
     if (!f) {
       t.setStateValue("file", null), u.textContent = "";
       return;
     }
     const g = Number(n.max_size_mb) * 1024 * 1024;
     if (f.size > g) {
-      u.className = "govuk-error-message", u.textContent = `The selected file must be smaller than ${String(n.max_size_mb)} MB`, l.value = "";
+      u.className = "govuk-error-message", u.textContent = `The selected file must be smaller than ${String(n.max_size_mb)} MB`, s.value = "";
       return;
     }
     const h = new Uint8Array(await f.arrayBuffer());
     u.className = "st-gds-file-meta", u.textContent = `${f.name} (${Math.ceil(f.size / 1024)} KB)`, t.setStateValue("file", { name: f.name, type: f.type, size: f.size, data: h });
-  }), a.append(l, u), i.append(a);
+  }), a.append(s, u), i.append(a);
 }
 function Na(i, n, t) {
-  const c = String(n.kind ?? "primary"), s = r("button", `govuk-button${{ secondary: " govuk-button--secondary", warning: " govuk-button--warning" }[c] ?? ""}${n.width === "full" ? " st-gds-button-full" : ""}`, n.label);
-  s.type = "button", s.disabled = !!n.disabled, c === "start" && (s.classList.add("govuk-button--start"), s.append(document.createTextNode("  →"))), s.addEventListener("click", () => t.setTriggerValue("clicked", !0)), i.append(s);
+  const c = String(n.kind ?? "primary"), l = o("button", `govuk-button${{ secondary: " govuk-button--secondary", warning: " govuk-button--warning" }[c] ?? ""}${n.width === "full" ? " st-gds-button-full" : ""}`, n.label);
+  l.type = "button", l.disabled = !!n.disabled, c === "start" && (l.classList.add("govuk-button--start"), l.append(document.createTextNode("  →"))), l.addEventListener("click", () => t.setTriggerValue("clicked", !0)), i.append(l);
 }
-function Ra(i, n, t) {
-  const c = n.items ?? [], a = new Set(n.open ?? []), s = r("div", "govuk-accordion");
-  c.forEach((l, u) => {
-    const f = r("div", "govuk-accordion__section"), g = r("h2", "govuk-accordion__section-heading"), h = r("button", "govuk-accordion__section-button", l.heading);
-    h.type = "button";
-    const m = Z(n, `accordion-${u}`);
-    h.setAttribute("aria-controls", m), h.setAttribute("aria-expanded", String(a.has(u) || l.expanded));
-    const v = r("div", "govuk-accordion__section-content");
-    v.id = m, v.hidden = !(a.has(u) || l.expanded), X(v, l.content), h.addEventListener("click", () => {
-      v.hidden = !v.hidden, h.setAttribute("aria-expanded", String(!v.hidden)), v.hidden ? a.delete(u) : a.add(u), t.setStateValue("open", [...a]);
-    }), g.append(h), f.append(g, v), s.append(f);
+function Ra(i, n = "text") {
+  if (n === "base64") {
+    if (typeof i != "string") throw new TypeError("Base64 download data must be text");
+    const t = window.atob(i);
+    return Uint8Array.from(t, (c) => c.charCodeAt(0));
+  }
+  if (typeof i == "string") return i;
+  if (i instanceof Uint8Array) return new Uint8Array(i);
+  if (i instanceof ArrayBuffer) return new Uint8Array(i);
+  if (Array.isArray(i) && i.every((t) => Number.isInteger(t)))
+    return new Uint8Array(i);
+  throw new TypeError("Download data must be text or bytes");
+}
+function La(i, n, t) {
+  const a = String(n.kind ?? "secondary") === "secondary" ? " govuk-button--secondary" : "", l = n.width === "full" ? " st-gds-button-full" : "", s = o("button", `govuk-button${a}${l}`, n.label);
+  s.type = "button", s.disabled = !!n.disabled, n.help && (s.title = String(n.help)), s.addEventListener("click", () => {
+    const u = new Blob([Ra(n.data, String(n.encoding))], {
+      type: String(n.mime)
+    }), f = URL.createObjectURL(u), g = o("a");
+    g.href = f, g.download = String(n.file_name), g.hidden = !0, i.append(g), g.click(), g.remove(), window.setTimeout(() => URL.revokeObjectURL(f), 0), t.setTriggerValue("clicked", !0);
   }), i.append(s);
 }
 function xa(i, n, t) {
+  const c = n.items ?? [], a = new Set(n.open ?? []), l = o("div", "govuk-accordion");
+  c.forEach((s, u) => {
+    const f = o("div", "govuk-accordion__section"), g = o("h2", "govuk-accordion__section-heading"), h = o("button", "govuk-accordion__section-button", s.heading);
+    h.type = "button";
+    const m = Z(n, `accordion-${u}`);
+    h.setAttribute("aria-controls", m), h.setAttribute("aria-expanded", String(a.has(u) || s.expanded));
+    const v = o("div", "govuk-accordion__section-content");
+    v.id = m, v.hidden = !(a.has(u) || s.expanded), X(v, s.content), h.addEventListener("click", () => {
+      v.hidden = !v.hidden, h.setAttribute("aria-expanded", String(!v.hidden)), v.hidden ? a.delete(u) : a.add(u), t.setStateValue("open", [...a]);
+    }), g.append(h), f.append(g, v), l.append(f);
+  }), i.append(l);
+}
+function Ia(i, n, t) {
   const c = n.items ?? [];
   let a = Number(n.selected ?? 0);
-  const s = r("div", "govuk-tabs"), l = r("h2", "govuk-tabs__title", "Contents"), u = r("ul", "govuk-tabs__list");
+  const l = o("div", "govuk-tabs"), s = o("h2", "govuk-tabs__title", "Contents"), u = o("ul", "govuk-tabs__list");
   u.setAttribute("role", "tablist");
   const f = [], g = [], h = (m) => {
     a = m, g.forEach((v, k) => {
@@ -1091,23 +1113,23 @@ function xa(i, n, t) {
     }), t.setStateValue("selected", m);
   };
   c.forEach((m, v) => {
-    const k = r("li", `govuk-tabs__list-item${v === a ? " govuk-tabs__list-item--selected" : ""}`);
+    const k = o("li", `govuk-tabs__list-item${v === a ? " govuk-tabs__list-item--selected" : ""}`);
     k.setAttribute("role", "presentation");
-    const y = $(m.label, `#${Z(n, `panel-${v}`)}`, "govuk-tabs__tab");
+    const y = F(m.label, `#${Z(n, `panel-${v}`)}`, "govuk-tabs__tab");
     y.id = Z(n, `tab-${v}`), y.setAttribute("role", "tab"), y.setAttribute("aria-selected", String(v === a)), y.addEventListener("click", (A) => {
       A.preventDefault(), h(v);
     }), k.append(y), u.append(k), g.push(y);
-    const R = r("div", "govuk-tabs__panel");
+    const R = o("div", "govuk-tabs__panel");
     R.id = Z(n, `panel-${v}`), R.setAttribute("role", "tabpanel"), R.setAttribute("aria-labelledby", y.id), R.hidden = v !== a, X(R, m.content), f.push(R);
-  }), s.append(l, u, ...f), i.append(s);
+  }), l.append(s, u, ...f), i.append(l);
 }
-function La(i, n, t, c) {
+function Da(i, n, t, c) {
   switch (n) {
     case "bootstrap": {
       document.documentElement.style.setProperty("--st-gds-brand", String(t.brand_colour)), document.body.classList.toggle("st-gds-minimal-chrome", t.chrome === "minimal");
       const a = "streamlit-gds-host-styles";
-      let s = document.getElementById(a);
-      s || (s = document.createElement("style"), s.id = a, document.head.append(s)), s.textContent = `
+      let l = document.getElementById(a);
+      l || (l = document.createElement("style"), l.id = a, document.head.append(l)), l.textContent = `
         .stMainBlockContainer { max-width: 1020px; padding-left: 30px; padding-right: 30px; }
         body, [data-testid="stAppViewContainer"] { background: #fff; color: #0b0c0c; font-family: Arial, Helvetica, sans-serif; }
         .st-gds-minimal-chrome [data-testid="stHeader"], .st-gds-minimal-chrome [data-testid="stToolbar"] { display: none; }
@@ -1121,235 +1143,235 @@ function La(i, n, t, c) {
       return;
     }
     case "space": {
-      const a = r("span", "st-gds-space");
+      const a = o("span", "st-gds-space");
       a.style.height = `${Number(t.size ?? 4) * 5}px`, i.append(a);
       return;
     }
     case "heading": {
-      const a = { xl: "govuk-heading-xl", l: "govuk-heading-l", m: "govuk-heading-m", s: "govuk-heading-s" }, s = r("h2", a[String(t.size)] ?? a.l);
-      t.caption && s.append(r("span", "govuk-caption-l st-gds-heading-caption", t.caption)), s.append(document.createTextNode(String(t.text ?? ""))), i.append(s);
+      const a = { xl: "govuk-heading-xl", l: "govuk-heading-l", m: "govuk-heading-m", s: "govuk-heading-s" }, l = o("h2", a[String(t.size)] ?? a.l);
+      t.caption && l.append(o("span", "govuk-caption-l st-gds-heading-caption", t.caption)), l.append(document.createTextNode(String(t.text ?? ""))), i.append(l);
       return;
     }
     case "paragraph": {
-      const a = r("p", t.lead ? "govuk-body-l" : "govuk-body");
+      const a = o("p", t.lead ? "govuk-body-l" : "govuk-body");
       X(a, t.content), i.append(a);
       return;
     }
     case "link":
-      i.append($(t.label, t.href, "govuk-link", !!t.external));
+      i.append(F(t.label, t.href, "govuk-link", !!t.external));
       return;
     case "list": {
-      const a = r(t.ordered ? "ol" : "ul", `govuk-list${t.ordered ? " govuk-list--number" : t.bullet ? " govuk-list--bullet" : ""}`);
-      for (const s of t.items ?? []) a.append(r("li", void 0, s));
+      const a = o(t.ordered ? "ol" : "ul", `govuk-list${t.ordered ? " govuk-list--number" : t.bullet ? " govuk-list--bullet" : ""}`);
+      for (const l of t.items ?? []) a.append(o("li", void 0, l));
       i.append(a);
       return;
     }
     case "image": {
-      const a = r("figure"), s = r("img", "govuk-image");
-      s.src = _t(t.src), s.alt = String(t.alt ?? ""), t.width && (s.width = Number(t.width)), a.append(s), t.caption && a.append(r("figcaption", "govuk-body-s", t.caption)), i.append(a);
+      const a = o("figure"), l = o("img", "govuk-image");
+      l.src = _t(t.src), l.alt = String(t.alt ?? ""), t.width && (l.width = Number(t.width)), a.append(l), t.caption && a.append(o("figcaption", "govuk-body-s", t.caption)), i.append(a);
       return;
     }
     case "section_break": {
-      i.append(r("hr", `govuk-section-break govuk-section-break--${String(t.size ?? 3)}${t.visible ? " govuk-section-break--visible" : ""}`));
+      i.append(o("hr", `govuk-section-break govuk-section-break--${String(t.size ?? 3)}${t.visible ? " govuk-section-break--visible" : ""}`));
       return;
     }
     case "back_link":
-      i.append($(t.label, t.href, "govuk-back-link"));
+      i.append(F(t.label, t.href, "govuk-back-link"));
       return;
     case "breadcrumbs": {
-      const a = r("nav", `govuk-breadcrumbs${t.collapse_on_mobile ? " govuk-breadcrumbs--collapse-on-mobile" : ""}`);
+      const a = o("nav", `govuk-breadcrumbs${t.collapse_on_mobile ? " govuk-breadcrumbs--collapse-on-mobile" : ""}`);
       a.setAttribute("aria-label", "Breadcrumb");
-      const s = r("ol", "govuk-breadcrumbs__list");
-      for (const l of t.items ?? []) {
-        const u = r("li", "govuk-breadcrumbs__list-item");
-        l.href ? u.append($(l.label, l.href, "govuk-breadcrumbs__link")) : u.append(document.createTextNode(l.label)), s.append(u);
+      const l = o("ol", "govuk-breadcrumbs__list");
+      for (const s of t.items ?? []) {
+        const u = o("li", "govuk-breadcrumbs__list-item");
+        s.href ? u.append(F(s.label, s.href, "govuk-breadcrumbs__link")) : u.append(document.createTextNode(s.label)), l.append(u);
       }
-      a.append(s), i.append(a);
+      a.append(l), i.append(a);
       return;
     }
     case "details": {
-      const a = r("details", "govuk-details");
-      a.open = !!t.open, a.append(r("summary", "govuk-details__summary", t.summary));
-      const s = r("div", "govuk-details__text");
-      X(s, t.content), a.append(s), i.append(a);
+      const a = o("details", "govuk-details");
+      a.open = !!t.open, a.append(o("summary", "govuk-details__summary", t.summary));
+      const l = o("div", "govuk-details__text");
+      X(l, t.content), a.append(l), i.append(a);
       return;
     }
     case "inset_text": {
-      const a = r("div", "govuk-inset-text");
+      const a = o("div", "govuk-inset-text");
       X(a, t.content), i.append(a);
       return;
     }
     case "error_message": {
-      const a = r("p", "govuk-error-message");
-      a.append(r("span", "govuk-visually-hidden", "Error:"), document.createTextNode(` ${String(t.text)}`)), i.append(a);
+      const a = o("p", "govuk-error-message");
+      a.append(o("span", "govuk-visually-hidden", "Error:"), document.createTextNode(` ${String(t.text)}`)), i.append(a);
       return;
     }
     case "error_summary": {
-      const a = r("div", "govuk-error-summary");
-      a.tabIndex = -1, a.setAttribute("role", "alert"), a.append(r("h2", "govuk-error-summary__title", t.title)), t.description && a.append(r("p", "govuk-body", t.description));
-      const s = r("ul", "govuk-list govuk-error-summary__list");
-      for (const l of t.errors ?? []) {
-        const u = r("li");
-        u.append($(l.text, l.href)), s.append(u);
+      const a = o("div", "govuk-error-summary");
+      a.tabIndex = -1, a.setAttribute("role", "alert"), a.append(o("h2", "govuk-error-summary__title", t.title)), t.description && a.append(o("p", "govuk-body", t.description));
+      const l = o("ul", "govuk-list govuk-error-summary__list");
+      for (const s of t.errors ?? []) {
+        const u = o("li");
+        u.append(F(s.text, s.href)), l.append(u);
       }
-      a.append(s), i.append(a), t.focus && queueMicrotask(() => a.focus());
+      a.append(l), i.append(a), t.focus && queueMicrotask(() => a.focus());
       return;
     }
     case "fieldset": {
-      const a = r("fieldset", "govuk-fieldset");
-      a.append(r("legend", `govuk-fieldset__legend govuk-fieldset__legend--${String(t.heading_size)}`, t.legend));
-      const s = r("div");
-      X(s, t.content), a.append(s), i.append(a);
-      return;
-    }
-    case "header": {
-      const a = r("header", "st-gds-generic-header");
-      a.style.setProperty("--st-gds-brand", String(t.brand_colour ?? "#1d70b8"));
-      const s = r("div", "st-gds-generic-header__inner"), l = $(t.organisation, t.home_url, "st-gds-generic-header__organisation");
-      s.append(l), t.service_name && s.append(r("span", "st-gds-generic-header__service", t.service_name));
-      const u = t.navigation;
-      if (u?.length) {
-        const f = r("nav");
-        f.setAttribute("aria-label", "Primary navigation");
-        const g = r("ul", "st-gds-generic-header__nav");
-        u.forEach((h) => {
-          const m = r("li"), v = $(h.label, h.href);
-          h.active && v.setAttribute("aria-current", "page"), m.append(v), g.append(m);
-        }), f.append(g), s.append(f);
-      }
-      a.append(s), i.append(a);
-      return;
-    }
-    case "footer": {
-      const a = r("footer", "st-gds-neutral-footer"), s = r("div", "st-gds-neutral-footer__inner");
-      t.organisation && s.append(r("h2", "govuk-heading-s", t.organisation)), t.text && s.append(r("p", "govuk-body-s", t.text));
-      const l = t.links;
-      if (l?.length) {
-        const u = r("ul", "st-gds-neutral-footer__links");
-        l.forEach((f) => {
-          const g = r("li");
-          g.append($(f.label, f.href, "govuk-link", f.external)), u.append(g);
-        }), s.append(u);
-      }
-      a.append(s), i.append(a);
-      return;
-    }
-    case "notification_banner": {
-      const a = r("div", `govuk-notification-banner${t.success ? " govuk-notification-banner--success" : ""}`);
-      a.setAttribute("role", String(t.role ?? "region"));
-      const s = r("div", "govuk-notification-banner__header");
-      s.append(r("h2", "govuk-notification-banner__title", t.title)), a.append(s);
-      const l = r("div", "govuk-notification-banner__content");
+      const a = o("fieldset", "govuk-fieldset");
+      a.append(o("legend", `govuk-fieldset__legend govuk-fieldset__legend--${String(t.heading_size)}`, t.legend));
+      const l = o("div");
       X(l, t.content), a.append(l), i.append(a);
       return;
     }
-    case "pagination": {
-      const a = r("nav", "govuk-pagination");
-      a.setAttribute("aria-label", "Pagination");
-      const s = r("ul", "govuk-pagination__list"), l = (u, f) => {
-        if (!u) return;
-        const g = u, h = r("li", `govuk-pagination__${f}`);
-        h.append($(`${f === "prev" ? "← " : ""}${g.label}${f === "next" ? " →" : ""}`, g.href, "govuk-link govuk-pagination__link")), s.append(h);
-      };
-      l(t.previous, "prev");
-      for (const u of t.items ?? []) {
-        const f = r("li", `govuk-pagination__item${u.current ? " govuk-pagination__item--current" : ""}`), g = $(u.label, u.href, "govuk-link govuk-pagination__link");
-        u.current && g.setAttribute("aria-current", "page"), f.append(g), s.append(f);
+    case "header": {
+      const a = o("header", "st-gds-generic-header");
+      a.style.setProperty("--st-gds-brand", String(t.brand_colour ?? "#1d70b8"));
+      const l = o("div", "st-gds-generic-header__inner"), s = F(t.organisation, t.home_url, "st-gds-generic-header__organisation");
+      l.append(s), t.service_name && l.append(o("span", "st-gds-generic-header__service", t.service_name));
+      const u = t.navigation;
+      if (u?.length) {
+        const f = o("nav");
+        f.setAttribute("aria-label", "Primary navigation");
+        const g = o("ul", "st-gds-generic-header__nav");
+        u.forEach((h) => {
+          const m = o("li"), v = F(h.label, h.href);
+          h.active && v.setAttribute("aria-current", "page"), m.append(v), g.append(m);
+        }), f.append(g), l.append(f);
       }
-      l(t.next, "next"), a.append(s), i.append(a);
+      a.append(l), i.append(a);
+      return;
+    }
+    case "footer": {
+      const a = o("footer", "st-gds-neutral-footer"), l = o("div", "st-gds-neutral-footer__inner");
+      t.organisation && l.append(o("h2", "govuk-heading-s", t.organisation)), t.text && l.append(o("p", "govuk-body-s", t.text));
+      const s = t.links;
+      if (s?.length) {
+        const u = o("ul", "st-gds-neutral-footer__links");
+        s.forEach((f) => {
+          const g = o("li");
+          g.append(F(f.label, f.href, "govuk-link", f.external)), u.append(g);
+        }), l.append(u);
+      }
+      a.append(l), i.append(a);
+      return;
+    }
+    case "notification_banner": {
+      const a = o("div", `govuk-notification-banner${t.success ? " govuk-notification-banner--success" : ""}`);
+      a.setAttribute("role", String(t.role ?? "region"));
+      const l = o("div", "govuk-notification-banner__header");
+      l.append(o("h2", "govuk-notification-banner__title", t.title)), a.append(l);
+      const s = o("div", "govuk-notification-banner__content");
+      X(s, t.content), a.append(s), i.append(a);
+      return;
+    }
+    case "pagination": {
+      const a = o("nav", "govuk-pagination");
+      a.setAttribute("aria-label", "Pagination");
+      const l = o("ul", "govuk-pagination__list"), s = (u, f) => {
+        if (!u) return;
+        const g = u, h = o("li", `govuk-pagination__${f}`);
+        h.append(F(`${f === "prev" ? "← " : ""}${g.label}${f === "next" ? " →" : ""}`, g.href, "govuk-link govuk-pagination__link")), l.append(h);
+      };
+      s(t.previous, "prev");
+      for (const u of t.items ?? []) {
+        const f = o("li", `govuk-pagination__item${u.current ? " govuk-pagination__item--current" : ""}`), g = F(u.label, u.href, "govuk-link govuk-pagination__link");
+        u.current && g.setAttribute("aria-current", "page"), f.append(g), l.append(f);
+      }
+      s(t.next, "next"), a.append(l), i.append(a);
       return;
     }
     case "phase_banner": {
-      const a = r("div", "govuk-phase-banner"), s = r("p", "govuk-phase-banner__content");
-      s.append(r("strong", "govuk-tag govuk-phase-banner__content__tag", t.phase));
-      const l = r("span", "govuk-phase-banner__text");
-      X(l, t.content), s.append(l), a.append(s), i.append(a);
+      const a = o("div", "govuk-phase-banner"), l = o("p", "govuk-phase-banner__content");
+      l.append(o("strong", "govuk-tag govuk-phase-banner__content__tag", t.phase));
+      const s = o("span", "govuk-phase-banner__text");
+      X(s, t.content), l.append(s), a.append(l), i.append(a);
       return;
     }
     case "service_navigation": {
-      const a = r("nav", "govuk-service-navigation");
+      const a = o("nav", "govuk-service-navigation");
       a.setAttribute("aria-label", "Service information");
-      const s = r("div", "govuk-width-container");
-      t.service_name && s.append($(t.service_name, t.service_url, "govuk-service-navigation__service-name"));
-      const l = r("ul", "govuk-service-navigation__list");
+      const l = o("div", "govuk-width-container");
+      t.service_name && l.append(F(t.service_name, t.service_url, "govuk-service-navigation__service-name"));
+      const s = o("ul", "govuk-service-navigation__list");
       for (const u of t.items ?? []) {
-        const f = r("li", `govuk-service-navigation__item${u.active ? " govuk-service-navigation__item--active" : ""}`), g = $(u.label, u.href, "govuk-service-navigation__link");
-        u.active && g.setAttribute("aria-current", "page"), f.append(g), l.append(f);
+        const f = o("li", `govuk-service-navigation__item${u.active ? " govuk-service-navigation__item--active" : ""}`), g = F(u.label, u.href, "govuk-service-navigation__link");
+        u.active && g.setAttribute("aria-current", "page"), f.append(g), s.append(f);
       }
-      s.append(l), a.append(s), i.append(a);
+      l.append(s), a.append(l), i.append(a);
       return;
     }
     case "skip_link":
-      i.append($(t.label, t.href, "govuk-skip-link"));
+      i.append(F(t.label, t.href, "govuk-skip-link"));
       return;
     case "panel": {
-      const a = t.variant === "interruption", s = r("div", a ? "st-gds-panel--interruption" : "govuk-panel govuk-panel--confirmation");
-      if (s.append(r("h1", a ? "govuk-heading-xl" : "govuk-panel__title", t.title)), t.content) {
-        const l = r("div", a ? "govuk-body-l" : "govuk-panel__body");
-        X(l, t.content), s.append(l);
+      const a = t.variant === "interruption", l = o("div", a ? "st-gds-panel--interruption" : "govuk-panel govuk-panel--confirmation");
+      if (l.append(o("h1", a ? "govuk-heading-xl" : "govuk-panel__title", t.title)), t.content) {
+        const s = o("div", a ? "govuk-body-l" : "govuk-panel__body");
+        X(s, t.content), l.append(s);
       }
-      i.append(s);
+      i.append(l);
       return;
     }
     case "kpi_card": {
-      const a = t.rag_status ? String(t.rag_status) : null, s = a ? ` st-gds-kpi-card--rag st-gds-kpi-card--rag-${a}` : "", l = r("section", `st-gds-kpi-card${s}`);
-      if (l.setAttribute("aria-label", String(t.label)), l.append(r("h3", "st-gds-kpi-card__label", t.label)), a) {
+      const a = t.rag_status ? String(t.rag_status) : null, l = a ? ` st-gds-kpi-card--rag st-gds-kpi-card--rag-${a}` : "", s = o("section", `st-gds-kpi-card${l}`);
+      if (s.setAttribute("aria-label", String(t.label)), s.append(o("h3", "st-gds-kpi-card__label", t.label)), a) {
         const u = {
           red: "Red status",
           amber: "Amber status",
           green: "Green status"
-        }, f = r("p", "st-gds-kpi-card__status"), g = r("span", "st-gds-kpi-card__status-marker");
-        g.setAttribute("aria-hidden", "true"), f.append(g, document.createTextNode(u[a] ?? `${a} status`)), l.append(f);
+        }, f = o("p", "st-gds-kpi-card__status"), g = o("span", "st-gds-kpi-card__status-marker");
+        g.setAttribute("aria-hidden", "true"), f.append(g, document.createTextNode(u[a] ?? `${a} status`)), s.append(f);
       }
-      if (l.append(r("p", "st-gds-kpi-card__value", t.value)), t.change !== void 0 && t.change !== null) {
-        const u = String(t.trend ?? "neutral"), f = r("p", `st-gds-kpi-card__change st-gds-kpi-card__change--${u}`), g = {
+      if (s.append(o("p", "st-gds-kpi-card__value", t.value)), t.change !== void 0 && t.change !== null) {
+        const u = String(t.trend ?? "neutral"), f = o("p", `st-gds-kpi-card__change st-gds-kpi-card__change--${u}`), g = {
           up: { arrow: "↑", label: "Increased by" },
           down: { arrow: "↓", label: "Decreased by" },
           neutral: { arrow: "", label: "Change:" }
         }, h = g[u] ?? g.neutral;
         if (h.arrow) {
-          const m = r("span", "st-gds-kpi-card__arrow", h.arrow);
+          const m = o("span", "st-gds-kpi-card__arrow", h.arrow);
           m.setAttribute("aria-hidden", "true"), f.append(m);
         }
-        f.append(r("span", "govuk-visually-hidden", `${h.label} `)), f.append(r("strong", "st-gds-kpi-card__change-value", t.change)), t.comparison && (f.append(document.createTextNode(" ")), f.append(r("span", "st-gds-kpi-card__comparison", t.comparison))), l.append(f);
+        f.append(o("span", "govuk-visually-hidden", `${h.label} `)), f.append(o("strong", "st-gds-kpi-card__change-value", t.change)), t.comparison && (f.append(document.createTextNode(" ")), f.append(o("span", "st-gds-kpi-card__comparison", t.comparison))), s.append(f);
       }
-      t.supporting_text && l.append(r("p", "st-gds-kpi-card__supporting", t.supporting_text)), i.append(l);
+      t.supporting_text && s.append(o("p", "st-gds-kpi-card__supporting", t.supporting_text)), i.append(s);
       return;
     }
     case "summary_list": {
-      const a = t.card_title ? r("div", "govuk-summary-card") : i;
+      const a = t.card_title ? o("div", "govuk-summary-card") : i;
       if (t.card_title) {
-        const l = r("div", "govuk-summary-card__title-wrapper");
-        l.append(r("h2", "govuk-summary-card__title", t.card_title)), a.append(l);
+        const s = o("div", "govuk-summary-card__title-wrapper");
+        s.append(o("h2", "govuk-summary-card__title", t.card_title)), a.append(s);
       }
-      const s = r("dl", `govuk-summary-list${t.card_title ? " govuk-summary-card__content" : ""}`);
-      for (const l of t.rows ?? []) {
-        const u = r("div", "govuk-summary-list__row");
-        u.append(r("dt", "govuk-summary-list__key", l.key));
-        const f = r("dd", "govuk-summary-list__value");
-        if (X(f, l.value), u.append(f), l.actions?.length) {
-          const g = r("dd", "govuk-summary-list__actions");
-          l.actions.forEach((h, m) => {
+      const l = o("dl", `govuk-summary-list${t.card_title ? " govuk-summary-card__content" : ""}`);
+      for (const s of t.rows ?? []) {
+        const u = o("div", "govuk-summary-list__row");
+        u.append(o("dt", "govuk-summary-list__key", s.key));
+        const f = o("dd", "govuk-summary-list__value");
+        if (X(f, s.value), u.append(f), s.actions?.length) {
+          const g = o("dd", "govuk-summary-list__actions");
+          s.actions.forEach((h, m) => {
             m && g.append(document.createTextNode(" "));
-            const v = $(h.label, h.href);
-            h.visually_hidden_text && v.append(r("span", "govuk-visually-hidden", ` ${h.visually_hidden_text}`)), g.append(v);
+            const v = F(h.label, h.href);
+            h.visually_hidden_text && v.append(o("span", "govuk-visually-hidden", ` ${h.visually_hidden_text}`)), g.append(v);
           }), u.append(g);
         }
-        s.append(u);
+        l.append(u);
       }
-      a.append(s), a !== i && i.append(a);
+      a.append(l), a !== i && i.append(a);
       return;
     }
     case "table": {
-      const a = r("table", `govuk-table${t.responsive ? " st-gds-table-responsive" : ""}`);
-      t.caption && a.append(r("caption", "govuk-table__caption govuk-table__caption--m", t.caption));
-      const s = t.columns, l = r("thead", "govuk-table__head"), u = r("tr", "govuk-table__row");
-      s.forEach((g) => u.append(r("th", `govuk-table__header${g.numeric ? " govuk-table__header--numeric" : ""}`, g.heading))), l.append(u), a.append(l);
-      const f = r("tbody", "govuk-table__body");
+      const a = o("table", `govuk-table${t.responsive ? " st-gds-table-responsive" : ""}`);
+      t.caption && a.append(o("caption", "govuk-table__caption govuk-table__caption--m", t.caption));
+      const l = t.columns, s = o("thead", "govuk-table__head"), u = o("tr", "govuk-table__row");
+      l.forEach((g) => u.append(o("th", `govuk-table__header${g.numeric ? " govuk-table__header--numeric" : ""}`, g.heading))), s.append(u), a.append(s);
+      const f = o("tbody", "govuk-table__body");
       for (const g of t.rows) {
-        const h = r("tr", "govuk-table__row");
-        s.forEach((m, v) => {
-          const k = r(v === 0 ? "th" : "td", `${v === 0 ? "govuk-table__header" : "govuk-table__cell"}${m.numeric ? ` ${v === 0 ? "govuk-table__header" : "govuk-table__cell"}--numeric` : ""}`, g[m.key]);
+        const h = o("tr", "govuk-table__row");
+        l.forEach((m, v) => {
+          const k = o(v === 0 ? "th" : "td", `${v === 0 ? "govuk-table__header" : "govuk-table__cell"}${m.numeric ? ` ${v === 0 ? "govuk-table__header" : "govuk-table__cell"}--numeric` : ""}`, g[m.key]);
           k.setAttribute("data-label", m.heading), v === 0 && k.setAttribute("scope", "row"), h.append(k);
         }), f.append(h);
       }
@@ -1357,108 +1379,112 @@ function La(i, n, t, c) {
       return;
     }
     case "tag":
-      i.append(r("strong", `govuk-tag govuk-tag--${String(t.colour)}`, t.text));
+      i.append(o("strong", `govuk-tag govuk-tag--${String(t.colour)}`, t.text));
       return;
     case "task_list": {
-      t.title && i.append(r("h2", "govuk-heading-m", t.title));
-      const a = r("ol", "st-gds-task-list"), s = { not_started: "Not started", in_progress: "In progress", completed: "Completed", cannot_start: "Cannot start yet", optional: "Optional" };
-      for (const l of t.items ?? []) {
-        const u = r("li", "st-gds-task-list__item"), f = r("div", "st-gds-task-list__row");
-        f.append(l.href ? $(l.title, l.href) : r("span", void 0, l.title));
-        const g = l.status === "completed" ? "green" : l.status === "in_progress" ? "blue" : "grey";
-        f.append(r("strong", `govuk-tag govuk-tag--${g}`, s[l.status] ?? l.status)), u.append(f), l.hint && u.append(r("p", "st-gds-task-list__hint", l.hint)), a.append(u);
+      t.title && i.append(o("h2", "govuk-heading-m", t.title));
+      const a = o("ol", "st-gds-task-list"), l = { not_started: "Not started", in_progress: "In progress", completed: "Completed", cannot_start: "Cannot start yet", optional: "Optional" };
+      for (const s of t.items ?? []) {
+        const u = o("li", "st-gds-task-list__item"), f = o("div", "st-gds-task-list__row");
+        f.append(s.href ? F(s.title, s.href) : o("span", void 0, s.title));
+        const g = s.status === "completed" ? "green" : s.status === "in_progress" ? "blue" : "grey";
+        f.append(o("strong", `govuk-tag govuk-tag--${g}`, l[s.status] ?? s.status)), u.append(f), s.hint && u.append(o("p", "st-gds-task-list__hint", s.hint)), a.append(u);
       }
       i.append(a);
       return;
     }
     case "warning_text": {
-      const a = r("div", "govuk-warning-text");
-      a.append(r("span", "govuk-warning-text__icon", "!"));
-      const s = r("strong", "govuk-warning-text__text");
-      s.append(r("span", "govuk-visually-hidden", `${String(t.icon_fallback)}:`), document.createTextNode(` ${String(t.text)}`)), a.append(s), i.append(a);
+      const a = o("div", "govuk-warning-text");
+      a.append(o("span", "govuk-warning-text__icon", "!"));
+      const l = o("strong", "govuk-warning-text__text");
+      l.append(o("span", "govuk-visually-hidden", `${String(t.icon_fallback)}:`), document.createTextNode(` ${String(t.text)}`)), a.append(l), i.append(a);
       return;
     }
     case "cookie_banner": {
       if (t.hidden) return;
-      const a = r("div", "govuk-cookie-banner");
+      const a = o("div", "govuk-cookie-banner");
       a.setAttribute("role", "region");
-      const s = r("div", "govuk-cookie-banner__message govuk-width-container");
-      s.append(r("h2", "govuk-cookie-banner__heading govuk-heading-m", t.title));
-      const l = r("div", "govuk-cookie-banner__content");
-      X(l, t.content), s.append(l);
-      const u = r("div", "govuk-button-group");
+      const l = o("div", "govuk-cookie-banner__message govuk-width-container");
+      l.append(o("h2", "govuk-cookie-banner__heading govuk-heading-m", t.title));
+      const s = o("div", "govuk-cookie-banner__content");
+      X(s, t.content), l.append(s);
+      const u = o("div", "govuk-button-group");
       for (const f of t.actions ?? [])
-        if (f.kind === "link") u.append($(f.label, f.href, "govuk-link"));
+        if (f.kind === "link") u.append(F(f.label, f.href, "govuk-link"));
         else {
-          const g = r("button", "govuk-button", f.label);
+          const g = o("button", "govuk-button", f.label);
           g.type = "button", g.addEventListener("click", () => c.setTriggerValue("action", f.value)), u.append(g);
         }
-      s.append(u), a.append(s), i.append(a);
+      l.append(u), a.append(l), i.append(a);
       return;
     }
     case "exit_this_page": {
-      const a = $(t.label, t.href, "govuk-exit-this-page__button govuk-button govuk-button--warning"), s = (l) => {
-        l.key === "Escape" && (c.setTriggerValue("exited", !0), window.location.assign(_t(t.href)));
+      const a = F(t.label, t.href, "govuk-exit-this-page__button govuk-button govuk-button--warning"), l = (s) => {
+        s.key === "Escape" && (c.setTriggerValue("exited", !0), window.location.assign(_t(t.href)));
       };
-      return a.addEventListener("click", () => c.setTriggerValue("exited", !0)), document.addEventListener("keydown", s), i.append(a), () => document.removeEventListener("keydown", s);
+      return a.addEventListener("click", () => c.setTriggerValue("exited", !0)), document.addEventListener("keydown", l), i.append(a), () => document.removeEventListener("keydown", l);
     }
   }
 }
-const Ia = (i) => {
+const Ca = (i) => {
   const n = i.data, t = i.parentElement.querySelector(".st-gds-root");
   if (!t) return;
-  const c = document.activeElement, a = c && t.contains(c) ? c.id : null, s = a && c && fn(c) ? [c.selectionStart, c.selectionEnd] : null;
+  const c = document.activeElement, a = c && t.contains(c) ? c.id : null, l = a && c && fn(c) ? [c.selectionStart, c.selectionEnd] : null;
   t.replaceChildren();
-  const l = n.props ?? {};
+  const s = n.props ?? {};
   let u;
   switch (n.component) {
     case "button":
-      Na(t, l, i);
+      Na(t, s, i);
+      break;
+    case "download_button":
+      La(t, s, i);
       break;
     case "text_input":
-      rn(t, l, i);
+      rn(t, s, i);
       break;
     case "password_input":
-      rn(t, l, i, !0);
+      rn(t, s, i, !0);
       break;
     case "textarea":
-      sn(t, l, i);
+      sn(t, s, i);
       break;
     case "character_count":
-      sn(t, l, i, !0);
+      sn(t, s, i, !0);
       break;
     case "select":
-      Sa(t, l, i);
+      Sa(t, s, i);
       break;
     case "radios":
-      ln(t, l, i, !1);
+      ln(t, s, i, !1);
       break;
     case "checkboxes":
-      ln(t, l, i, !0);
+      ln(t, s, i, !0);
       break;
     case "date_input":
-      wa(t, l, i);
+      wa(t, s, i);
       break;
     case "file_upload":
-      Oa(t, l, i);
+      Oa(t, s, i);
       break;
     case "accordion":
-      Ra(t, l, i);
+      xa(t, s, i);
       break;
     case "tabs":
-      xa(t, l, i);
+      Ia(t, s, i);
       break;
     case "chatbot":
-      Aa(t, l, i);
+      Aa(t, s, i);
       break;
     default:
-      u = La(t, n.component, l, i);
+      u = Da(t, n.component, s, i);
   }
-  return Ea(t, a, s), u;
+  return Ea(t, a, l), u;
 };
 export {
   X as appendContent,
-  Ia as default,
+  Ca as default,
+  Ra as downloadBody,
   Ea as restoreFocus,
   _t as safeHref
 };

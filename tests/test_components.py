@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import date
+from io import BytesIO
 from types import SimpleNamespace
 from typing import Any
 
@@ -148,6 +149,40 @@ def test_date_parsing_and_transient_button(monkeypatch: pytest.MonkeyPatch) -> N
     assert gds.button("Continue", key="continue") is True
 
 
+def test_download_button_forwards_file_data(monkeypatch: pytest.MonkeyPatch) -> None:
+    calls, fake_mount = fake_mount_factory(SimpleNamespace(clicked=True))
+    monkeypatch.setattr(components, "mount", fake_mount)
+
+    assert gds.download_button(
+        "Download results",
+        BytesIO(b"reference,status\nA-123,Complete\n"),
+        "results.csv",
+        key="download-results",
+    )
+    assert calls[0][0] == (
+        "download_button",
+        {
+            "label": "Download results",
+            "data": "cmVmZXJlbmNlLHN0YXR1cwpBLTEyMyxDb21wbGV0ZQo=",
+            "encoding": "base64",
+            "file_name": "results.csv",
+            "mime": "text/csv",
+            "kind": "secondary",
+            "disabled": False,
+            "width": "auto",
+            "help": None,
+        },
+    )
+    assert "clicked" in calls[0][1]["callbacks"]
+
+
+def test_download_button_validates_kind_and_filename() -> None:
+    with pytest.raises(ValueError, match="kind must be"):
+        gds.download_button("Download", "data", key="bad-kind", kind="warning")  # type: ignore[arg-type]
+    with pytest.raises(ValueError, match="file_name"):
+        gds.download_button("Download", b"data", " ", key="bad-name")
+
+
 def test_every_catalogue_wrapper_is_exported() -> None:
     expected = {
         "accordion",
@@ -160,6 +195,7 @@ def test_every_catalogue_wrapper_is_exported() -> None:
         "cookie_banner",
         "date_input",
         "details",
+        "download_button",
         "error_message",
         "error_summary",
         "exit_this_page",

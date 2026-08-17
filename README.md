@@ -46,7 +46,7 @@ gds.footer(organisation="Example organisation")
 
 ## Catalogue
 
-- Forms: Button, Character count, Checkboxes, Date input, Error message,
+- Forms: Button, Download button, Character count, Checkboxes, Date input, Error message,
   Error summary, Fieldset, File upload, Password input, Radios, Select,
   Text input and Textarea.
 - Navigation and page UI: Accordion, Back link, Breadcrumbs, Cookie banner,
@@ -68,6 +68,11 @@ of every public component and major variant. A complete validation flow is in
 Stateful controls require a unique `key`. Values are available directly from
 the return value and under that key in `st.session_state`. Text inputs commit
 on `change`, while buttons and navigation actions use transient triggers.
+
+`gds.download_button` provides the GOV.UK button presentation for downloadable
+text, bytes, or file-like data. It supports primary and secondary variants,
+filename and MIME-type inference, disabled and full-width states, and click
+callbacks. Deferred callable downloads are not currently supported.
 
 Component v2 controls can be placed inside `st.form`, but their state updates
 are not batched in the same way as native Streamlit widgets. Use a submit action

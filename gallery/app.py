@@ -48,6 +48,14 @@ if section == "Forms":
     gds.button("Secondary button", key="gallery-secondary", kind="secondary")
     gds.button("Warning button", key="gallery-warning", kind="warning")
     gds.button("Start now", key="gallery-start", kind="start")
+    gds.download_button(
+        "Download example CSV",
+        b"reference,status\nA-123,Complete\nB-456,In progress\n",
+        "applications.csv",
+        mime="text/csv",
+        key="gallery-download",
+        help="Downloads a CSV file containing example applications",
+    )
 
     name = gds.text_input(
         "Full name",

@@ -449,6 +449,47 @@ function renderButton(root: HTMLElement, props: Props, args: RendererArgs): void
   root.append(button);
 }
 
+function downloadBody(value: unknown, encoding = "text"): string | Uint8Array {
+  if (encoding === "base64") {
+    if (typeof value !== "string") throw new TypeError("Base64 download data must be text");
+    const binary = window.atob(value);
+    return Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  }
+  if (typeof value === "string") return value;
+  if (value instanceof Uint8Array) return new Uint8Array(value);
+  if (value instanceof ArrayBuffer) return new Uint8Array(value);
+  if (Array.isArray(value) && value.every((item) => Number.isInteger(item))) {
+    return new Uint8Array(value as number[]);
+  }
+  throw new TypeError("Download data must be text or bytes");
+}
+
+function renderDownloadButton(root: HTMLElement, props: Props, args: RendererArgs): void {
+  const kind = String(props.kind ?? "secondary");
+  const modifier = kind === "secondary" ? " govuk-button--secondary" : "";
+  const fullWidth = props.width === "full" ? " st-gds-button-full" : "";
+  const button = element("button", `govuk-button${modifier}${fullWidth}`, props.label as Scalar);
+  button.type = "button";
+  button.disabled = Boolean(props.disabled);
+  if (props.help) button.title = String(props.help);
+  button.addEventListener("click", () => {
+    const blob = new Blob([downloadBody(props.data, String(props.encoding))], {
+      type: String(props.mime),
+    });
+    const url = URL.createObjectURL(blob);
+    const anchor = element("a");
+    anchor.href = url;
+    anchor.download = String(props.file_name);
+    anchor.hidden = true;
+    root.append(anchor);
+    anchor.click();
+    anchor.remove();
+    window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    args.setTriggerValue("clicked", true);
+  });
+  root.append(button);
+}
+
 function renderAccordion(root: HTMLElement, props: Props, args: RendererArgs): void {
   const items = (props.items ?? []) as Array<{ heading: string; content: unknown; expanded?: boolean }>;
   const open = new Set<number>((props.open ?? []) as number[]);
@@ -759,6 +800,7 @@ const catalog: Component = (args) => {
   let cleanup: (() => void) | void = undefined;
   switch (data.component) {
     case "button": renderButton(root, props, args); break;
+    case "download_button": renderDownloadButton(root, props, args); break;
     case "text_input": renderTextInput(root, props, args); break;
     case "password_input": renderTextInput(root, props, args, true); break;
     case "textarea": renderTextarea(root, props, args); break;
@@ -778,4 +820,4 @@ const catalog: Component = (args) => {
 };
 
 export default catalog;
-export { appendContent, safeHref };
+export { appendContent, downloadBody, safeHref };
