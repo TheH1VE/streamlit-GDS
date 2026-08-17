@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import re
 from collections.abc import Sequence
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from .models import Option
 
@@ -28,11 +28,20 @@ def required_key(key: str | None, component: str) -> str:
     return key
 
 
-def normalise_options(options: Sequence[Option[T] | tuple[str, T]]) -> list[Option[T]]:
+def normalise_options(options: Sequence[T | Option[T] | tuple[str, T]]) -> list[Option[T]]:
     output: list[Option[T]] = []
     seen: set[Any] = set()
     for item in options:
-        option = item if isinstance(item, Option) else Option(label=item[0], value=item[1])
+        if isinstance(item, Option):
+            option = item
+        elif isinstance(item, tuple):
+            if len(item) != 2 or not isinstance(item[0], str):
+                raise TypeError("tuple options must contain exactly (label, value)")
+            label, value = cast(tuple[str, T], item)
+            option = Option(label=label, value=value)
+        else:
+            value = item
+            option = Option(label=str(value), value=value)
         marker = repr(option.value)
         if marker in seen:
             raise ValueError(f"option values must be unique; duplicate: {option.value!r}")

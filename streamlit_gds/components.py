@@ -233,7 +233,7 @@ def character_count(
 
 def select(
     label: str,
-    options: Sequence[Option[T] | tuple[str, T]],
+    options: Sequence[T | Option[T] | tuple[str, T]],
     *,
     key: str,
     value: T | None = None,
@@ -263,7 +263,7 @@ def select(
 
 def radios(
     label: str,
-    options: Sequence[Option[T] | tuple[str, T]],
+    options: Sequence[T | Option[T] | tuple[str, T]],
     *,
     key: str,
     value: T | None = None,
@@ -296,7 +296,7 @@ def radios(
 
 def checkboxes(
     label: str,
-    options: Sequence[Option[T] | tuple[str, T]],
+    options: Sequence[T | Option[T] | tuple[str, T]],
     *,
     key: str,
     value: Sequence[T] = (),
