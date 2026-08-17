@@ -20,11 +20,18 @@ def test_models_serialize_recursively() -> None:
 
 
 def test_option_validation() -> None:
-    assert normalise_options([("One", 1), Option("Two", 2)])[1].value == 2
+    options = normalise_options([1, ("Two", 2), Option("Three", 3)])
+    assert [(option.label, option.value) for option in options] == [
+        ("1", 1),
+        ("Two", 2),
+        ("Three", 3),
+    ]
     with pytest.raises(ValueError, match="at least one"):
         normalise_options([])
     with pytest.raises(ValueError, match="unique"):
         normalise_options([("One", 1), ("Again", 1)])
+    with pytest.raises(TypeError, match=r"exactly \(label, value\)"):
+        normalise_options([("One", 1, "unexpected")])
 
 
 @pytest.mark.parametrize("value", ["red", "#123", "#1234567", "#gggggg"])

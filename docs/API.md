@@ -26,6 +26,35 @@ sequence. Callbacks follow Streamlit's execution model and accept `args` and
 - `date_input(label, *, key, value=None, ...) -> datetime.date | None`
 - `file_upload(label, *, key, accept=(), max_size_mb=None, ...) -> UploadedFileValue | None`
 
+`select`, `radios`, and `checkboxes` accept a simple sequence of values. Each
+value is displayed using `str(value)` and returned unchanged:
+
+```python
+country = gds.select(
+    "Country",
+    ["England", "Scotland", "Wales"],
+    key="country",
+)
+```
+
+Use `(label, value)` tuples when the displayed label and returned value should
+differ, or `Option` objects when you need hints, disabled choices, or
+conditional content:
+
+```python
+contact_method = gds.radios(
+    "How should we contact you?",
+    [
+        ("Email", "email"),
+        gds.Option("Telephone", "phone", hint="Monday to Friday"),
+    ],
+    key="contact-method",
+)
+```
+
+Option values must be unique. A tuple is always interpreted as a
+`(label, value)` pair.
+
 ## Navigation and page UI
 
 `accordion`, `back_link`, `breadcrumbs`, `cookie_banner`, `exit_this_page`,

@@ -91,7 +91,7 @@ if section == "Forms":
         [("Service updates", "service"), ("Research invitations", "research")],
         key="gallery-checkboxes",
     )
-    gds.select("Country", [("England", "england"), ("Scotland", "scotland")], key="gallery-select")
+    gds.select("Country", ["England", "Scotland", "Wales"], key="gallery-select")
     gds.date_input(
         "Date of birth", key="gallery-date", value=date(1990, 1, 1), hint="For example, 31 3 1980"
     )

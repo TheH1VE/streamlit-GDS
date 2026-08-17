@@ -72,6 +72,11 @@ Component v2 controls can be placed inside `st.form`, but their state updates
 are not batched in the same way as native Streamlit widgets. Use a submit action
 to control when your application processes the stored values.
 
+Choice controls accept simple value lists, for example
+`gds.select("Country", ["England", "Scotland"], key="country")`. Use
+`(label, value)` tuples when the displayed label should differ from the returned
+value, or `gds.Option` for hints, disabled choices, and conditional content.
+
 `HtmlContent` is the only rich-HTML escape hatch. It is sanitised in the
 browser using a small allow-list. Normal strings are always inserted as text.
 

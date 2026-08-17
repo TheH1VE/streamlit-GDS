@@ -125,7 +125,7 @@ def test_chatbot_rejects_empty_labels_and_unknown_roles() -> None:
 def test_choice_inputs_return_native_values(monkeypatch: pytest.MonkeyPatch) -> None:
     _, fake_mount = fake_mount_factory(SimpleNamespace(value="email"))
     monkeypatch.setattr(components, "mount", fake_mount)
-    options = [("Email", "email"), ("Post", "post")]
+    options = ["email", "post"]
     assert gds.radios("Contact", options, key="contact") == "email"
     assert gds.select("Contact", options, key="select-contact") == "email"
 

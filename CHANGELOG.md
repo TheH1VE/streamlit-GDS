@@ -10,6 +10,8 @@ All notable changes to this project will be documented here. The format follows
 
 - GitHub contribution, security, issue, pull-request, and dependency-update
   configuration.
+- Simple value lists for select, radio, and checkbox options, while retaining
+  `(label, value)` tuples and `Option` objects for richer choices.
 - Accessible GOV.UK-inspired KPI card extension with directional change and
   comparison text.
 - Accessible GOV.UK-inspired chatbot extension with a live transcript,
