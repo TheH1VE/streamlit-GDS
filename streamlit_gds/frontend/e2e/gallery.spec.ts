@@ -39,13 +39,23 @@ test("keyboard reaches the skip link and primary action", async ({ page }) => {
   await expect(page.getByRole("heading", { name: "Success" })).toBeVisible();
 });
 
+test("download button supplies the configured filename", async ({ page }) => {
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("button", { name: "Download example CSV" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("applications.csv");
+});
+
 test("KPI cards expose values and trend direction without colour alone", async ({ page }) => {
   await page.getByRole("radio", { name: "Content" }).evaluate((radio: HTMLInputElement) => radio.click());
   const card = page.getByRole("region", { name: "Applications received" });
   await expect(card).toContainText("1,248");
+  await expect(card).toContainText("Green status");
   await expect(card).toContainText("Increased by");
   await expect(card).toContainText("12%");
   await expect(card).toContainText("from last month");
+  await expect(page.getByRole("region", { name: "Decisions issued" })).toContainText("Amber status");
+  await expect(page.getByRole("region", { name: "Overdue cases" })).toContainText("Red status");
 });
 
 test("chatbot submits a message and preserves visible speaker attribution", async ({ page }) => {

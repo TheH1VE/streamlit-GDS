@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import base64
+import mimetypes
 from collections.abc import Callable, Mapping, Sequence
 from datetime import date
 from functools import partial
-from typing import Any, Literal, TypeVar, cast
+from pathlib import Path
+from typing import Any, BinaryIO, Literal, TextIO, TypeVar, cast
 
 import streamlit as st
 
@@ -34,8 +37,20 @@ T = TypeVar("T")
 Callback = Callable[..., Any]
 Content = str | HtmlContent
 ButtonKind = Literal["primary", "secondary", "warning", "start"]
+DownloadButtonKind = Literal["primary", "secondary"]
+DownloadData = str | bytes | bytearray | memoryview | BinaryIO | TextIO
 TextInputType = Literal["text", "number"]
 KpiTrend = Literal["up", "down", "neutral"]
+KpiRagStatus = Literal["red", "amber", "green"]
+_COMMON_MIME_TYPES = {
+    ".csv": "text/csv",
+    ".html": "text/html",
+    ".json": "application/json",
+    ".pdf": "application/pdf",
+    ".txt": "text/plain",
+    ".xml": "application/xml",
+    ".zip": "application/zip",
+}
 
 
 def _callback(
@@ -82,6 +97,81 @@ def button(
         "button",
         {"label": label, "kind": kind, "disabled": disabled, "width": width},
         key=required_key(key, "button"),
+        callbacks={"clicked": _callback(on_click, args, kwargs)},
+    )
+    return bool(result_value(result, "clicked", False))
+
+
+def download_button(
+    label: str,
+    data: DownloadData,
+    file_name: str | None = None,
+    mime: str | None = None,
+    *,
+    key: str,
+    kind: DownloadButtonKind = "secondary",
+    disabled: bool = False,
+    width: Literal["auto", "full"] = "auto",
+    help: str | None = None,
+    on_click: Callback | None = None,
+    args: tuple[Any, ...] = (),
+    kwargs: Mapping[str, Any] | None = None,
+) -> bool:
+    """Render a GOV.UK-styled button that downloads text or binary data."""
+
+    if kind not in {"primary", "secondary"}:
+        raise ValueError("kind must be primary or secondary")
+
+    source_name = getattr(data, "name", None)
+    if isinstance(data, str):
+        payload: str | bytes = data
+    elif isinstance(data, bytes):
+        payload = data
+    elif isinstance(data, bytearray | memoryview):
+        payload = bytes(data)
+    else:
+        payload = data.read()
+        if not isinstance(payload, str | bytes):
+            raise TypeError("file-like download data must return str or bytes from read()")
+
+    if file_name is None:
+        file_name = Path(source_name).name if isinstance(source_name, str) and source_name else None
+    if file_name is None:
+        file_name = "download.txt" if isinstance(payload, str) else "download.bin"
+    if not file_name.strip() or "\x00" in file_name:
+        raise ValueError("file_name must be a non-empty valid filename")
+
+    if mime is None:
+        guessed_mime, _ = mimetypes.guess_type(file_name)
+        mime = _COMMON_MIME_TYPES.get(Path(file_name).suffix.lower()) or guessed_mime or (
+            "text/plain; charset=utf-8"
+            if isinstance(payload, str)
+            else "application/octet-stream"
+        )
+    if not mime.strip():
+        raise ValueError("mime must not be empty")
+
+    if isinstance(payload, str):
+        transported_data = payload
+        encoding = "text"
+    else:
+        transported_data = base64.b64encode(payload).decode("ascii")
+        encoding = "base64"
+
+    result = mount(
+        "download_button",
+        {
+            "label": label,
+            "data": transported_data,
+            "encoding": encoding,
+            "file_name": file_name,
+            "mime": mime,
+            "kind": kind,
+            "disabled": disabled,
+            "width": width,
+            "help": help,
+        },
+        key=required_key(key, "download_button"),
         callbacks={"clicked": _callback(on_click, args, kwargs)},
     )
     return bool(result_value(result, "clicked", False))
@@ -590,6 +680,7 @@ def kpi_card(
     *,
     change: str | int | float | None = None,
     trend: KpiTrend = "neutral",
+    rag_status: KpiRagStatus | None = None,
     comparison: str | None = None,
     supporting_text: str | None = None,
 ) -> None:
@@ -597,13 +688,16 @@ def kpi_card(
 
     This is a Streamlit GDS extension rather than an official GOV.UK Design
     System component. ``trend`` describes direction only; it does not imply
-    that an increase is good or a decrease is bad.
+    that an increase is good or a decrease is bad. ``rag_status`` adds a
+    written red, amber, or green status as well as a colour accent.
     """
 
     if not label.strip():
         raise ValueError("KPI card label must not be empty")
     if trend not in {"up", "down", "neutral"}:
         raise ValueError("trend must be 'up', 'down', or 'neutral'")
+    if rag_status not in {None, "red", "amber", "green"}:
+        raise ValueError("rag_status must be 'red', 'amber', 'green', or None")
     mount(
         "kpi_card",
         {
@@ -611,6 +705,7 @@ def kpi_card(
             "value": value,
             "change": change,
             "trend": trend,
+            "rag_status": rag_status,
             "comparison": comparison,
             "supporting_text": supporting_text,
         },

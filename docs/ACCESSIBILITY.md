@@ -7,7 +7,11 @@ focusable error summaries.
 
 KPI cards expose a named region, heading, value, and textual trend direction.
 Arrow icons are decorative, and an increase or decrease is never conveyed by
-colour alone.
+colour alone. Optional RAG status uses a subtle coloured accent and marker but
+also includes visible text such as "Amber status". The accent falls back to
+system colours in forced-colour mode and to black in print. Applications must
+explain what each RAG category means for their service rather than relying on
+assumed colour meanings.
 
 The chatbot transcript is a named, keyboard-focusable live log. Every message
 has visible speaker attribution, optional timestamps, and text that is safely

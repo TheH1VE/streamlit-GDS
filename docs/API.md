@@ -17,6 +17,7 @@ sequence. Callbacks follow Streamlit's execution model and accept `args` and
 ## Stateful form controls
 
 - `button(label, *, key, kind="primary", disabled=False, width="auto", on_click=None, ...) -> bool`
+- `download_button(label, data, file_name=None, mime=None, *, key, kind="secondary", disabled=False, width="auto", help=None, on_click=None, ...) -> bool`
 - `text_input(label, *, key, value="", hint=None, error=None, disabled=False, required=False, width="full", prefix=None, suffix=None, autocomplete=None, inputmode=None, input_type="text", on_change=None, ...) -> str`; set `input_type="number"` for numeric entry.
 - `textarea(...) -> str`, `password_input(..., show_label="Show", hide_label="Hide") -> str`, and
   `character_count(..., max_characters, threshold=75) -> str`
@@ -25,6 +26,26 @@ sequence. Callbacks follow Streamlit's execution model and accept `args` and
 - `checkboxes(label, options, *, key, value=(), small=False, ...) -> list[T]`
 - `date_input(label, *, key, value=None, ...) -> datetime.date | None`
 - `file_upload(label, *, key, accept=(), max_size_mb=None, ...) -> UploadedFileValue | None`
+
+`download_button` accepts text, bytes, bytearray, memoryview, and text or binary
+file-like objects. It infers the MIME type from `file_name` when possible and
+uses `download.txt` or `download.bin` when no filename is supplied:
+
+```python
+gds.download_button(
+    "Download results",
+    "reference,status\nA-123,Complete\n",
+    "results.csv",
+    mime="text/csv",
+    key="download-results",
+)
+```
+
+Use `kind="primary"` only when downloading is the main action on the page.
+Deferred callable data generation from `st.download_button` is not currently
+supported; prepare or cache the data before calling this component. Download
+data is held in memory, and binary data has base64 transport overhead, so use
+external object storage for very large files.
 
 ## Navigation and page UI
 
@@ -40,11 +61,25 @@ names. Stateful functions return the selected index, action, or trigger value.
 semantic content. `error_summary(..., focus=True)` focuses itself by default;
 set `focus=False` only for galleries or non-validation demonstrations.
 
-`kpi_card(label, value, *, change=None, trend="neutral", comparison=None,
-supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
+`kpi_card(label, value, *, change=None, trend="neutral", rag_status=None,
+comparison=None, supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
 Streamlit GDS extension rather than an official GOV.UK component. `trend` is
 `"up"`, `"down"`, or `"neutral"` and communicates direction only, not whether
-the change is good or bad.
+the change is good or bad. Set `rag_status` to `"red"`, `"amber"`, or `"green"`
+for a subtle status-coloured accent and a visible written status:
+
+```python
+gds.kpi_card(
+    "Decisions issued",
+    986,
+    rag_status="amber",
+    supporting_text="Target: 1,000 decisions",
+)
+```
+
+The written status and forced-colour treatment ensure colour is not the only
+cue. Define what red, amber, and green mean for the service near the cards;
+do not assume every user will interpret the categories in the same way.
 
 `chatbot(messages, *, key, label="Chat support", input_label="Your message",
 hint=None, error=None, placeholder=None, send_label="Send",
