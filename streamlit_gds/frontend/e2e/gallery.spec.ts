@@ -3,7 +3,12 @@ import { expect, test } from "@playwright/test";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /Component gallery/ })).toBeVisible();
+  // The health endpoint can be ready before Streamlit has completed the first
+  // script render on a cold CI runner. Keep normal assertions at Playwright's
+  // default timeout, but allow this page-readiness signal a little longer.
+  await expect(page.getByRole("heading", { name: /Component gallery/ })).toBeVisible({
+    timeout: 15_000,
+  });
 });
 
 test("gallery has no serious or critical axe violations", async ({ page }) => {
