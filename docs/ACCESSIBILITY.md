@@ -5,6 +5,19 @@ visible labels, fieldsets and legends, deterministic IDs, error associations,
 live character-count messages, keyboard-operable disclosure controls, and
 focusable error summaries.
 
+Native-compatible functions retain Streamlit's DOM, semantics and keyboard
+behaviour. The package changes their presentation without replacing event
+handling or state. Native labels, disabled states and focus order therefore
+remain Streamlit's responsibility; GDS styling adds the yellow focus indicator,
+high-contrast borders, responsive typography, forced-colour fallbacks and print
+treatment. Interactive data grids, charts and media are framed rather than
+reimplemented.
+
+Exact error-message associations, hint text and conditional content are
+available through `gds.catalogue`. Native Streamlit signatures do not accept
+those extra arguments, so applications must not communicate validation errors
+through colour or placeholder text alone.
+
 KPI cards expose a named region, heading, value, and textual trend direction.
 Arrow icons are decorative, and an increase or decrease is never conveyed by
 colour alone. Optional RAG status uses a subtle coloured accent and marker but

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "streamlit-gds"
-version = "0.1.0"
+version = "0.2.0"
 description = "GOV.UK Design System-inspired components for non-GOV.UK Streamlit services"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -16,7 +16,7 @@ classifiers = [
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
 ]
-dependencies = ["streamlit>=1.60,<2"]
+dependencies = ["streamlit>=1.61,<1.62"]
 
 [project.optional-dependencies]
 dev = [
