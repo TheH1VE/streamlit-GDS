@@ -107,7 +107,9 @@ name = gds.catalogue.text_input(
   paragraphs, links, lists, images and section breaks.
 
 The gallery at [`gallery/app.py`](gallery/app.py) contains a runnable example
-of every public component and major variant. A complete validation flow is in
+of every public component and major variant. Its GDS-style front page explains
+the native-compatible and exact-catalogue APIs and links back to this GitHub
+repository. A complete validation flow is in
 [`examples/example_service.py`](examples/example_service.py).
 
 The repository's [`.streamlit/config.toml`](.streamlit/config.toml) makes the

@@ -17,8 +17,8 @@ gds.catalogue.header(
     organisation="Example public service",
     service_name="Streamlit GDS",
     navigation=[
-        gds.NavigationItem("Components", "#components", active=True),
-        gds.NavigationItem("Accessibility", "#accessibility"),
+        gds.NavigationItem("Gallery", "/", active=True),
+        gds.NavigationItem("GitHub", "https://github.com/TheH1VE/streamlit-GDS"),
     ],
 )
 gds.phase_banner("Alpha", "This library is being actively developed.")
@@ -35,11 +35,65 @@ gds.paragraph(
 
 section = gds.sidebar.radio(
     "Catalogue section",
-    ["Native API", "Forms", "Navigation", "Content", "Styles"],
+    ["Home", "Native API", "Forms", "Navigation", "Content", "Styles"],
     key="gallery-section",
 )
 
-if section == "Native API":
+if section == "Home":
+    gds.heading("Explore Streamlit GDS", size="l")
+    gds.paragraph(
+        "This gallery demonstrates how Streamlit applications can use familiar "
+        "Streamlit behaviour with a consistent, accessible GOV.UK-inspired presentation.",
+        lead=True,
+    )
+
+    native_column, catalogue_column = gds.columns(2, gap="large", border=True)
+    with native_column:
+        gds.heading("Native-compatible API", size="m")
+        gds.paragraph(
+            "Use native Streamlit arguments, return values, callbacks, forms and session "
+            "state. For most applications, only the import alias needs to change."
+        )
+        gds.markdown(
+            "Import `streamlit_gds` as `gds`, then use native functions such as "
+            "`text_input` and `button`."
+        )
+
+    with catalogue_column:
+        gds.heading("GOV.UK component catalogue", size="m")
+        gds.paragraph(
+            "Use gds.catalogue for exact component structures and additional features "
+            "such as hints, errors, conditional content and GOV.UK button variants."
+        )
+        gds.markdown(
+            "Choose components from `gds.catalogue` when you need the exact "
+            "catalogue API and its additional arguments."
+        )
+
+    gds.heading("What you can explore", size="m")
+    gds.list(
+        [
+            "Native Streamlit text, actions, inputs, data, layouts and status components",
+            "Exact GOV.UK form, navigation, content and status components",
+            "Responsive layouts, validation states and accessible interaction patterns",
+            "Streamlit GDS extensions including KPI cards, downloads and a chatbot",
+        ]
+    )
+    gds.inset_text(
+        "Streamlit GDS is intended for non-GOV.UK deployments. It does not include the "
+        "GOV.UK logo, Crown copyright defaults or the restricted GDS Transport typeface."
+    )
+    gds.link_button(
+        "View the project on GitHub",
+        "https://github.com/TheH1VE/streamlit-GDS",
+        type="primary",
+    )
+    gds.paragraph(
+        "Visit GitHub to read the source, review documentation, report an issue or "
+        "contribute to the project."
+    )
+
+elif section == "Native API":
     gds.header("Native Streamlit compatibility")
     gds.write(
         "These components use Streamlit's native state, callbacks and return values. "

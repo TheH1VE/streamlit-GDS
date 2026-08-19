@@ -35,6 +35,16 @@ test("component gallery visual baseline and responsive width", async ({ page }, 
   });
 });
 
+test("front page explains the gallery and links to GitHub", async ({ page }) => {
+  await expect(page.getByRole("heading", { name: "Explore Streamlit GDS" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Native-compatible API" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "GOV.UK component catalogue" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "View the project on GitHub" })).toHaveAttribute(
+    "href",
+    "https://github.com/TheH1VE/streamlit-GDS",
+  );
+});
+
 test("keyboard reaches the skip link and primary action", async ({ page }) => {
   const skipLink = page.getByRole("link", { name: "Skip to main content" });
   await skipLink.focus();
@@ -56,6 +66,7 @@ test("download button supplies the configured filename", async ({ page }) => {
 
 test("native wrappers retain Streamlit interactions and GDS host styling", async ({ page }) => {
   await expect(page.locator("body")).toHaveClass(/st-gds-host/);
+  await page.getByRole("radio", { name: "Native API" }).evaluate((radio: HTMLInputElement) => radio.click());
   await expect(page.getByRole("heading", { name: "Native Streamlit compatibility" })).toBeVisible();
   const inputsTab = page.getByRole("tab", { name: "Inputs" });
   await inputsTab.click({ force: true });
@@ -87,6 +98,7 @@ test("native wrappers retain Streamlit interactions and GDS host styling", async
 });
 
 test("native form batches values until its submit button", async ({ page }) => {
+  await page.getByRole("radio", { name: "Native API" }).evaluate((radio: HTMLInputElement) => radio.click());
   const layoutTab = page.getByRole("tab", { name: "Layout" });
   await layoutTab.click({ force: true });
   await expect(layoutTab).toHaveAttribute("aria-selected", "true");
