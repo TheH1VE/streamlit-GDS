@@ -6,6 +6,12 @@ All notable changes to this project will be documented here. The format follows
 
 ## [Unreleased]
 
+### Fixed
+
+- Repeated identical `section_break()` calls no longer create duplicate
+  Component v2 IDs, and the `size` argument now changes spacing using GOV.UK
+  spacing utilities.
+
 ## [0.2.0] - 2026-08-19
 
 ### Added

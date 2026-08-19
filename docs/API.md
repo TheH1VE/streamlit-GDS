@@ -87,6 +87,12 @@ catalogue names.
 `kpi_card(..., rag_status="red" | "amber" | "green")` and `chatbot(...)` are
 GDS-inspired Streamlit extensions rather than official GOV.UK components.
 
+### Core catalogue styles
+
+`section_break(*, visible=True, size=3, key=None)` accepts GOV.UK spacing scale
+steps from 0 to 6. Repeated identical section breaks receive safe internal keys
+automatically; an explicit `key` is optional when fixed identity is useful.
+
 ## Typed models and safe content
 
 `Option`, `Link`, `Breadcrumb`, `ChatMessage`, `NavigationItem`,

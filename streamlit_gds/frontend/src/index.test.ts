@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { appendContent, downloadBody, restoreFocus, safeHref } from "./index";
+import { appendContent, downloadBody, restoreFocus, safeHref, sectionBreakClasses } from "./index";
 
 describe("safeHref", () => {
   it("allows service links and rejects executable protocols", () => {
@@ -69,5 +69,16 @@ describe("restoreFocus", () => {
     expect(input.selectionStart).toBe(1);
     expect(input.selectionEnd).toBe(3);
     root.remove();
+  });
+});
+
+describe("sectionBreakClasses", () => {
+  it("uses GOV.UK spacing utilities and preserves visible state", () => {
+    expect(sectionBreakClasses(4, true)).toBe(
+      "govuk-section-break govuk-!-margin-top-4 govuk-!-margin-bottom-4 govuk-section-break--visible",
+    );
+    expect(sectionBreakClasses(2, false)).toBe(
+      "govuk-section-break govuk-!-margin-top-2 govuk-!-margin-bottom-2",
+    );
   });
 });

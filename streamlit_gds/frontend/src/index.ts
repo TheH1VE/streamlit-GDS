@@ -127,6 +127,16 @@ export function restoreFocus(root: HTMLElement, previousId: string | null, selec
   }
 }
 
+export function sectionBreakClasses(size: number, visible: boolean): string {
+  const spacing = Math.min(6, Math.max(0, Math.trunc(Number(size) || 0)));
+  return [
+    "govuk-section-break",
+    `govuk-!-margin-top-${spacing}`,
+    `govuk-!-margin-bottom-${spacing}`,
+    visible ? "govuk-section-break--visible" : "",
+  ].filter(Boolean).join(" ");
+}
+
 function renderTextInput(root: HTMLElement, props: Props, args: RendererArgs, password = false): void {
   const id = componentId(props);
   const { group, describedBy } = inputGroup(props, id);
@@ -743,7 +753,7 @@ function renderStatic(root: HTMLElement, component: string, props: Props, args: 
       root.append(figure); return;
     }
     case "section_break": {
-      root.append(element("hr", `govuk-section-break govuk-section-break--${String(props.size ?? 3)}${props.visible ? " govuk-section-break--visible" : ""}`)); return;
+      root.append(element("hr", sectionBreakClasses(Number(props.size ?? 3), Boolean(props.visible)))); return;
     }
     case "back_link": root.append(linkNode(props.label, props.href, "govuk-back-link")); return;
     case "breadcrumbs": {

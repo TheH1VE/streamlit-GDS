@@ -58,6 +58,29 @@ def test_public_list_helper_uses_builtin_list(monkeypatch: pytest.MonkeyPatch) -
     assert calls == [(("list", expected_props), {})]
 
 
+def test_section_break_forwards_spacing_and_optional_key(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    calls: list[tuple[tuple[Any, ...], dict[str, Any]]] = []
+    monkeypatch.setattr(styles, "mount", lambda *args, **kwargs: calls.append((args, kwargs)))
+
+    gds.section_break(size=4)
+    gds.section_break(size=4, visible=False, key="second-break")
+
+    assert calls == [
+        (("section_break", {"visible": True, "size": 4}), {"key": None}),
+        (
+            ("section_break", {"visible": False, "size": 4}),
+            {"key": "second-break"},
+        ),
+    ]
+
+
+def test_section_break_rejects_invalid_spacing() -> None:
+    with pytest.raises(ValueError, match="integer from 0 to 6"):
+        gds.section_break(size=7)  # type: ignore[arg-type]
+
+
 def test_kpi_card_forwards_accessible_metric_content(monkeypatch: pytest.MonkeyPatch) -> None:
     calls, fake_mount = fake_mount_factory(SimpleNamespace())
     monkeypatch.setattr(components, "mount", fake_mount)

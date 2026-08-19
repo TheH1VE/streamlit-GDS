@@ -112,8 +112,21 @@ def image(src: str, *, alt: str, caption: str | None = None, width: int | None =
     mount("image", {"src": src, "alt": alt, "caption": caption, "width": width})
 
 
-def section_break(*, visible: bool = True, size: Literal[0, 1, 2, 3, 4, 5, 6] = 3) -> None:
-    mount("section_break", {"visible": visible, "size": size})
+def section_break(
+    *,
+    visible: bool = True,
+    size: Literal[0, 1, 2, 3, 4, 5, 6] = 3,
+    key: str | None = None,
+) -> None:
+    """Insert a divider with spacing from the GOV.UK 0-to-6 scale.
+
+    Repeated section breaks are assigned distinct internal keys automatically.
+    Supply ``key`` only when an explicit, stable identity is useful.
+    """
+
+    if isinstance(size, bool) or not isinstance(size, int) or size not in range(7):
+        raise ValueError("size must be an integer from 0 to 6")
+    mount("section_break", {"visible": visible, "size": size}, key=key)
 
 
 # `list` is the documented public spelling. Keep the implementation name

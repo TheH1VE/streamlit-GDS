@@ -3,13 +3,32 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from threading import local
 from typing import Any
 
 import streamlit as st
+from streamlit.runtime.scriptrunner import get_script_run_ctx
 
 from .models import serialize
 
 _catalog: Any = None
+_auto_key_state = local()
+_missing_run = object()
+
+
+def _next_auto_key(component: str) -> str:
+    """Return a stable per-run key for an otherwise unkeyed catalogue element."""
+
+    ctx = get_script_run_ctx(suppress_warning=True)
+    run_cursors = ctx.cursors if ctx is not None else None
+    if getattr(_auto_key_state, "run_cursors", _missing_run) is not run_cursors:
+        _auto_key_state.run_cursors = run_cursors
+        _auto_key_state.counts = {}
+
+    counts: dict[str, int] = _auto_key_state.counts
+    index = counts.get(component, 0)
+    counts[component] = index + 1
+    return f"streamlit-gds-auto-{component}-{index}"
 
 
 def _get_catalog() -> Any:
@@ -37,6 +56,8 @@ def mount(
 ) -> Any:
     """Mount a catalogue entry and register all of its state callbacks."""
 
+    resolved_key = key if key is not None else _next_auto_key(component)
+
     callback_args: dict[str, Callable[..., Any]] = {}
     for name, callback in (callbacks or {}).items():
         callback_args[f"on_{name}_change"] = callback or (lambda: None)
@@ -51,13 +72,13 @@ def mount(
                 rendered_props[state_name] = getattr(state, state_name)
             elif isinstance(state, dict) and state_name in state:
                 rendered_props[state_name] = state[state_name]
-    rendered_props["_key"] = key or component
+    rendered_props["_key"] = resolved_key
 
     catalog = _get_catalog()
     return catalog(
         data={"component": component, "props": serialize(rendered_props)},
         default=default or {},
-        key=key,
+        key=resolved_key,
         **callback_args,
     )
 
