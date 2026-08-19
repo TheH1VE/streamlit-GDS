@@ -1,103 +1,99 @@
 # Python API
 
-All stateful controls require a unique `key` without the reserved `__`
-sequence. Callbacks follow Streamlit's execution model and accept `args` and
-`kwargs` where exposed.
+Version 0.2 has two complementary surfaces:
 
-## Setup and core styles
+- top-level `gds.*` functions delegate to Streamlit 1.61 and retain native
+  signatures, annotations, return values and state;
+- `gds.catalogue.*` contains the exact GOV.UK component implementations and
+  their additional hint, error, conditional-content and variant arguments.
 
-- `configure(*, page_title, service_name, brand_colour="#1d70b8", chrome="minimal", page_icon=None, layout="centered")`
-- `container(*, key, width="full", border=False)` returns a Streamlit container.
-- `columns(spec, *, gap="medium", vertical_alignment="top")` returns Streamlit columns.
-- `space(size=4)`, `heading(text, *, size="l", caption=None)`, and
-  `paragraph(content, *, lead=False)` render typography and spacing.
-- `link(label, href, *, external=False)`, `list(items, *, ordered=False, bullet=True)`,
-  `image(src, *, alt, caption=None, width=None)`, and `section_break(...)` render core elements.
+GDS host styling is installed lazily on the first supported top-level UI call.
+Automatic mode keeps Streamlit chrome visible. `configure(...)` can set the
+page title, service name, brand colour, layout and optional minimal chrome.
 
-## Stateful form controls
+## Native-compatible functions
 
-- `button(label, *, key, kind="primary", disabled=False, width="auto", on_click=None, ...) -> bool`
-- `download_button(label, data, file_name=None, mime=None, *, key, kind="secondary", disabled=False, width="auto", help=None, on_click=None, ...) -> bool`
-- `text_input(label, *, key, value="", hint=None, error=None, disabled=False, required=False, width="full", prefix=None, suffix=None, autocomplete=None, inputmode=None, input_type="text", on_change=None, ...) -> str`; set `input_type="number"` for numeric entry.
-- `textarea(...) -> str`, `password_input(..., show_label="Show", hide_label="Hide") -> str`, and
-  `character_count(..., max_characters, threshold=75) -> str`
-- `select(label, options, *, key, value=None, ...) -> T | None`
-- `radios(label, options, *, key, value=None, inline=False, ...) -> T | None`
-- `checkboxes(label, options, *, key, value=(), small=False, ...) -> list[T]`
-- `date_input(label, *, key, value=None, ...) -> datetime.date | None`
-- `file_upload(label, *, key, accept=(), max_size_mb=None, ...) -> UploadedFileValue | None`
+The following functions have the same callable contract as their `st.*`
+counterpart:
 
-`download_button` accepts text, bytes, bytearray, memoryview, and text or binary
-file-like objects. It infers the MIME type from `file_name` when possible and
-uses `download.txt` or `download.bin` when no filename is supplied:
+- Text: `write`, `markdown`, `title`, `header`, `subheader`, `caption`, `text`,
+  `code`, `latex`, `divider`, and `badge`.
+- Actions: `button`, `download_button`, `form_submit_button`, `link_button`,
+  `menu_button`, and `page_link`.
+- Inputs: `checkbox`, `toggle`, `radio`, `selectbox`, `multiselect`, `pills`,
+  `segmented_control`, `select_slider`, `number_input`, `slider`, `date_input`,
+  `datetime_input`, `time_input`, `text_input`, `text_area`, `file_uploader`,
+  `color_picker`, `feedback`, `audio_input`, and `camera_input`.
+- Data: `metric`, `table`, `dataframe`, `data_editor`, and `json`.
+- Layout: `form`, `container`, `columns`, `tabs`, `expander`, `popover`,
+  `dialog`, `empty`, `space`, `sidebar`, and `bottom`.
+- Status and chat: `info`, `success`, `warning`, `error`, `exception`,
+  `progress`, `spinner`, `status`, `skeleton`, `toast`, `chat_input`,
+  `chat_message`, and `write_stream`.
+- Charts and media: `area_chart`, `bar_chart`, `line_chart`, `scatter_chart`,
+  `map`, `pyplot`, `altair_chart`, `vega_lite_chart`, `plotly_chart`,
+  `pydeck_chart`, `graphviz_chart`, `mermaid_chart`, `image`, `audio`, `video`,
+  `pdf`, and `logo`.
+
+Consult the Streamlit 1.61 API reference for individual parameters. For
+example, native button variants use `type`, not the catalogue's `kind`:
 
 ```python
-gds.download_button(
-    "Download results",
-    "reference,status\nA-123,Complete\n",
-    "results.csv",
-    mime="text/csv",
-    key="download-results",
-)
+import streamlit_gds as gds
+
+name = gds.text_input("Full name")
+if gds.button("Continue", type="primary"):
+    gds.success(f"Saved details for {name}")
 ```
 
-Use `kind="primary"` only when downloading is the main action on the page.
-Deferred callable data generation from `st.download_button` is not currently
-supported; prepare or cache the data before calling this component. Download
-data is held in memory, and binary data has base64 transport overhead, so use
-external object storage for very large files.
+`session_state`, `query_params`, `cache_data`, `cache_resource`, `secrets`,
+`Page`, `navigation`, `rerun`, `stop`, `fragment`, `switch_page`, and
+`set_page_config` are direct Streamlit aliases. Other unlisted Streamlit APIs
+are transparently forwarded but are not guaranteed to receive GDS styling.
 
-## Navigation and page UI
+## Exact catalogue
+
+Conflicting 0.1 APIs are available as:
+
+- `gds.catalogue.header`, `button`, `download_button`, `text_input`,
+  `date_input`, `table`, `tabs`, `image`, `container`, `columns`, and `space`.
+- All other catalogue functions are also present in that namespace. Their
+  existing top-level aliases remain for compatibility when no native name
+  conflict exists.
+
+All stateful catalogue controls require a unique `key` without the reserved
+`__` sequence. Catalogue callbacks follow Streamlit's execution model where
+`args` and `kwargs` are exposed.
+
+### Catalogue form controls
+
+- `button(label, *, key, kind="primary", ...) -> bool`
+- `download_button(label, data, file_name=None, mime=None, *, key, ...) -> bool`
+- `text_input(label, *, key, hint=None, error=None, required=False, prefix=None,
+  suffix=None, input_type="text", ...) -> str`
+- `textarea`, `password_input`, and `character_count`
+- `select`, `radios`, and `checkboxes`
+- `date_input` and `file_upload`
+- `fieldset`, `error_message`, and `error_summary`
+
+### Navigation and content
 
 `accordion`, `back_link`, `breadcrumbs`, `cookie_banner`, `exit_this_page`,
 `header`, `footer`, `notification_banner`, `pagination`, `phase_banner`,
-`service_navigation`, `skip_link`, and `tabs` map directly to their catalogue
-names. Stateful functions return the selected index, action, or trigger value.
+`service_navigation`, `skip_link`, `tabs`, `details`, `inset_text`, `panel`,
+`summary_list`, `table`, `tag`, `task_list`, and `warning_text` map to their
+catalogue names.
 
-## Content and status
+`kpi_card(..., rag_status="red" | "amber" | "green")` and `chatbot(...)` are
+GDS-inspired Streamlit extensions rather than official GOV.UK components.
 
-`details`, `error_message`, `error_summary`, `fieldset`, `inset_text`, `panel`,
-`summary_list`, `table`, `tag`, `task_list`, and `warning_text` render static
-semantic content. `error_summary(..., focus=True)` focuses itself by default;
-set `focus=False` only for galleries or non-validation demonstrations.
+## Typed models and safe content
 
-`kpi_card(label, value, *, change=None, trend="neutral", rag_status=None,
-comparison=None, supporting_text=None)` renders a GOV.UK-inspired KPI display. It is a
-Streamlit GDS extension rather than an official GOV.UK component. `trend` is
-`"up"`, `"down"`, or `"neutral"` and communicates direction only, not whether
-the change is good or bad. Set `rag_status` to `"red"`, `"amber"`, or `"green"`
-for a subtle status-coloured accent and a visible written status:
+`Option`, `Link`, `Breadcrumb`, `ChatMessage`, `NavigationItem`,
+`PaginationItem`, `SummaryAction`, `SummaryRow`, `TaskItem`, `TableColumn`,
+`ErrorItem`, `AccordionItem`, `TabItem`, `CookieAction`, `UploadedFileValue`,
+and `HtmlContent` are exported at the package top level.
 
-```python
-gds.kpi_card(
-    "Decisions issued",
-    986,
-    rag_status="amber",
-    supporting_text="Target: 1,000 decisions",
-)
-```
-
-The written status and forced-colour treatment ensure colour is not the only
-cue. Define what red, amber, and green mean for the service near the cards;
-do not assume every user will interpret the categories in the same way.
-
-`chatbot(messages, *, key, label="Chat support", input_label="Your message",
-hint=None, error=None, placeholder=None, send_label="Send",
-assistant_name="Service assistant", user_name="You", waiting=False,
-disabled=False, empty_text="No messages yet.", on_submit=None, ...) -> str | None`
-renders an accessible transcript and message composer. It returns a submitted
-message as a transient value. Store `ChatMessage` objects in session state,
-send the returned text to your own assistant backend, append the response, and
-rerun the app. This is a Streamlit GDS extension, not an official GOV.UK
-component.
-
-## Typed models
-
-`Option`, `Link`, `Breadcrumb`, `ChatMessage`, `NavigationItem`, `PaginationItem`,
-`SummaryAction`, `SummaryRow`, `TaskItem`, `TableColumn`, `ErrorItem`,
-`AccordionItem`, `TabItem`, `CookieAction`, `UploadedFileValue`, and
-`HtmlContent` are exported from `streamlit_gds`.
-
-Plain strings are text-only. `HtmlContent` permits only sanitised rich content
-using the frontend allow-list; it does not permit scripts, images, event
-handlers, embedded content, or arbitrary attributes.
+Plain catalogue strings are text-only. `HtmlContent` permits only sanitised
+rich content through the frontend allow-list and never allows scripts, images,
+event handlers or embedded content.

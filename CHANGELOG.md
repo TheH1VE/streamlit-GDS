@@ -6,8 +6,17 @@ All notable changes to this project will be documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-08-19
+
 ### Added
 
+- Native-compatible Streamlit 1.61 façade for text, widgets, data, layout,
+  status, chat, chart, and media APIs with automatic GDS host styling.
+- `gds.catalogue` namespace preserving the exact GOV.UK component APIs.
+- Transparent forwarding for Streamlit session state, caching, navigation,
+  execution control, and APIs outside the styled surface.
+- Native compatibility gallery, signature contract tests, migration guide, and
+  paired behavioural smoke coverage.
 - GitHub contribution, security, issue, pull-request, and dependency-update
   configuration.
 - GOV.UK-styled download button for text, bytes, and file-like data with
@@ -17,6 +26,14 @@ All notable changes to this project will be documented here. The format follows
   text labels and forced-colour support.
 - Accessible GOV.UK-inspired chatbot extension with a live transcript,
   attributed messages, message composer, waiting state, and transient submits.
+
+### Changed
+
+- `gds` now targets Streamlit `>=1.61,<1.62`; Posit Connect deployments pin
+  Streamlit 1.61.1.
+- Top-level names that conflict with Streamlit now use native signatures and
+  return types. Their previous exact-catalogue implementations moved to
+  `gds.catalogue`.
 
 ## [0.1.0] - 2026-08-14
 

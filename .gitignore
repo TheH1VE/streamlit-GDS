@@ -23,7 +23,8 @@ streamlit_gds/frontend/test-results/
 streamlit_gds/frontend/playwright-report/
 
 # Local Streamlit and environment files
-.streamlit/
+.streamlit/*
+!.streamlit/config.toml
 .streamlit-gallery.*.log
 .env
 .env.*

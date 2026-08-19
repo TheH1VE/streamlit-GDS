@@ -25,7 +25,7 @@ def fake_mount_factory(result: SimpleNamespace) -> tuple[list[tuple[Any, ...]], 
 def test_text_input_returns_native_value(monkeypatch: pytest.MonkeyPatch) -> None:
     calls, fake_mount = fake_mount_factory(SimpleNamespace(value="Ada"))
     monkeypatch.setattr(components, "mount", fake_mount)
-    assert gds.text_input("Name", key="name", value="Initial") == "Ada"
+    assert gds.catalogue.text_input("Name", key="name", value="Initial") == "Ada"
     assert calls[0][0][0] == "text_input"
     assert calls[0][1]["default"] == {"value": "Initial"}
 
@@ -33,7 +33,7 @@ def test_text_input_returns_native_value(monkeypatch: pytest.MonkeyPatch) -> Non
 def test_number_input_and_password_labels_are_forwarded(monkeypatch: pytest.MonkeyPatch) -> None:
     calls, fake_mount = fake_mount_factory(SimpleNamespace(value="12.50"))
     monkeypatch.setattr(components, "mount", fake_mount)
-    assert gds.text_input("Amount", key="amount", input_type="number") == "12.50"
+    assert gds.catalogue.text_input("Amount", key="amount", input_type="number") == "12.50"
     assert calls[0][0][1]["input_type"] == "number"
     assert calls[0][0][1]["inputmode"] == "decimal"
 
@@ -142,18 +142,18 @@ def test_choice_inputs_return_native_values(monkeypatch: pytest.MonkeyPatch) -> 
 def test_date_parsing_and_transient_button(monkeypatch: pytest.MonkeyPatch) -> None:
     _, fake_mount = fake_mount_factory(SimpleNamespace(value="2026-08-13"))
     monkeypatch.setattr(components, "mount", fake_mount)
-    assert gds.date_input("Date", key="date") == date(2026, 8, 13)
+    assert gds.catalogue.date_input("Date", key="date") == date(2026, 8, 13)
 
     _, fake_mount = fake_mount_factory(SimpleNamespace(clicked=True))
     monkeypatch.setattr(components, "mount", fake_mount)
-    assert gds.button("Continue", key="continue") is True
+    assert gds.catalogue.button("Continue", key="continue") is True
 
 
 def test_download_button_forwards_file_data(monkeypatch: pytest.MonkeyPatch) -> None:
     calls, fake_mount = fake_mount_factory(SimpleNamespace(clicked=True))
     monkeypatch.setattr(components, "mount", fake_mount)
 
-    assert gds.download_button(
+    assert gds.catalogue.download_button(
         "Download results",
         BytesIO(b"reference,status\nA-123,Complete\n"),
         "results.csv",
@@ -178,9 +178,11 @@ def test_download_button_forwards_file_data(monkeypatch: pytest.MonkeyPatch) -> 
 
 def test_download_button_validates_kind_and_filename() -> None:
     with pytest.raises(ValueError, match="kind must be"):
-        gds.download_button("Download", "data", key="bad-kind", kind="warning")  # type: ignore[arg-type]
+        gds.catalogue.download_button(
+            "Download", "data", key="bad-kind", kind="warning"  # type: ignore[arg-type]
+        )
     with pytest.raises(ValueError, match="file_name"):
-        gds.download_button("Download", b"data", " ", key="bad-name")
+        gds.catalogue.download_button("Download", b"data", " ", key="bad-name")
 
 
 def test_every_catalogue_wrapper_is_exported() -> None:
@@ -223,6 +225,10 @@ def test_every_catalogue_wrapper_is_exported() -> None:
         "textarea",
         "warning_text",
     }
-    assert expected <= set(gds.__all__)
+    assert expected <= set(gds.catalogue.__all__)
+    assert gds.button is not gds.catalogue.button
+    assert gds.header is not gds.catalogue.header
+    assert gds.table is not gds.catalogue.table
+    assert gds.tabs is not gds.catalogue.tabs
     assert not hasattr(gds, "govuk_header")
     assert not hasattr(gds, "govuk_footer")

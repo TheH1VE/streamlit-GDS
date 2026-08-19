@@ -50,6 +50,11 @@ def configure(
         },
         key="streamlit-gds-bootstrap",
     )
+    # Avoid mounting the same keyed bootstrap again when a native-compatible
+    # wrapper is called later in this script run.
+    from ._native import mark_theme_configured
+
+    mark_theme_configured()
 
 
 def container(*, key: str, width: str = "full", border: bool = False) -> DeltaGenerator:

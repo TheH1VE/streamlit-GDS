@@ -564,6 +564,7 @@ function renderStatic(root: HTMLElement, component: string, props: Props, args: 
   switch (component) {
     case "bootstrap": {
       document.documentElement.style.setProperty("--st-gds-brand", String(props.brand_colour));
+      document.body.classList.add("st-gds-host");
       document.body.classList.toggle("st-gds-minimal-chrome", props.chrome === "minimal");
       const styleId = "streamlit-gds-host-styles";
       let style = document.getElementById(styleId) as HTMLStyleElement | null;
@@ -576,12 +577,132 @@ function renderStatic(root: HTMLElement, component: string, props: Props, args: 
         .stMainBlockContainer { max-width: 1020px; padding-left: 30px; padding-right: 30px; }
         body, [data-testid="stAppViewContainer"] { background: #fff; color: #0b0c0c; font-family: Arial, Helvetica, sans-serif; }
         .st-gds-minimal-chrome [data-testid="stHeader"], .st-gds-minimal-chrome [data-testid="stToolbar"] { display: none; }
+        .st-gds-host .stApp, .st-gds-host .stApp button, .st-gds-host .stApp input,
+        .st-gds-host .stApp select, .st-gds-host .stApp textarea { font-family: Arial, Helvetica, sans-serif; }
+        .st-gds-host .stApp h1 { margin-bottom: 30px; color: #0b0c0c; font-size: 48px; line-height: 1.05; font-weight: 700; }
+        .st-gds-host .stApp h2 { margin-bottom: 20px; color: #0b0c0c; font-size: 32px; line-height: 1.1; font-weight: 700; }
+        .st-gds-host .stApp h3 { margin-bottom: 15px; color: #0b0c0c; font-size: 24px; line-height: 1.15; font-weight: 700; }
+        .st-gds-host .stApp p, .st-gds-host .stApp li { color: #0b0c0c; font-size: 19px; line-height: 1.32; }
+        .st-gds-host .stApp a { color: var(--st-gds-brand); text-decoration-thickness: max(1px, .0625rem); text-underline-offset: .1578em; }
+        .st-gds-host .stApp a:hover { color: #003078; text-decoration-thickness: 3px; }
+        .st-gds-host .stApp a:focus-visible, .st-gds-host .stApp button:focus-visible,
+        .st-gds-host .stApp input:focus-visible, .st-gds-host .stApp textarea:focus-visible,
+        .st-gds-host .stApp select:focus-visible, .st-gds-host .stApp [tabindex]:focus-visible {
+          outline: 3px solid #ffdd00 !important; outline-offset: 0; box-shadow: 0 0 0 2px #0b0c0c !important;
+        }
+        .st-gds-host [data-testid^="stBaseButton-"],
+        .st-gds-host [data-testid^="stBaseButton-"] button,
+        .st-gds-host [data-testid="stDownloadButton"] button,
+        .st-gds-host [data-testid="stFormSubmitButton"] button,
+        .st-gds-host [data-testid="stLinkButton"] a {
+          min-height: 40px; border: 0; border-radius: 0; box-shadow: 0 2px 0 #002d18;
+          padding: 8px 15px; font-size: 19px; font-weight: 700; line-height: 1.2;
+        }
+        .st-gds-host [data-testid="stBaseButton-primary"] { background: #00703c; color: #fff; }
+        .st-gds-host [data-testid="stBaseButton-primary"]:hover { background: #005a30; color: #fff; }
+        .st-gds-host [data-testid="stBaseButton-secondary"],
+        .st-gds-host [data-testid="stDownloadButton"] button,
+        .st-gds-host [data-testid="stFormSubmitButton"] button,
+        .st-gds-host [data-testid="stLinkButton"] a { background: #f3f2f1; color: #0b0c0c; box-shadow: 0 2px 0 #929191; }
+        .st-gds-host [data-testid="stBaseButton-tertiary"] { background: transparent; color: #1d70b8; box-shadow: none; text-decoration: underline; }
+        .st-gds-host [data-testid="stWidgetLabel"] p,
+        .st-gds-host [data-testid="stTextInput"] label p,
+        .st-gds-host [data-testid="stTextArea"] label p,
+        .st-gds-host [data-testid="stNumberInput"] label p,
+        .st-gds-host [data-testid="stSelectbox"] label p,
+        .st-gds-host [data-testid="stFileUploader"] label p { font-size: 19px; font-weight: 700; }
+        .st-gds-host [data-testid="stTextInput"] input,
+        .st-gds-host [data-testid="stNumberInput"] input,
+        .st-gds-host [data-testid="stDateInput"] input,
+        .st-gds-host [data-testid="stTimeInput"] input,
+        .st-gds-host [data-testid="stTextArea"] textarea {
+          min-height: 40px; border: 2px solid #0b0c0c; border-radius: 0; background: #fff; color: #0b0c0c; font-size: 19px;
+        }
+        .st-gds-host [data-baseweb="select"] > div { min-height: 40px; border: 2px solid #0b0c0c; border-radius: 0; background: #fff; color: #0b0c0c; }
+        .st-gds-host [data-testid="stSelectbox"] [role="group"],
+        .st-gds-host [data-testid="stMultiSelect"] [role="group"] {
+          min-height: 40px; border: 2px solid #0b0c0c; border-radius: 0; background: #fff; color: #0b0c0c;
+        }
+        .st-gds-host [data-testid="stSelectbox"] [role="combobox"],
+        .st-gds-host [data-testid="stMultiSelect"] [role="combobox"],
+        .st-gds-host [data-testid="stSelectbox"] [role="group"] button,
+        .st-gds-host [data-testid="stMultiSelect"] [role="group"] button { color: #0b0c0c; }
+        .st-gds-host [data-testid="stMultiSelect"] [role="combobox"]::placeholder {
+          color: #505a5f; opacity: 1;
+        }
+        .st-gds-host [data-testid="stSelectbox"] svg,
+        .st-gds-host [data-testid="stMultiSelect"] svg { fill: #0b0c0c; }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="pills"],
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="segmented_control"] {
+          border: 2px solid #0b0c0c; background: #f3f2f1; color: #0b0c0c;
+        }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="pills"] {
+          border-radius: 999px;
+        }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="segmented_control"] {
+          border-radius: 0; margin-right: -2px;
+        }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="pills"] p,
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="segmented_control"] p {
+          color: inherit;
+        }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="pills"]:hover,
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="segmented_control"]:hover {
+          background: #b1b4b6; color: #0b0c0c;
+        }
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="pills"][aria-checked="true"],
+        .st-gds-host [data-testid="stButtonGroup"] button[data-variant="segmented_control"][aria-checked="true"] {
+          background: var(--st-gds-brand); color: #fff;
+        }
+        .st-gds-host [data-testid="stCheckbox"] label, .st-gds-host [data-testid="stRadio"] label,
+        .st-gds-host [data-testid="stToggle"] label { color: #0b0c0c; font-size: 19px; }
+        .st-gds-host [data-testid="stFileUploaderDropzone"] { border: 2px dashed #505a5f; border-radius: 0; background: #f3f2f1; }
+        .st-gds-host [data-testid="stForm"] { border: 1px solid #b1b4b6; border-radius: 0; background: #fff; }
+        .st-gds-host [data-testid="stExpander"] details, .st-gds-host [data-testid="stPopoverBody"] { border-radius: 0; }
+        .st-gds-host [data-testid="stExpander"] summary { border-top: 1px solid #b1b4b6; color: #1d70b8; font-size: 19px; font-weight: 700; }
+        .st-gds-host [data-baseweb="tab-list"] { gap: 5px; border-bottom: 1px solid #b1b4b6; }
+        .st-gds-host [data-baseweb="tab"] { border-radius: 0; background: #f3f2f1; color: #0b0c0c; font-size: 19px; }
+        .st-gds-host [data-baseweb="tab"][aria-selected="true"] { margin-bottom: -1px; border: 1px solid #b1b4b6; border-bottom-color: #fff; background: #fff; font-weight: 700; }
+        .st-gds-host [data-testid="stMetric"] { min-height: 100%; border-top: 5px solid var(--st-gds-brand); background: #f3f2f1; padding: 15px; }
+        .st-gds-host [data-testid="stMetricLabel"] p { font-size: 19px; font-weight: 700; }
+        .st-gds-host [data-testid="stMetricValue"] { color: #0b0c0c; font-size: 36px; font-weight: 700; }
+        .st-gds-host [data-testid="stTable"] table { border-collapse: collapse; color: #0b0c0c; font-size: 19px; }
+        .st-gds-host [data-testid="stTable"] th { border-bottom: 1px solid #0b0c0c; font-weight: 700; text-align: left; }
+        .st-gds-host [data-testid="stTable"] td { border-bottom: 1px solid #b1b4b6; }
+        .st-gds-host [data-testid="stDataFrame"], .st-gds-host [data-testid="stDataEditor"],
+        .st-gds-host [data-testid*="Chart"], .st-gds-host [data-testid="stImage"],
+        .st-gds-host [data-testid="stAudio"], .st-gds-host [data-testid="stVideo"],
+        .st-gds-host [data-testid="stPdf"] { border: 1px solid #b1b4b6; border-radius: 0; background: #fff; }
+        .st-gds-host [data-testid="stAlert"] { border: 0; border-left: 5px solid var(--st-gds-brand); border-radius: 0; background: #f3f2f1; color: #0b0c0c; }
+        .st-gds-host [data-testid="stProgress"] > div > div { border-radius: 0; background: var(--st-gds-brand); }
+        .st-gds-host [data-testid="stChatMessage"] { border-left: 5px solid #b1b4b6; border-radius: 0; background: #f3f2f1; padding: 15px; }
+        .st-gds-host [data-testid="stChatInput"] textarea { border: 2px solid #0b0c0c; border-radius: 0; background: #fff; }
+        .st-gds-host :disabled, .st-gds-host [aria-disabled="true"] { cursor: not-allowed; opacity: .55; }
         [class*="st-key-gds-width-one-quarter-"] { width: 25%; }
         [class*="st-key-gds-width-one-third-"] { width: 33.333%; }
         [class*="st-key-gds-width-one-half-"] { width: 50%; }
         [class*="st-key-gds-width-two-thirds-"] { width: 66.666%; }
         [class*="st-key-gds-width-three-quarters-"] { width: 75%; }
-        @media(max-width: 640px) { .stMainBlockContainer { padding-left: 15px; padding-right: 15px; } [class*="st-key-gds-width-"] { width: 100%; } }
+        @media(max-width: 640px) {
+          .stMainBlockContainer { padding-left: 15px; padding-right: 15px; }
+          [class*="st-key-gds-width-"] { width: 100%; }
+          .st-gds-host .stApp h1 { font-size: 32px; }
+          .st-gds-host .stApp h2 { font-size: 24px; }
+          .st-gds-host .stApp h3 { font-size: 19px; }
+          .st-gds-host .stApp p, .st-gds-host .stApp li { font-size: 16px; }
+        }
+        @media(forced-colors: active) {
+          .st-gds-host [data-testid="stMetric"], .st-gds-host [data-testid="stAlert"],
+          .st-gds-host [data-testid="stChatMessage"] { border: 2px solid CanvasText; }
+          .st-gds-host .stApp a:focus-visible, .st-gds-host .stApp button:focus-visible,
+          .st-gds-host .stApp input:focus-visible, .st-gds-host .stApp textarea:focus-visible,
+          .st-gds-host .stApp select:focus-visible { outline: 3px solid Highlight !important; }
+        }
+        @media print {
+          .st-gds-host [data-testid="stSidebar"], .st-gds-host [data-testid="stToolbar"] { display: none !important; }
+          .st-gds-host [data-testid="stMetric"], .st-gds-host [data-testid="stAlert"] { border-color: #000; background: #fff; }
+          .st-gds-host .stApp { color: #000; font-family: sans-serif; }
+        }
       `;
       return;
     }

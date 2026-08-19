@@ -1,8 +1,8 @@
 # Streamlit GDS
 
-`streamlit-gds` is an installable, typed component library that brings the
-layout, accessibility conventions, and component appearance of GOV.UK Frontend
-to Streamlit applications that are **not** part of GOV.UK.
+`streamlit-gds` is an installable, typed compatibility layer that gives native
+Streamlit 1.61 elements a GOV.UK-inspired presentation. It also includes an
+exact GOV.UK component catalogue for applications that are **not** part of GOV.UK.
 
 It deliberately does not ship the GOV.UK logo, GOV.UK header/footer, Crown
 copyright defaults, or GDS Transport. The package uses the official Generic
@@ -34,17 +34,64 @@ npm run build
 ```python
 import streamlit_gds as gds
 
-gds.configure(page_title="Example service", service_name="Example service")
-gds.header(organisation="Example organisation", service_name="Example service")
+gds.set_page_config(page_title="Example service")
+gds.catalogue.header(organisation="Example organisation", service_name="Example service")
 
-name = gds.text_input("Full name", key="full-name")
-if gds.button("Continue", key="continue"):
+name = gds.text_input("Full name")
+if gds.button("Continue", type="primary"):
     gds.notification_banner("Saved", f"Saved details for {name}", success=True)
 
-gds.footer(organisation="Example organisation")
+gds.catalogue.footer(organisation="Example organisation")
 ```
 
-## Catalogue
+Native-compatible functions retain Streamlit's arguments, return values,
+callbacks, optional keys, form batching, session state and container objects.
+GDS host styling is installed automatically on the first `gds` UI call and
+keeps the Streamlit toolbar visible. `gds.configure(...)` remains available for
+service branding and optional minimal chrome.
+
+See [`docs/MIGRATION_0_2.md`](docs/MIGRATION_0_2.md) before updating an existing
+0.1 application.
+
+## Native-compatible API
+
+For a typical Streamlit application, replace the import and keep the native
+calls unchanged:
+
+```python
+# Before: import streamlit as st
+import streamlit_gds as gds
+
+name = gds.text_input("Full name", placeholder="For example, Alex Smith")
+updates = gds.multiselect("Updates", ["Email", "Text message"])
+priority = gds.pills("Priority", ["Routine", "Urgent"])
+
+if gds.button("Continue", type="primary"):
+    gds.success(f"Saved details for {name}")
+```
+
+The top-level API covers native text, buttons, inputs, dataframes, data editors,
+metrics, forms, layouts, status messages, chat, charts and media. Calls outside
+the explicitly styled surface are forwarded to Streamlit unchanged, including
+`session_state`, caching, navigation, execution control and developer utilities.
+
+Charts, media and interactive data grids retain their native rendering and get
+only a neutral GDS frame, typography and focus treatment. The package does not
+rewrite chart data or colour specifications.
+
+## Exact component catalogue
+
+Use `gds.catalogue` when you need exact GOV.UK structures or extra arguments
+such as hints, errors, conditional content, start buttons and segmented dates:
+
+```python
+name = gds.catalogue.text_input(
+    "Full name",
+    key="full-name",
+    hint="Enter your name as it appears on official documents",
+    error="Enter your full name",
+)
+```
 
 - Forms: Button, Download button, Character count, Checkboxes, Date input, Error message,
   Error summary, Fieldset, File upload, Password input, Radios, Select,
@@ -63,18 +110,24 @@ The gallery at [`gallery/app.py`](gallery/app.py) contains a runnable example
 of every public component and major variant. A complete validation flow is in
 [`examples/example_service.py`](examples/example_service.py).
 
+The repository's [`.streamlit/config.toml`](.streamlit/config.toml) makes the
+gallery open in light mode by default so its GDS presentation is consistent.
+This setting belongs to the gallery deployment and is not bundled into the
+installed package; consuming applications remain in control of their own
+Streamlit theme.
+
 ## Component state and forms
 
-Stateful controls require a unique `key`. Values are available directly from
-the return value and under that key in `st.session_state`. Text inputs commit
-on `change`, while buttons and navigation actions use transient triggers.
+Native-compatible controls follow Streamlit exactly, including optional keys
+and form batching. Exact catalogue controls require a unique `key`; their values
+are available directly and under that key in `gds.session_state`.
 
-`gds.download_button` provides the GOV.UK button presentation for downloadable
+`gds.catalogue.download_button` provides the exact GOV.UK button presentation for downloadable
 text, bytes, or file-like data. It supports primary and secondary variants,
 filename and MIME-type inference, disabled and full-width states, and click
 callbacks. Deferred callable downloads are not currently supported.
 
-Component v2 controls can be placed inside `st.form`, but their state updates
+Catalogue Component v2 controls can be placed inside `gds.form`, but their state updates
 are not batched in the same way as native Streamlit widgets. Use a submit action
 to control when your application processes the stored values.
 
