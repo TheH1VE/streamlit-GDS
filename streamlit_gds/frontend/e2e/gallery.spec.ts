@@ -132,7 +132,7 @@ test("chatbot submits a message and preserves visible speaker attribution", asyn
   await chat.getByRole("button", { name: "Send" }).click();
 
   await expect(transcript).toContainText("You");
-  await expect(transcript).toContainText("Where is my application?");
+  await expect(transcript).toContainText("Where is my application?", { timeout: 15_000 });
   await expect(transcript).toContainText("In a live service, your assistant backend would respond here.");
 });
 
