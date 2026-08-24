@@ -14,7 +14,6 @@ authors = [{ name = "Streamlit GDS contributors" }]
 keywords = ["streamlit", "govuk", "gds", "design-system", "accessibility"]
 classifiers = [
   "Development Status :: 3 - Alpha",
-  "Framework :: Streamlit",
   "Operating System :: OS Independent",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3 :: Only",
