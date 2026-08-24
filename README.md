@@ -10,6 +10,15 @@ Header approach and a neutral footer with Arial/Helvetica system fonts.
 
 ## Install and run
 
+After the first PyPI release, consuming applications can install the package
+with:
+
+```powershell
+python -m pip install streamlit-gds
+```
+
+For repository development, use an editable installation and run the gallery:
+
 ```powershell
 python -m pip install -e .
 python -m streamlit run gallery/app.py
@@ -161,7 +170,8 @@ signatures and return values are listed in [`docs/API.md`](docs/API.md).
 Contributions are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the
 development workflow, [`SECURITY.md`](SECURITY.md) for private vulnerability
 reporting, and [`CHANGELOG.md`](CHANGELOG.md) for release history. Maintainer
-release steps are documented in [`docs/RELEASING.md`](docs/RELEASING.md).
+release steps, including PyPI Trusted Publishing and TestPyPI verification, are
+documented in [`docs/RELEASING.md`](docs/RELEASING.md).
 
 ## Licensing and status
 
