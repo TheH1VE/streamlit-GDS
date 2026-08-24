@@ -11,6 +11,14 @@ All notable changes to this project will be documented here. The format follows
 - Repeated identical `section_break()` calls no longer create duplicate
   Component v2 IDs, and the `size` argument now changes spacing using GOV.UK
   spacing utilities.
+- The Exit this page warning button keeps white text on its red background and
+  black text on its yellow keyboard-focus treatment.
+
+### Changed
+
+- Package metadata now follows current PyPA licence and discovery guidance, and
+  releases use separate build and Trusted Publishing jobs for TestPyPI and
+  PyPI.
 
 ## [0.2.0] - 2026-08-19
 

@@ -64,6 +64,17 @@ test("download button supplies the configured filename", async ({ page }) => {
   expect(download.suggestedFilename()).toBe("applications.csv");
 });
 
+test("exit this page button keeps readable emergency contrast", async ({ page }) => {
+  await page.getByRole("radio", { name: "Navigation" }).evaluate((radio: HTMLInputElement) => radio.click());
+  const exitButton = page.getByRole("link", { name: "Exit this page" });
+
+  await expect(exitButton).toHaveCSS("color", "rgb(255, 255, 255)");
+  await exitButton.hover();
+  await expect(exitButton).toHaveCSS("color", "rgb(255, 255, 255)");
+  await exitButton.focus();
+  await expect(exitButton).toHaveCSS("color", "rgb(11, 12, 12)");
+});
+
 test("native wrappers retain Streamlit interactions and GDS host styling", async ({ page }) => {
   await expect(page.locator("body")).toHaveClass(/st-gds-host/);
   await page.getByRole("radio", { name: "Native API" }).evaluate((radio: HTMLInputElement) => radio.click());
