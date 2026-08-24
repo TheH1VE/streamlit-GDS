@@ -79,8 +79,8 @@ After TestPyPI verification and green CI, create and push a signed tag matching
 the version in the manifests:
 
 ```powershell
-git tag -s v0.2.0 -m "streamlit-gds 0.2.0"
-git push origin v0.2.0
+git tag -s v0.2.1 -m "streamlit-gds 0.2.1"
+git push origin v0.2.1
 ```
 
 A `v*` tag triggers the workflow's production publishing job. The `pypi`
