@@ -6,6 +6,8 @@ All notable changes to this project will be documented here. The format follows
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-08-24
+
 ### Fixed
 
 - Repeated identical `section_break()` calls no longer create duplicate
