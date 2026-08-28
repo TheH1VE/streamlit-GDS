@@ -19,7 +19,7 @@ classifiers = [
   "Programming Language :: Python :: 3 :: Only",
   "Typing :: Typed",
 ]
-dependencies = ["streamlit>=1.61,<1.62"]
+dependencies = ["streamlit>=1.61,<1.63"]
 
 [project.urls]
 Homepage = "https://github.com/TheH1VE/streamlit-GDS"
